@@ -1,5 +1,5 @@
 class Routes {
-  static const String initial = '/';
+//  static const String initial = '/';
   static const String home = '/home';
   static const String onBoarding = '/onboarding';
   static const String login = '/login';
