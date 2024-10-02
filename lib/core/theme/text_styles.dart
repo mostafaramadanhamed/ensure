@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class TextStyles {
   static TextStyle font36SemiBold =  TextStyle(
     fontSize: 36.sp,
-    fontWeight: FontWeightHelper.semiBold,
+    fontWeight: FontWeightHelper.bold,
   );
 
   static TextStyle font20SemiBold =  TextStyle(
