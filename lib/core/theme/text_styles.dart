@@ -9,7 +9,11 @@ class TextStyles {
     fontWeight: FontWeightHelper.bold,
   );
 
-  static TextStyle font20SemiBold =  TextStyle(
+  static TextStyle font28Bold =  TextStyle(
+    fontSize: 28.sp,
+    fontWeight: FontWeightHelper.bold,
+  );
+static TextStyle font20SemiBold =  TextStyle(
     fontSize: 20.sp,
     fontWeight: FontWeightHelper.semiBold,
   );
