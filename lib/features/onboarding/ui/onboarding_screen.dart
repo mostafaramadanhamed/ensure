@@ -1,3 +1,4 @@
+import 'package:ensure/core/helpers/navigation_extension.dart';
 import 'package:ensure/core/helpers/spacing_extension.dart';
 import 'package:ensure/core/theme/colors.dart';
 import 'package:ensure/core/theme/text_styles.dart';
@@ -5,6 +6,7 @@ import 'package:ensure/core/widgets/app_text_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../core/routing/routes.dart';
 import 'widgets/onboarding_logo.dart';
 
 class OnboardingScreen extends StatelessWidget {
@@ -28,7 +30,9 @@ class OnboardingScreen extends StatelessWidget {
           33.ph,
           AppTextButton(
             buttonText: "Login",
-            onPressed: () {},
+            onPressed: () {
+              context.pushNamed(Routes.login);
+            },
             backgroundColor: AppColors.white,
             textColor: Colors.black,
           ),
