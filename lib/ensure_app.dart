@@ -17,7 +17,7 @@ class EnsureApp extends StatelessWidget {
       child: MaterialApp(
         theme: CustomTheme.lightThemeData(context),
         darkTheme: CustomTheme.darkThemeData(),
-       // themeMode: ThemeMode.dark,
+     //   themeMode: ThemeMode.dark,
         debugShowCheckedModeBanner: false,
         initialRoute: Routes.onBoarding,
         onGenerateRoute: appRouter.onGenerateRoute,
