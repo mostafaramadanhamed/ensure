@@ -1,5 +1,7 @@
+import 'package:ensure/core/helpers/navigation_extension.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../core/routing/routes.dart';
 import '../../../../core/theme/text_styles.dart';
 
 class DontHaveAccount extends StatelessWidget {
@@ -25,7 +27,10 @@ class DontHaveAccount extends StatelessWidget {
         ),
         // Display a button that says "Sign up"
         TextButton(
-          onPressed: () {},
+          onPressed: () {
+              context.pushNamed(Routes.signup);
+
+          },
           child: Text(
             "Sign up",
             style: TextStyles.font15Regular,
