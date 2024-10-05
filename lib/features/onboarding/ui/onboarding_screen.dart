@@ -30,6 +30,7 @@ class OnboardingScreen extends StatelessWidget {
           33.ph,
           AppTextButton(
             buttonText: "Login",
+            borderRadius: 50.r,
             onPressed: () {
               context.pushNamed(Routes.login);
             },
@@ -38,8 +39,11 @@ class OnboardingScreen extends StatelessWidget {
           ),
           25.ph,
           AppTextButton(
-            buttonText: "Sign up",
-            onPressed: () {},
+            buttonText: "Sign Up",
+            borderRadius: 50.r,
+            onPressed: () {
+              context.pushNamed(Routes.signup);
+            },
             // backgroundColor: AppColors.coralPink,
           )
         ],

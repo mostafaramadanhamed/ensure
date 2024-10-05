@@ -49,13 +49,12 @@ class LoginScreen extends StatelessWidget {
 
                 /// The title of the app bar.
                 title: Text(
-                  "Ensure",
+                  "Login",
 
                   /// The style of the title.
                   style: TextStyles.font28Bold.copyWith(
-                      color: Theme.of(context).brightness == Brightness.light
-                          ? AppColors.white
-                          : Colors.black),
+                      color: AppColors.white
+                         ),
                 ),
 
                 /// The background of the app bar.
