@@ -1,4 +1,3 @@
-
 import 'package:ensure/core/helpers/spacing_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,12 +7,14 @@ import '../../../../core/theme/colors.dart';
 import '../../../../core/theme/text_styles.dart';
 
 class SignGoogleButton extends StatelessWidget {
+  final bool isSignup;
   const SignGoogleButton({
-    super.key,
+    super.key,  this.isSignup=false,
   });
 
   @override
-  /// A button to sign in with Google.
+
+  /// A button to sign in or sign up with Google.
   ///
   /// This widget is a text button with a rounded rectangle shape and a
   /// misty rose border. It contains a Google icon and a text "Sign in with
@@ -22,7 +23,11 @@ class SignGoogleButton extends StatelessWidget {
   /// When pressed, it does nothing.
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: () {}, // TODO: implement the sign in with Google
+      onPressed: () {
+         // TODO: implement the sign in with Google
+         // TODO: implement the sign up with Google
+
+      },
       style: ButtonStyle(
         shape: WidgetStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
@@ -46,7 +51,7 @@ class SignGoogleButton extends StatelessWidget {
           ),
           20.pw,
           Text(
-            "Sign in with Google",
+           isSignup ? "Sign up with Google" : "Sign in with Google",
             style: TextStyles.font15Regular,
           ),
         ],
@@ -54,4 +59,3 @@ class SignGoogleButton extends StatelessWidget {
     );
   }
 }
-
