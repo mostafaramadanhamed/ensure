@@ -1,33 +1,29 @@
 import 'package:ensure/core/helpers/spacing_extension.dart';
-import 'package:ensure/core/widgets/app_text_filed.dart';
-import 'package:ensure/features/login/ui/widgets/top_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../core/theme/colors.dart';
 import '../../../core/theme/text_styles.dart';
-import 'widgets/login_form.dart';
+import '../../login/ui/widgets/top_container.dart';
+import 'widgets/signup_form.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class SignupScreen extends StatelessWidget {
+  const SignupScreen({super.key});
 
   @override
 
-  /// The main screen for the login feature.
+  /// Builds the UI of the signup screen.
   ///
-  /// This widget is a [Scaffold] that has a [CustomScrollView] as its body.
-  /// The [CustomScrollView] contains two [Sliver]s: an [SliverAppBar] and a
-  /// [SliverList].
+  /// The UI consists of an app bar with a title "Ensure" and a background
+  /// with a logo and a gradient, and a list that contains the signup form.
   ///
-  /// The [SliverAppBar] is used to display the app's title and a background.
-  /// The background is a [TopContainer] widget that displays a gradient and
-  /// a rounded rectangle.
+  /// The app bar is a [SliverAppBar] with an [expandedHeight] of 180.h.
+  /// The [flexibleSpace] is a [FlexibleSpaceBar] with a [centerTitle] of
+  /// true, a [titlePadding] of 60.h, and a [background] of a [TopContainer].
   ///
-  /// The [SliverList] is used to display the login form. The form is wrapped
-  /// in a [Padding] widget to add some space around it.
-  ///
-  /// The login form is a [LoginForm] widget that contains two [AppTextFormField]s
-  /// and two [TextButton]s.
+  /// The list is a [SliverList] with a [delegate] of a [SliverChildListDelegate]
+  /// that contains a padding of 40.h and a [Padding] with a padding of 24.w
+  /// and a [SignupForm] as its child.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +32,7 @@ class LoginScreen extends StatelessWidget {
           /// The app bar that displays the app's title and a background.
           SliverAppBar(
             /// The height of the app bar.
-            expandedHeight: 240.h,
+            expandedHeight: 180.h,
 
             /// The background of the app bar.
             flexibleSpace: FlexibleSpaceBar(
@@ -49,12 +45,12 @@ class LoginScreen extends StatelessWidget {
 
                 /// The title of the app bar.
                 title: Text(
-                  "Login",
+                  "Sign Up",
 
                   /// The style of the title.
                   style: TextStyles.font28Bold.copyWith(
-                      color: AppColors.white
-                         ),
+                    color: AppColors.white
+                          ),
                 ),
 
                 /// The background of the app bar.
@@ -73,8 +69,8 @@ class LoginScreen extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 24.w),
 
-                  /// The login form.
-                  child: const LoginForm(),
+                  /// The signup form.
+                  child: const SignupForm(),
                 ),
               ],
             ),

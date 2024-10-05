@@ -1,6 +1,7 @@
 import 'package:ensure/core/routing/routes.dart';
 import 'package:ensure/features/login/ui/login_screen.dart';
 import 'package:ensure/features/onboarding/ui/onboarding_screen.dart';
+import 'package:ensure/features/sign%20up/ui/signup_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppRouter {
@@ -18,9 +19,9 @@ class AppRouter {
         return MaterialPageRoute(
             builder: (context) => const LoginScreen());
 
-      case Routes.register:
+      case Routes.signup:
         return MaterialPageRoute(
-            builder: (context) => const Text('Register Page'));
+            builder: (context) => const SignupScreen());
 
       case Routes.profile:
         return MaterialPageRoute(
