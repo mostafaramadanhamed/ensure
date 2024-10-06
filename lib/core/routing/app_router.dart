@@ -1,4 +1,5 @@
 import 'package:ensure/core/routing/routes.dart';
+import 'package:ensure/features/home/ui/home_screen.dart';
 import 'package:ensure/features/login/ui/login_screen.dart';
 import 'package:ensure/features/onboarding/ui/onboarding_screen.dart';
 import 'package:ensure/features/sign%20up/ui/signup_screen.dart';
@@ -13,7 +14,7 @@ class AppRouter {
             builder: (context) => const OnboardingScreen());
 
       case Routes.home:
-        return MaterialPageRoute(builder: (context) => const Text('Home Page'));
+        return MaterialPageRoute(builder: (context) => const HomeScreen());
 
       case Routes.login:
         return MaterialPageRoute(
