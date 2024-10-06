@@ -7,7 +7,11 @@ import '../../../../core/theme/colors.dart';
 class BottomNavBar extends StatelessWidget {
   final void Function(int) onItemSelected;
   final int selectedIndex;
-  const BottomNavBar({super.key, required this.onItemSelected, required this.selectedIndex, });
+  const BottomNavBar({
+    super.key,
+    required this.onItemSelected,
+    required this.selectedIndex,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -29,10 +33,10 @@ class BottomNavBar extends StatelessWidget {
       ),
       child: WaterDropNavBar(
         bottomPadding: 16.h,
-        inactiveIconColor: AppColors.melon,
+        inactiveIconColor: AppColors.teaRose,
         waterDropColor: AppColors.coralPink,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        onItemSelected:onItemSelected,
+        onItemSelected: onItemSelected,
         selectedIndex: selectedIndex,
         barItems: [
           BarItem(
