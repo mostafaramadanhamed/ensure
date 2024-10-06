@@ -27,13 +27,13 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Text("Posts"),
           ),
           Center(
-            child: Text("Favorite"),
+            child: Text("videos"),
           ),
           Center(
-            child: Text("Favorite"),
+            child: Text("post"),
           ),
           Center(
-            child: Text("Favorite"),
+            child: Text("settings"),
           ),
         ],
       ),
