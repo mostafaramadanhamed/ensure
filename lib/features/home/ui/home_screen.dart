@@ -1,7 +1,6 @@
 import 'package:ensure/features/home/ui/widgets/bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -25,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
         },
         children: const [
           Center(
-            child: Text("Bookmark"),
+            child: Text("Posts"),
           ),
           Center(
             child: Text("Favorite"),
@@ -38,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      bottomNavigationBar:BottomNavBar(
+      bottomNavigationBar: BottomNavBar(
         selectedIndex: selectedIndex,
         onItemSelected: (index) {
           setState(() {
@@ -50,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
             );
           });
         },
-        ),
+      ),
     );
   }
 }

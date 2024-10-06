@@ -5,13 +5,10 @@ import 'package:water_drop_nav_bar/water_drop_nav_bar.dart';
 import '../../../../core/theme/colors.dart';
 
 class BottomNavBar extends StatelessWidget {
-  final void Function(int) onItemSelected;
   final int selectedIndex;
-  const BottomNavBar({
-    super.key,
-    required this.onItemSelected,
-    required this.selectedIndex,
-  });
+  final ValueChanged<int> onItemSelected;
+  const BottomNavBar(
+      {super.key, required this.selectedIndex, required this.onItemSelected});
 
   @override
   Widget build(BuildContext context) {
@@ -33,25 +30,27 @@ class BottomNavBar extends StatelessWidget {
       ),
       child: WaterDropNavBar(
         bottomPadding: 16.h,
-        inactiveIconColor: AppColors.teaRose,
+        inactiveIconColor: AppColors.lightMelon,
         waterDropColor: AppColors.coralPink,
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        backgroundColor:
+            Theme.of(context).scaffoldBackgroundColor.withOpacity(0.6),
         onItemSelected: onItemSelected,
         selectedIndex: selectedIndex,
+        iconSize: 30.sp,
         barItems: [
           BarItem(
-            filledIcon: Icons.bookmark_rounded,
-            outlinedIcon: Icons.bookmark_border_rounded,
+            filledIcon: Icons.home_filled,
+            outlinedIcon: Icons.home_outlined,
           ),
           BarItem(
-              filledIcon: Icons.favorite_rounded,
-              outlinedIcon: Icons.favorite_border_rounded),
+              filledIcon: Icons.smart_display_rounded,
+              outlinedIcon: Icons.smart_display_outlined),
           BarItem(
-              filledIcon: Icons.favorite_rounded,
-              outlinedIcon: Icons.favorite_border_rounded),
+              filledIcon: Icons.add_box_rounded,
+              outlinedIcon: Icons.add_box_outlined),
           BarItem(
-              filledIcon: Icons.favorite_rounded,
-              outlinedIcon: Icons.favorite_border_rounded),
+              filledIcon: Icons.settings_rounded,
+              outlinedIcon: Icons.settings_outlined),
         ],
       ),
     );
