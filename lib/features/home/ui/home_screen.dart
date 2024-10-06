@@ -1,4 +1,5 @@
 import 'package:ensure/features/home/ui/widgets/bottom_nav_bar.dart';
+import 'package:ensure/features/posts/ui/posts_screen.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -23,9 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
           });
         },
         children: const [
-          Center(
-            child: Text("Posts"),
-          ),
+          PostsScreen(),
           Center(
             child: Text("videos"),
           ),
