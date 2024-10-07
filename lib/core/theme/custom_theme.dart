@@ -4,16 +4,15 @@ import 'package:flutter/material.dart';
 class CustomTheme {
   static ThemeData lightThemeData(BuildContext context) {
     return ThemeData(
-  useMaterial3: true,
-     brightness: lightScheme().brightness,
-     colorScheme: lightScheme(),
-     textTheme: const TextTheme().apply(
-       bodyColor:  lightScheme().onSurface,
-       displayColor:  lightScheme().onSurface,
-     ),
-     scaffoldBackgroundColor:  lightScheme().surface,
-     canvasColor:  lightScheme().surface,
-
+      useMaterial3: true,
+      brightness: lightScheme().brightness,
+      colorScheme: lightScheme(),
+      textTheme: const TextTheme().apply(
+        bodyColor: lightScheme().onSurface,
+        displayColor: lightScheme().onSurface,
+      ),
+      scaffoldBackgroundColor: lightScheme().surface,
+      canvasColor: lightScheme().surface,
     );
   }
 
@@ -70,20 +69,19 @@ class CustomTheme {
 
   static ThemeData darkThemeData() {
     return ThemeData(
-     useMaterial3: true,
-     brightness: darkScheme().brightness,
-     colorScheme: darkScheme(),
-     textTheme: const TextTheme().apply(
-       bodyColor: darkScheme().onSurface,
-       displayColor: darkScheme().onSurface,
-     ),
-     scaffoldBackgroundColor: darkScheme().surface,
-     canvasColor: darkScheme().surface,
-
+      useMaterial3: true,
+      brightness: darkScheme().brightness,
+      colorScheme: darkScheme(),
+      textTheme: const TextTheme().apply(
+        bodyColor: darkScheme().onSurface,
+        displayColor: darkScheme().onSurface,
+      ),
+      scaffoldBackgroundColor: darkScheme().surface,
+      canvasColor: darkScheme().surface,
     );
   }
 
-   static ColorScheme darkScheme() {
+  static ColorScheme darkScheme() {
     return const ColorScheme(
       brightness: Brightness.dark,
       primary: Color(0xffffb4a5),
@@ -133,5 +131,4 @@ class CustomTheme {
       surfaceContainerHighest: Color(0xff3d3230),
     );
   }
- 
 }

@@ -9,13 +9,15 @@ class TextStyles {
     fontWeight: FontWeightHelper.bold,
     color: AppColors.coralPink,
     fontStyle: FontStyle.italic,
+    letterSpacing: 2.5.sp,
     shadows: const [
       Shadow(
         blurRadius: 5.0,
         color: AppColors.mistyRose,
-        offset: Offset(5.0, 5.0),
-      ), Shadow(
-        blurRadius: 15.0,
+        offset: Offset(2.0, 2.0),
+      ),
+      Shadow(
+        blurRadius: 4.0,
         color: AppColors.teaRose,
         offset: Offset(1.0, 1.0),
       ),
@@ -50,9 +52,9 @@ class TextStyles {
     fontWeight: FontWeightHelper.regular,
   );
 
-  static TextStyle font12LighterBrownSemiBold = TextStyle(
+  static TextStyle font12LighterBrownBold = TextStyle(
     fontSize: 12.sp,
-    fontWeight: FontWeightHelper.semiBold,
+    fontWeight: FontWeightHelper.bold,
     color: AppColors.lighterBrown,
   );
 }
