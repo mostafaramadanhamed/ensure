@@ -11,7 +11,7 @@ class PostItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      surfaceTintColor: Colors.grey,
+      surfaceTintColor: Colors.grey.shade300,
       color: Theme.of(context).cardColor,
       margin: EdgeInsets.symmetric(horizontal: 24.w),
       elevation: 8,
