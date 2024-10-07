@@ -16,6 +16,7 @@ dependencies:
   flutter_native_splash: ^2.2.16
   flutter_screenutil: ^5.9.3
   flutter_svg: ^2.0.10+1
+  story_view: ^0.16.5
   water_drop_nav_bar: ^2.2.2
 
 dev_dependencies:

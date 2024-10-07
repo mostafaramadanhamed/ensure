@@ -30,7 +30,7 @@ class BottomNavBar extends StatelessWidget {
       ),
       child: WaterDropNavBar(
         bottomPadding: 16.h,
-        inactiveIconColor: AppColors.lightMelon,
+        inactiveIconColor: AppColors.lighterBrown,
         waterDropColor: AppColors.coralPink,
         backgroundColor:
             Theme.of(context).scaffoldBackgroundColor.withOpacity(0.6),

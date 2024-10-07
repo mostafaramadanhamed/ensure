@@ -25,7 +25,7 @@ class OnboardingScreen extends StatelessWidget {
           Text(
             'Let’s Connect Together',
             textAlign: TextAlign.center,
-            style: TextStyles.font36SemiBold,
+            style: TextStyles.font36Bold,
           ),
           33.ph,
           AppTextButton(
