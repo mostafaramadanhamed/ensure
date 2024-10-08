@@ -20,7 +20,7 @@ class PostsScreen extends StatelessWidget {
             height: 80.h,
             child: const StoriesListView(),
           ),
-          28.ph,
+          16.ph,
           const PostsListView(),
         ],
       ),
