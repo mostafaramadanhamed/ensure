@@ -4,7 +4,7 @@ class Routes {
   static const String onBoarding = '/onboarding';
   static const String login = '/login';
   static const String signup = '/signup';
-
+  static const String story = '/story';
   static const String profile = '/profile';
   static const String editProfile = '/edit-profile';
   static const String editAddress = '/edit-address';

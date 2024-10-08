@@ -1,10 +1,11 @@
 
 
 import 'package:ensure/core/helpers/spacing_extension.dart';
+import 'package:ensure/features/stories/ui/widgets/add_story.dart';
+import 'package:ensure/features/stories/ui/widgets/story_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../core/theme/colors.dart';
 
 class StoriesListView extends StatelessWidget {
   const StoriesListView({
@@ -18,21 +19,8 @@ class StoriesListView extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       itemBuilder: (context, index) {
         return index == 0
-            ? CircleAvatar(
-                radius: 35.r,
-                backgroundColor: AppColors.oldRose,
-                child: const Icon(
-                  Icons.add_box_rounded,
-                  color: Colors.white,
-                ),
-              )
-            : CircleAvatar(
-                radius: 35.r,
-                backgroundColor: AppColors.oldRose,
-                child: CircleAvatar(
-                  radius: 32.r,
-                ),
-              );
+            ? const AddStory()
+            : const StoryItem();
       },
       itemCount: 10,
       separatorBuilder: (context, index) => 12.pw,
