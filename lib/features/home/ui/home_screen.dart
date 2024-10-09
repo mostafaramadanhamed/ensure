@@ -2,6 +2,8 @@ import 'package:ensure/features/home/ui/widgets/bottom_nav_bar.dart';
 import 'package:ensure/features/posts/ui/posts_screen.dart';
 import 'package:flutter/material.dart';
 
+import '../../settings/ui/settings_screen.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -31,9 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
           Center(
             child: Text("post"),
           ),
-          Center(
-            child: Text("settings"),
-          ),
+        SettingsScreen()
         ],
       ),
       bottomNavigationBar: BottomNavBar(
