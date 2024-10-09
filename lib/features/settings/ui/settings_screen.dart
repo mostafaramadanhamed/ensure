@@ -18,17 +18,20 @@ class SettingsScreen extends StatelessWidget {
         right: 16.w,
         top: 32.h,
       ),
-      child: ListView
-    (
-      padding: EdgeInsets.zero,
-      physics: const BouncingScrollPhysics(),
+      child: ListView(
+        padding: EdgeInsets.zero,
+        physics: const BouncingScrollPhysics(),
         children: [
           const DisplayUserName(),
           24.ph,
           SettingItem(
             title: 'Profile',
             onTap: () {},
-            widgetLeading: SvgPicture.asset(Assets.profileIcon),
+            widgetLeading: SvgPicture.asset(
+              Assets.profileIcon,
+              colorFilter: ColorFilter.mode(
+                  IconTheme.of(context).color!, BlendMode.srcIn),
+            ),
           ),
           16.ph,
           SettingItem(
