@@ -19,7 +19,7 @@ class BottomNavBar extends StatelessWidget {
           BoxShadow(
             color: Colors.grey.shade200,
             spreadRadius: 0,
-            blurRadius: 15,
+            blurRadius: 7,
             offset: const Offset(0, 1), // changes position of shadow
           ),
         ],
@@ -32,8 +32,7 @@ class BottomNavBar extends StatelessWidget {
         bottomPadding: 16.h,
         inactiveIconColor: AppColors.lighterBrown,
         waterDropColor: AppColors.coralPink,
-        backgroundColor:
-            Theme.of(context).scaffoldBackgroundColor.withOpacity(0.6),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         onItemSelected: onItemSelected,
         selectedIndex: selectedIndex,
         iconSize: 30.sp,
