@@ -1,4 +1,3 @@
-import 'package:ensure/core/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomTheme {
