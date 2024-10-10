@@ -1,4 +1,6 @@
+import 'package:ensure/core/helpers/navigation_extension.dart';
 import 'package:ensure/core/helpers/spacing_extension.dart';
+import 'package:ensure/core/routing/routes.dart';
 import 'package:ensure/core/utils/assets_paths.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -26,7 +28,9 @@ class SettingsScreen extends StatelessWidget {
           24.ph,
           SettingItem(
             title: 'Profile',
-            onTap: () {},
+            onTap: () {
+              context.pushNamed(Routes.profile);
+            },
             widgetLeading: SvgPicture.asset(
               Assets.profileIcon,
               colorFilter: ColorFilter.mode(

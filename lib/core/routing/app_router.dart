@@ -6,6 +6,8 @@ import 'package:ensure/features/sign%20up/ui/signup_screen.dart';
 import 'package:ensure/features/stories/ui/story_screen.dart';
 import 'package:flutter/material.dart';
 
+import '../../features/profile/ui/profile_screen.dart';
+
 class AppRouter {
   Route? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -31,7 +33,7 @@ class AppRouter {
 
       case Routes.profile:
         return MaterialPageRoute(
-            builder: (context) => const Text('Profile Page'));
+            builder: (context) => const ProfileScreen());
 
       default:
         return null;
