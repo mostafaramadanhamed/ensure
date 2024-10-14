@@ -4,5 +4,8 @@ class SupabaseConstants {
 
 // collections 
   static const String usersCollection = 'users';
+
+  //buckets 
+  static const String profileBucket = 'profile';
   
 }
