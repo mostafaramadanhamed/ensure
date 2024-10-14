@@ -19,9 +19,11 @@ class AppTextFormField extends StatelessWidget {
   final TextEditingController? controller;
   final Function(String?)? validator;
   final TextInputType? keyboardType;
+  final int? maxLines;
   const AppTextFormField({
     super.key,
     this.contentPadding,
+    this.maxLines,
     this.focusedBorder,
     this.enabledBorder,
     this.inputTextStyle,
@@ -40,6 +42,7 @@ class AppTextFormField extends StatelessWidget {
     return TextFormField(
       keyboardType: keyboardType ?? TextInputType.text,
       controller: controller,
+      maxLines: maxLines??1,
       validator: (value) {
         return validator?.call(value);
       },
