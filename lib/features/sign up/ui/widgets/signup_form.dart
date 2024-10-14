@@ -78,26 +78,14 @@ class _SignupFormState extends State<SignupForm> {
           ),
           20.ph,
            AppTextFormField(
-            label: 'Confirm Password',
-            hintText: "Enter your password",
-            isObscureText: isObscureText,
-            keyboardType: TextInputType.visiblePassword,
-            suffixIcon: IconButton(
-              onPressed: () {
-                setState(() {
-                  isObscureText = !isObscureText;
-                });
-              },
-              icon: Icon(
-                isObscureText ? Icons.remove_red_eye : Icons.visibility_off,
-              ),
-            ),
-            validator: (value) {
-              if (value != context.read<SignUpCubit>().passwordController.text) {
-                return 'Password does not match';
-              }
-              return null;
-            },
+            label: 'Bio',
+            hintText: "Enter your bio",
+            controller: context.read<SignUpCubit>().bioController,
+            maxLength: 70,
+            maxLines: 2,
+            keyboardType: TextInputType.multiline,
+           
+          
           ),
           20.ph,
           AppTextFormField(

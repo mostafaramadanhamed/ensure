@@ -20,8 +20,11 @@ class AppTextFormField extends StatelessWidget {
   final Function(String?)? validator;
   final TextInputType? keyboardType;
   final int? maxLines;
+  final int? maxLength;
+
   const AppTextFormField({
     super.key,
+    this.maxLength,
     this.contentPadding,
     this.maxLines,
     this.focusedBorder,
@@ -34,15 +37,17 @@ class AppTextFormField extends StatelessWidget {
     this.backgroundColor,
     this.controller,
     this.validator,
-    this.keyboardType, this.label,
+    this.keyboardType,
+    this.label,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      maxLength: maxLength,
       keyboardType: keyboardType ?? TextInputType.text,
       controller: controller,
-      maxLines: maxLines??1,
+      maxLines: maxLines ?? 1,
       validator: (value) {
         return validator?.call(value);
       },

@@ -14,6 +14,7 @@ class SignUpCubit extends Cubit<SignupState> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController bioController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   final String profilePic = "";
 
@@ -26,7 +27,8 @@ class SignUpCubit extends Cubit<SignupState> {
           email: emailController.text,
           phone: phoneController.text,
           password: passwordController.text,
-          profileImage: profilePic,
+          bio: bioController.text,
+          
         );
         await signupUseCase.signUp(user);
         emit(SignupSuccess());

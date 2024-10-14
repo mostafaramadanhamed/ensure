@@ -10,7 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../features/profile/ui/profile_screen.dart';
-import '../../features/profile/ui/setup_profile.dart';
+import '../../features/setup profile/domain/cubit/setup_profile_cubit.dart';
+import '../../features/setup profile/ui/setup_profile.dart';
 
 class AppRouter {
   Route? onGenerateRoute(RouteSettings settings) {
@@ -39,7 +40,10 @@ class AppRouter {
 
       case Routes.setupProfile:
         return MaterialPageRoute(
-            builder: (context) => const SetupProfileScreen());
+            builder: (context) => BlocProvider(
+                  create: (context) => getIt<SetupProfileCubit>(),
+                  child: const SetupProfileScreen(),
+                ));
 
       default:
         return null;

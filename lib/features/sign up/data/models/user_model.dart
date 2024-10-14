@@ -3,13 +3,12 @@ class UserModel {
   final String email;
   final String phone;
   final String password;
-  final String profileImage;
+  final String bio;
 
-  UserModel({
+  UserModel( {
     required this.name,
     required this.email,
     required this.phone,
-    required this.password,
-    required this.profileImage,
+    required this.password,required this.bio,
   });
 }
