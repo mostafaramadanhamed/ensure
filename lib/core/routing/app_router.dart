@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../features/profile/ui/profile_screen.dart';
+import '../../features/profile/ui/setup_profile.dart';
 
 class AppRouter {
   Route? onGenerateRoute(RouteSettings settings) {
@@ -35,6 +36,10 @@ class AppRouter {
 
       case Routes.profile:
         return MaterialPageRoute(builder: (context) => const ProfileScreen());
+
+      case Routes.setupProfile:
+        return MaterialPageRoute(
+            builder: (context) => const SetupProfileScreen());
 
       default:
         return null;
