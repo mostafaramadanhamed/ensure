@@ -14,7 +14,8 @@ class SetupProfileRepoImpl implements SetupProfileRepo {
   File    profilePic) async {
     try {
       await supabase.storage.from(SupabaseConstants.profileBucket).upload(
-          supabase.auth.currentUser!.id, profilePic);
+          'ProfilePictures/${supabase.auth.currentUser!.id}', profilePic,
+          fileOptions: const FileOptions(upsert: true));
 
      
     } catch (e) {
