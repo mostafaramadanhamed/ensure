@@ -1,5 +1,6 @@
-
+import 'package:ensure/core/network/auth_exception_handler.dart';
 import 'package:ensure/features/login/domain/use%20cases/login_use_case.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'login_state.dart';
@@ -7,14 +8,18 @@ import 'login_state.dart';
 class LoginCubit extends Cubit<LoginState> {
   final LoginUseCase loginUseCase;
   LoginCubit(this.loginUseCase) : super(LoginInitial());
-  
-  Future<void> login(String email, String password) async {
+
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
+  Future<void> login() async {
     emit(LoginLoading());
     try {
-      await loginUseCase.login(email, password);
+      await loginUseCase.login(emailController.text, passwordController.text);
       emit(LoginSuccess());
     } catch (e) {
-      emit(LoginError(e.toString()));
+      emit(LoginError(
+        SupanbaseExceptionHandler.parseException(e.toString()).message));
     }
   }
 }
