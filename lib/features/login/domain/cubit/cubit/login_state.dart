@@ -10,5 +10,5 @@ final class LoginSuccess extends LoginState {}
 
 final class LoginError extends LoginState {
   final String message;
-  LoginError({required this.message});
+  LoginError( this.message);
 }
