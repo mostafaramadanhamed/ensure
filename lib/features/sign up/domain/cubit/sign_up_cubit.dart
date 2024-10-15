@@ -28,16 +28,14 @@ class SignUpCubit extends Cubit<SignupState> {
           phone: phoneController.text,
           password: passwordController.text,
           bio: bioController.text,
-          
         );
         await signupUseCase.signUp(user);
         emit(SignupSuccess());
       } catch (e) {
-        
-        emit(SignupFailure(AuthExceptionHandler.parseAuthException(e.toString()).message));
+        emit(SignupFailure(
+            SupanbaseExceptionHandler.parseException(e.toString())
+                .message));
       }
     }
   }
-
-
 }
