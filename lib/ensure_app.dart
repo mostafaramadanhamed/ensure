@@ -1,5 +1,6 @@
 import 'package:ensure/core/routing/app_router.dart';
 import 'package:ensure/core/routing/routes.dart';
+import 'package:ensure/core/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -19,7 +20,7 @@ class EnsureApp extends StatelessWidget {
         darkTheme: CustomTheme.darkThemeData(),
         // themeMode: ThemeMode.dark,
         debugShowCheckedModeBanner: false,
-        initialRoute: Routes.signup,
+        initialRoute: isLoggedInUser?Routes.home:Routes.login,
         onGenerateRoute: appRouter.onGenerateRoute,
       ),
     );

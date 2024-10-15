@@ -9,6 +9,7 @@ import 'package:ensure/features/stories/ui/story_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../features/login/domain/cubit/cubit/login_cubit.dart';
 import '../../features/profile/ui/profile_screen.dart';
 import '../../features/setup profile/domain/cubit/setup_profile_cubit.dart';
 import '../../features/setup profile/ui/setup_profile.dart';
@@ -28,7 +29,11 @@ class AppRouter {
                 ));
 
       case Routes.login:
-        return MaterialPageRoute(builder: (context) => const LoginScreen());
+        return MaterialPageRoute(
+            builder: (context) => BlocProvider(
+                  create: (context) => getIt<LoginCubit>(),
+                  child: const LoginScreen(),
+                ));
       case Routes.home:
         return MaterialPageRoute(builder: (context) => const HomeScreen());
 

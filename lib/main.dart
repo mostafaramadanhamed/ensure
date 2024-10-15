@@ -1,4 +1,5 @@
 import 'package:ensure/bloc_observer.dart';
+import 'package:ensure/core/utils/constants.dart';
 import 'package:ensure/ensure_app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,6 +13,8 @@ void main() async {
     await setupGetIt();
 
     Bloc.observer = AppBlocObserver();
+
+    await checkIfLoggedInUser();
 
   
   runApp(EnsureApp(

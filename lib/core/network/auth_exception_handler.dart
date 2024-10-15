@@ -1,6 +1,6 @@
+import 'package:flutter/material.dart';
 
 class ExceptionModel {
-  
   final String message;
   final int statusCode;
   final String errorCode;
@@ -15,12 +15,10 @@ class ExceptionModel {
   String toString() {
     return 'ExceptionModel(message: $message, statusCode: $statusCode, errorCode: $errorCode)';
   }
-
-
 }
 
-class AuthExceptionHandler { 
-  static ExceptionModel parseAuthException(String exception) {
+class SupanbaseExceptionHandler {
+  static ExceptionModel parseException(String exception) {
     final messageRegex = RegExp(r'message:\s(.+?),');
     final statusCodeRegex = RegExp(r'statusCode:\s(\d+),');
     final errorCodeRegex = RegExp(r'errorCode:\s(\w+)\)');
@@ -41,20 +39,20 @@ class AuthExceptionHandler {
     final errorCode =
         errorCodeMatch != null ? errorCodeMatch.group(1) : 'Unknown error code';
 
-    // Print or return the extracted values
+    // debugPrint or return the extracted values
 
-    print('Message: $message');
-    print('Status Code: $statusCode');
-    print('Error Code: $errorCode');
+    debugPrint('Message: $message');
+    debugPrint('Status Code: $statusCode');
+    debugPrint('Error Code: $errorCode');
     return ExceptionModel(
-      message: message??"Unknown error",
-      statusCode: int.parse(statusCode??"Unknown status code"),
-      errorCode: errorCode??"Unknown error code",
+      message: message ?? "Unknown error",
+      statusCode: int.parse(statusCode ?? "Unknown status code"),
+      errorCode: errorCode ?? "Unknown error code",
     );
   }
 
 // void main() {
-//   String authExceptionStr = "AuthException(message: Password should be at least 8 characters. Password should contain at least one character of each: abcdefghijklmnopqrstuvwxyz, ABCDEFGHIJKLMNOPQRSTUVWXYZ, 0123456789., statusCode: 422, errorCode: weak_password)";
-//   parseAuthException(authExceptionStr);
+//   String ExceptionStr = "Exception(message: Password should be at least 8 characters. Password should contain at least one character of each: abcdefghijklmnopqrstuvwxyz, ABCDEFGHIJKLMNOPQRSTUVWXYZ, 0123456789., statusCode: 422, errorCode: weak_password)";
+//   parseException(ExceptionStr);
 // }
 }
