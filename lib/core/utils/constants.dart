@@ -7,6 +7,8 @@ class SharedPrefKeys {
 }
 bool isLoggedInUser = false;
 
+ int selectedIndex = 0;
+
 checkIfLoggedInUser() async {
   String? userToken =
       await SharedPrefHelper.getSecuredString(SharedPrefKeys.userToken);

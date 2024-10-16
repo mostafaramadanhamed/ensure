@@ -1,7 +1,9 @@
 import 'package:ensure/features/home/ui/widgets/bottom_nav_bar.dart';
+import 'package:ensure/features/posts/ui/add_post.dart';
 import 'package:ensure/features/posts/ui/posts_screen.dart';
 import 'package:flutter/material.dart';
 
+import '../../../core/utils/constants.dart';
 import '../../settings/ui/settings_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -13,7 +15,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   PageController pageController = PageController();
-  int selectedIndex = 0;
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,9 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
           Center(
             child: Text("videos"),
           ),
-          Center(
-            child: Text("post"),
-          ),
+         AddPost(),
         SettingsScreen()
         ],
       ),

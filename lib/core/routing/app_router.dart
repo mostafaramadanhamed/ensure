@@ -3,6 +3,7 @@ import 'package:ensure/core/routing/routes.dart';
 import 'package:ensure/features/home/ui/home_screen.dart';
 import 'package:ensure/features/login/ui/login_screen.dart';
 import 'package:ensure/features/onboarding/ui/onboarding_screen.dart';
+import 'package:ensure/features/posts/domain/cubit/posts_cubit.dart';
 import 'package:ensure/features/sign%20up/domain/cubit/sign_up_cubit.dart';
 import 'package:ensure/features/sign%20up/ui/signup_screen.dart';
 import 'package:ensure/features/stories/ui/story_screen.dart';
@@ -35,7 +36,11 @@ class AppRouter {
                   child: const LoginScreen(),
                 ));
       case Routes.home:
-        return MaterialPageRoute(builder: (context) => const HomeScreen());
+        return MaterialPageRoute(
+            builder: (context) => BlocProvider(
+                  create: (context) => getIt<PostsCubit>(),
+                  child: const HomeScreen(),
+                ));
 
       case Routes.story:
         return MaterialPageRoute(builder: (context) => const StoryScreen());

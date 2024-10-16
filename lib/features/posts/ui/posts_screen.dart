@@ -1,5 +1,5 @@
 import 'package:ensure/core/helpers/spacing_extension.dart';
-import 'package:ensure/features/posts/ui/widgets/posts_list_view.dart';
+import 'package:ensure/features/posts/ui/widgets/posts_bloc_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -21,7 +21,7 @@ class PostsScreen extends StatelessWidget {
             child: const StoriesListView(),
           ),
           16.ph,
-          const PostsListView(),
+           const PostsBlocBuilder(),
         ],
       ),
     );
