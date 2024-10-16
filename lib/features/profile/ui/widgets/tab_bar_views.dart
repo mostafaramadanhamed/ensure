@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 
-import '../../../posts/ui/widgets/posts_list_view.dart';
 
 class TabBarViews extends StatelessWidget {
   const TabBarViews({
@@ -15,7 +14,16 @@ class TabBarViews extends StatelessWidget {
       //  controller: _tabController,
 
       children: [
-        PostsListView(),
+    
+        Center(
+          child: Text(
+            'posts',
+            style: TextStyle(
+              fontSize: 25,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
         Center(
           child: Text(
             'Photos',
