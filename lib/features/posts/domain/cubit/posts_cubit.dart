@@ -42,7 +42,7 @@ class PostsCubit extends Cubit<PostsState> {
     try {
       final profilePic = await postsUseCase.getProfilePic(authorId);
       emit(GetProfilePicSuccess());
-      debugPrint('profile pic : $profilePic');
+    
       return profilePic;
     } catch (e) {
       emit(GetProfilePicError(
@@ -57,7 +57,7 @@ class PostsCubit extends Cubit<PostsState> {
     try {
       final posts = await postsUseCase.getPosts();
       profilePic = await getProfilePic(supabaseClient.auth.currentUser!.id);
-      debugPrint('profile pic : $profilePic');
+    
 
       emit(GetPostsSuccess(posts: posts));
     } catch (e) {

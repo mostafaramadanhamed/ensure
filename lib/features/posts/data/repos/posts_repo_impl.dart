@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../../core/network/supabase_constants.dart';
@@ -16,7 +15,6 @@ class PostsRepoImpl implements PostsRepo {
         .from('posts')
         .select()
         .order('created_at', ascending: false);
-    debugPrint('data in repo impl : $data');
     return data.map((e) => PostModel.fromMap(e)).toList();
   }
 
@@ -65,7 +63,7 @@ class PostsRepoImpl implements PostsRepo {
   @override
   Future<String> getProfilePic(String authorId) async {
     try {
-    final profilePic = await supabaseClient.storage.from(SupabaseConstants.profileBucket).getPublicUrl( 'ProfilePictures/$authorId',);
+    final profilePic =  supabaseClient.storage.from(SupabaseConstants.profileBucket).getPublicUrl( 'ProfilePictures/$authorId',);
       return profilePic;
     } catch (e) {
       throw Exception(e);
