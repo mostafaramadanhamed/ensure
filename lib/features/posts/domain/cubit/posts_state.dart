@@ -60,3 +60,17 @@ final class DeletePostError extends PostsState {
 
   DeletePostError(this.message);
 }
+
+// get profile pic states
+
+
+final class GetProfilePicSuccess extends PostsState {
+  
+}
+
+final class GetProfilePicError extends PostsState {
+
+  final String message;
+
+  GetProfilePicError(this.message);
+}

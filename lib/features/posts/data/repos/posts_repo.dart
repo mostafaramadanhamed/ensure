@@ -11,4 +11,6 @@ abstract class PostsRepo {
   Future<void> updatePost(PostModel post);
 
   Future  <void> deletePost(PostModel post);
+
+  Future<String> getProfilePic(String authorId);
 }

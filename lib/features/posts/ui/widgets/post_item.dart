@@ -2,10 +2,12 @@ import 'package:ensure/core/helpers/date_time_format_helper.dart';
 import 'package:ensure/core/helpers/spacing_extension.dart';
 import 'package:ensure/features/posts/data/models/post_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/theme/colors.dart';
 import '../../../../core/theme/text_styles.dart';
+import '../../domain/cubit/posts_cubit.dart';
 
 class PostItem extends StatelessWidget {
   final PostModel post;
@@ -35,11 +37,15 @@ class PostItem extends StatelessWidget {
             ListTile(
               contentPadding: EdgeInsets.zero,
               title: Text(post.authorName, style: TextStyles.font15SemiBold),
-              leading: CircleAvatar(
-                radius: 25.r,
-                backgroundColor: AppColors.oldRose,
-                child: CircleAvatar(
-                  radius: 22.r,
+              leading:Container(
+                height: 40.h,
+                width: 40.w,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                    image: NetworkImage(context.read<PostsCubit>().profilePic),
+                    fit: BoxFit.cover
+                  )
                 ),
               ),
               trailing: const Icon(Icons.more_horiz_rounded),

@@ -7,7 +7,7 @@ String formatPostTime(DateTime postDate) {
   final postDateFormat = DateFormat('yyyy-MM-dd HH:mm:ss').format(postDate);
   final difference =
       DateTime.parse(nowFormat).difference(DateTime.parse(postDateFormat));
-  debugPrint(difference.inSeconds.toString());
+  // debugPrint(difference.inSeconds.toString());
   if (difference.inSeconds < 60) {
     return 'Just now';
   } else if (difference.inMinutes < 60) {
