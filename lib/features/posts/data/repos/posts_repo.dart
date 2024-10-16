@@ -6,9 +6,9 @@ abstract class PostsRepo {
 
   Future<List<PostModel>> getPostsByUserId(int userId);
 
-  Future<List<PostModel>> addPost(PostModel post);
+  Future<void> addPost(PostModel post);
 
-  Future<List<PostModel>> updatePost(PostModel post);
+  Future<void> updatePost(PostModel post);
 
-  Future  <List<PostModel>> deletePost(PostModel post);
+  Future  <void> deletePost(PostModel post);
 }
