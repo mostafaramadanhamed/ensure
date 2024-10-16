@@ -89,6 +89,7 @@ class AppTextFormField extends StatelessWidget {
         hintText: hintText,
         suffixIcon: suffixIcon,
         labelText: label,
+        alignLabelWithHint: true
         //  fillColor: backgroundColor ?? AppColors.moreLightGray,
         //  filled: true,
       ),

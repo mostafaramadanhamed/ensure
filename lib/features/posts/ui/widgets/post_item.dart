@@ -1,4 +1,6 @@
+import 'package:ensure/core/helpers/date_time_format_helper.dart';
 import 'package:ensure/core/helpers/spacing_extension.dart';
+import 'package:ensure/features/posts/data/models/post_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -6,7 +8,13 @@ import '../../../../core/theme/colors.dart';
 import '../../../../core/theme/text_styles.dart';
 
 class PostItem extends StatelessWidget {
-  const PostItem({super.key});
+  final PostModel post;
+  const PostItem({super.key, required this.post});
+
+  String formatDate(DateTime date) {
+    var formattedDate = formatPostTime(date);
+    return formattedDate.toString();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +34,7 @@ class PostItem extends StatelessWidget {
             12.ph,
             ListTile(
               contentPadding: EdgeInsets.zero,
-              title: Text('Mostafa Ramadan', style: TextStyles.font15SemiBold),
+              title: Text(post.authorName, style: TextStyles.font15SemiBold),
               leading: CircleAvatar(
                 radius: 25.r,
                 backgroundColor: AppColors.oldRose,
@@ -38,30 +46,34 @@ class PostItem extends StatelessWidget {
             ),
             20.ph,
             Text(
-              'Text of the post',
+              post.text,
               style: TextStyles.font15SemiBold,
             ),
             20.ph,
-            ClipRRect(
-              borderRadius: BorderRadius.circular(16.0.r),
-              child: Image.network('https://picsum.photos/400/300',
-                  fit: BoxFit.cover),
-            ),
+            post.content == ''
+                ? Container()
+                : ClipRRect(
+                    borderRadius: BorderRadius.circular(16.0.r),
+                    child: Image.network('https://picsum.photos/400/300',
+                        fit: BoxFit.cover),
+                  ),
             14.ph,
             Row(
               children: [
                 IconButton(onPressed: () {}, icon: const Icon(Icons.favorite)),
                 Text(
-                  '570',
+                  post.likes.toString(),
                   style: TextStyles.font12LighterBrownBold,
                 ),
                 12.pw,
                 IconButton(onPressed: () {}, icon: const Icon(Icons.comment)),
-                Text('33', style: TextStyles.font12LighterBrownBold),
+                Text(post.comments.toString(),
+                    style: TextStyles.font12LighterBrownBold),
                 12.pw,
                 IconButton(onPressed: () {}, icon: const Icon(Icons.share)),
                 const Spacer(),
-                Text('10 min ago', style: TextStyles.font12LighterBrownBold),
+                Text(formatDate(post.creatdAt),
+                    style: TextStyles.font12LighterBrownBold),
               ],
             ),
             14.ph,

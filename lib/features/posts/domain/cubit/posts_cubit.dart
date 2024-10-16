@@ -13,10 +13,12 @@ class PostsCubit extends Cubit<PostsState> {
   final TextEditingController textController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final SupabaseClient supabaseClient = Supabase.instance.client;
+
   // add post
   Future<void> addPost() async {
     emit(AddPostLoading());
     try {
+     
       await postsUseCase.addPost(PostModel(
         text: textController.text,
         uId: hashCode,
@@ -38,12 +40,13 @@ class PostsCubit extends Cubit<PostsState> {
     emit(GetPostsLoading());
     try {
       final posts = await postsUseCase.getPosts();
-      debugPrint('data in cubit : $posts');
+   
       emit(GetPostsSuccess(posts: posts));
     } catch (e) {
       emit(GetPostsError(
           SupanbaseExceptionHandler.parseException(e.toString()).message));
     }
+    
   }
 
   // get posts by user id

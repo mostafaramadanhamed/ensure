@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../models/post_model.dart';
@@ -10,7 +11,8 @@ class PostsRepoImpl implements PostsRepo {
 
   @override
   Future<List<PostModel>> getPosts()async {
-    final data= await supabaseClient.from('posts').select();
+    final data= await supabaseClient.from('posts').select().order('created_at', ascending: false);
+    debugPrint('data in repo impl : $data');
     return data.map((e) => PostModel.fromMap(e)).toList();
   }
 
@@ -24,6 +26,7 @@ class PostsRepoImpl implements PostsRepo {
   @override
   Future<void> addPost(PostModel post)async {
    await supabaseClient.from('posts').insert({
+    'author_name': supabaseClient.auth.currentUser?.userMetadata!['Display name'],
     'author_id': supabaseClient.auth.currentUser?.id,
     'text':post.text,
     'custom_id':post.uId,

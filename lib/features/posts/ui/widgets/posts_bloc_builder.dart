@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:ensure/features/posts/domain/cubit/posts_cubit.dart';
 import 'package:ensure/features/posts/domain/cubit/posts_state.dart';
 import 'package:ensure/features/posts/ui/widgets/posts_list_view.dart';
@@ -14,7 +16,6 @@ class PostsBlocBuilder extends StatefulWidget {
 class _PostsBlocBuilderState extends State<PostsBlocBuilder> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     context.read<PostsCubit>().getPosts();
   }
@@ -29,7 +30,12 @@ class _PostsBlocBuilderState extends State<PostsBlocBuilder> {
           return setupSuccess(state.posts);
         } else if (state is GetPostsError) {
           return setupError();
+        } else if (state is GetPostsLoading) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
         }
+
         return const SizedBox.shrink();
       },
     );

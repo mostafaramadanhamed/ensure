@@ -19,6 +19,7 @@ final class AddPostError extends PostsState {
 // get posts states
 
 final class GetPostsLoading extends PostsState {}
+final class GetPostsEmpty extends PostsState {}
 
 final class GetPostsSuccess extends PostsState {
 
