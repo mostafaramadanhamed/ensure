@@ -1,4 +1,5 @@
 import 'package:ensure/core/network/auth_exception_handler.dart';
+import 'package:ensure/core/utils/methods.dart';
 import 'package:ensure/features/posts/data/models/post_model.dart';
 import 'package:ensure/features/posts/domain/cubit/posts_state.dart';
 import 'package:ensure/features/posts/domain/use%20case/posts_use_case.dart';
@@ -13,6 +14,7 @@ class PostsCubit extends Cubit<PostsState> {
   final TextEditingController textController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final SupabaseClient supabaseClient = Supabase.instance.client;
+  bool isLiked = false;
   String profilePic =
       'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png';
   // add post
@@ -22,7 +24,7 @@ class PostsCubit extends Cubit<PostsState> {
       await postsUseCase.addPost(PostModel(
         text: textController.text,
         authorId: supabaseClient.auth.currentUser!.id,
-        uId: hashCode,
+        uId: getCurrentTimeInMillis(),
         content: '',
         likes: 0,
         comments: 0,
@@ -42,7 +44,7 @@ class PostsCubit extends Cubit<PostsState> {
     try {
       final profilePic = await postsUseCase.getProfilePic(authorId);
       emit(GetProfilePicSuccess());
-    
+
       return profilePic;
     } catch (e) {
       emit(GetProfilePicError(
@@ -57,7 +59,6 @@ class PostsCubit extends Cubit<PostsState> {
     try {
       final posts = await postsUseCase.getPosts();
       profilePic = await getProfilePic(supabaseClient.auth.currentUser!.id);
-    
 
       emit(GetPostsSuccess(posts: posts));
     } catch (e) {
@@ -99,6 +100,32 @@ class PostsCubit extends Cubit<PostsState> {
     } catch (e) {
       emit(DeletePostError(
           SupanbaseExceptionHandler.parseException(e.toString()).message));
+    }
+  }
+
+  // like post
+  Future<void> likePost(int postId) async {
+    try {
+      await postsUseCase.likePost(postId);
+      emit(LikePostSuccess());
+      isLiked = true;
+      await getPosts();
+    } catch (e) {
+      debugPrint(e.toString());
+      emit(LikePostError(e.toString()));
+    }
+  }
+
+  // unlike post
+  Future<void> unlikePost(int postId) async {
+    try {
+      await postsUseCase.unlikePost(postId);
+      emit(UnlikePostSuccess());
+      isLiked = false;
+      await getPosts();
+    } catch (e) {
+      debugPrint(e.toString());
+      emit(UnlikePostError(e.toString()));
     }
   }
 }

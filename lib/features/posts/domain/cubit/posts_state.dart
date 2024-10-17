@@ -74,3 +74,29 @@ final class GetProfilePicError extends PostsState {
 
   GetProfilePicError(this.message);
 }
+
+// like post states
+
+final class LikePostSuccess extends PostsState {
+
+}
+
+final class LikePostError extends PostsState {  
+
+  final String message; 
+
+  LikePostError(this.message);
+}
+
+// unlike post states
+
+final class UnlikePostSuccess extends PostsState {
+
+}
+
+final class UnlikePostError extends PostsState {
+
+  final String message;
+
+  UnlikePostError(this.message);
+}

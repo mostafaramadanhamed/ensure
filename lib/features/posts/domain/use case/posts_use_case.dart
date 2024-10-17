@@ -29,4 +29,12 @@ class PostsUseCase {
   Future<String> getProfilePic(String authorId) async {
     return postsRepo.getProfilePic(authorId);
   }
+
+  Future<void> likePost(int postId) async {
+    return postsRepo.likePost(postId);
+  }
+
+  Future<void> unlikePost(int postId) async {
+    return postsRepo.unlikePost(postId);
+  }
 }
