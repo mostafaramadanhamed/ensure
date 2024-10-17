@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../../core/network/supabase_constants.dart';
@@ -63,11 +64,39 @@ class PostsRepoImpl implements PostsRepo {
   @override
   Future<String> getProfilePic(String authorId) async {
     try {
-    final profilePic =  supabaseClient.storage.from(SupabaseConstants.profileBucket).getPublicUrl( 'ProfilePictures/$authorId',);
+      final profilePic = supabaseClient.storage
+          .from(SupabaseConstants.profileBucket)
+          .getPublicUrl(
+            'ProfilePictures/$authorId',
+          );
       return profilePic;
     } catch (e) {
       throw Exception(e);
     }
-    
+  }
+
+  @override
+  Future<void> likePost(int postId) async {
+    final userId = supabaseClient.auth.currentUser?.id;
+    await supabaseClient.from('likes').insert({
+      'post_id': postId, // Use the generated post ID
+      'user_id': userId, // Use the current user's ID
+    });
+    await supabaseClient.rpc('increment_likes', params: {'post_id': postId});
+   
+  }
+
+  @override
+  Future<void> unlikePost(int postId) async {
+    final userId = supabaseClient.auth.currentUser?.id;
+    await supabaseClient
+        .from('likes')
+        .delete()
+        .eq('post_id', postId)
+        .eq('user_id', userId.toString());
+
+    await supabaseClient.rpc('decrement_likes', params: {'post_id': postId});
+
+  
   }
 }
