@@ -44,11 +44,12 @@ final SupabaseClient supabaseClient = Supabase.instance.client;
   }
 
 // delete comment
-  Future<void> deleteComment(CommentModel comment) async {
+  Future<void> deleteComment(int commentId, int postId) async {
     emit(DeleteCommentLoading());
     try {
-      await commentsUseCase.deleteComment(comment);
+      await commentsUseCase.deleteComment(commentId, postId);
       emit(DeleteCommentSuccess());
+      getComments(postId);
     } catch (e) {
       emit(DeleteCommentError(e.toString()));
     }

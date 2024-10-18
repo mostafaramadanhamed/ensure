@@ -2,6 +2,9 @@ import 'package:ensure/core/helpers/date_time_format_helper.dart';
 import 'package:ensure/core/theme/text_styles.dart';
 import 'package:ensure/features/comments/data/models/comment_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../domain/cubit/comments_cubit.dart';
 
 class CommentItem extends StatelessWidget {
   final CommentModel comment;
@@ -24,7 +27,12 @@ class CommentItem extends StatelessWidget {
           Text(formatPostTime(comment.createdAt), style: TextStyles.font12LighterBrownBold),
         ],
       ),
-      trailing: const Icon(Icons.favorite_border),
+      trailing:  GestureDetector(
+        onTap: () {
+          context.read<CommentsCubit>().deleteComment(comment.commentId, comment.postId);
+          
+        },
+        child: const Icon(Icons.delete_outline_rounded)),
     );
   }
 }

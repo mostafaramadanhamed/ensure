@@ -97,7 +97,7 @@ class PostsCubit extends Cubit<PostsState> {
       await postsUseCase.likePost(postId);
       emit(LikePostSuccess());
       isLiked = true;
-      await getPosts();
+     getPosts();
     } catch (e) {
       debugPrint(e.toString());
       emit(LikePostError(e.toString()));
@@ -110,7 +110,7 @@ class PostsCubit extends Cubit<PostsState> {
       await postsUseCase.unlikePost(postId);
       emit(UnlikePostSuccess());
       isLiked = false;
-      await getPosts();
+      getPosts();
     } catch (e) {
       debugPrint(e.toString());
       emit(UnlikePostError(e.toString()));

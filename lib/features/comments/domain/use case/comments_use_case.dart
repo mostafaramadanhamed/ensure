@@ -14,7 +14,7 @@ class CommentsUseCase {
     return await commentsRepo.addComment(comment);
   }
 
-  Future<void> deleteComment(CommentModel comment) async {
-    return await commentsRepo.deleteComment(comment);
+  Future<void> deleteComment(int commentId, int postId) async {
+    return await commentsRepo.deleteComment(commentId, postId);
   }
 }

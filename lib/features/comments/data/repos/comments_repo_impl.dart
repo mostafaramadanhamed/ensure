@@ -33,10 +33,14 @@ class CommentsRepoImpl implements CommentsRepo {
         'author_profile_pic': supabaseClient.auth.currentUser!.userMetadata!['profile_pic'],
       },
     );
+
+     await supabaseClient.rpc('increment_comments', params: {'post_id': comment.postId});
   }
 
   @override
-  Future<void> deleteComment(CommentModel comment) async {
-    //await supabaseClient.from('comments').delete().eq('id', comment.id);
+  Future<void> deleteComment(int commentId, int postId) async {
+   await supabaseClient.from('comments').delete().eq('comment_id', commentId);
+
+   await supabaseClient.rpc('decrement_comments', params: {'post_id': postId});
   }
 }
