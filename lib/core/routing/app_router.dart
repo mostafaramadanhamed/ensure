@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../features/login/domain/cubit/cubit/login_cubit.dart';
+import '../../features/posts/domain/cubit/comments_cubit.dart';
 import '../../features/posts/ui/comments_screen.dart';
 import '../../features/profile/ui/profile_screen.dart';
 import '../../features/setup profile/domain/cubit/setup_profile_cubit.dart';
@@ -41,7 +42,7 @@ class AppRouter {
       case Routes.home:
         return MaterialPageRoute(
             builder: (context) => BlocProvider(
-                  create: (context) =>getIt<PostsCubit>() ,
+                  create: (context) => getIt<PostsCubit>(),
                   child: const HomeScreen(),
                 ));
 
@@ -55,10 +56,12 @@ class AppRouter {
         return MaterialPageRoute(builder: (context) {
           // declare the arguments
           int postId = args as int;
-          return CommentsScreen(
-            postId: postId,
+          return BlocProvider(
+            create: (context) => getIt<CommentsCubit>(),
+            child: CommentsScreen(
+              postId: postId,
+            ),
           );
-        
         });
       case Routes.setupProfile:
         return MaterialPageRoute(

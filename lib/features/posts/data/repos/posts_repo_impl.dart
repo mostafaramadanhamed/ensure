@@ -35,6 +35,7 @@ class PostsRepoImpl implements PostsRepo {
         'text': post.text,
         'custom_id': post.uId,
         'content': post.content,
+        
         'created_at': DateTime.now().toIso8601String(),
         'likes': post.likes,
         'comments': post.comments,

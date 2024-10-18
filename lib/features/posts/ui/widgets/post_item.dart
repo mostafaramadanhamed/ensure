@@ -16,10 +16,10 @@ class PostItem extends StatelessWidget {
   final PostModel post;
   const PostItem({super.key, required this.post});
 
-  String formatDate(DateTime date) {
-    var formattedDate = formatPostTime(date);
-    return formattedDate.toString();
-  }
+  // String formatDate(DateTime date) {
+  //   var formattedDate = formatPostTime(date);
+  //   return formattedDate.toString();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +106,7 @@ class PostItem extends StatelessWidget {
                     12.pw,
                     IconButton(onPressed: () {}, icon: const Icon(Icons.share)),
                     const Spacer(),
-                    Text(formatDate(post.creatdAt),
+                    Text(formatPostTime(post.creatdAt),
                         style: TextStyles.font12LighterBrownBold),
                   ],
                 ),

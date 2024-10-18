@@ -19,7 +19,7 @@ Future<File ?>pickImageFromGallery(BuildContext context)async{
   return image;
 }
 
-  int getCurrentTimeInMillis() {
+  int getCurrentTimeInMillis(DateTime dateTime) {
 int currentTimeMillis = DateTime.now().millisecondsSinceEpoch;
 
 // Convert to string

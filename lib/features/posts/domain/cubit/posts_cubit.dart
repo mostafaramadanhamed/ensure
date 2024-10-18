@@ -25,7 +25,7 @@ class PostsCubit extends Cubit<PostsState> {
             supabaseClient.auth.currentUser!.userMetadata!['profile_pic'],
         text: textController.text,
         authorId: supabaseClient.auth.currentUser!.id,
-        uId: getCurrentTimeInMillis(),
+        uId: getCurrentTimeInMillis(DateTime.now()),
         content: '',
         likes: 0,
         comments: 0,

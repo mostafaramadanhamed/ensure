@@ -12,12 +12,12 @@ class CommentsScreen extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Comments'),
         ),
-        body: const Column(
+        body:  Column(
           children: [
             Expanded(
-              child: CommentsListView(),
+              child: CommentsListView(postId:postId),
             ),
-            AddCommentInput(),
+            AddCommentInput(postId: postId,),
           ],
         ));
   }
