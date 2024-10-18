@@ -1,26 +1,30 @@
+import 'package:ensure/core/helpers/date_time_format_helper.dart';
+import 'package:ensure/core/theme/text_styles.dart';
+import 'package:ensure/features/posts/data/models/comment_model.dart';
 import 'package:flutter/material.dart';
 
 class CommentItem extends StatelessWidget {
-  const CommentItem({super.key});
+  final CommentModel comment;
+  const CommentItem({super.key, required this.comment});
 
   @override
   Widget build(BuildContext context) {
-    return  const ListTile(
+    return   ListTile(
       leading: CircleAvatar(
         backgroundImage: NetworkImage(
-            'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
+           comment.authorProfilePic,),
         radius: 20,
       ),
-      title: Text('User Name', style: TextStyle(fontWeight: FontWeight.bold)),
+      title: Text(comment.authorName, style: TextStyles.font15SemiBold),
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Content', style: TextStyle(color: Color.fromARGB(255, 249, 133, 133), fontSize: 15)),
-          SizedBox(height: 5),
-          Text('2 hours ago', style: TextStyle(color: Colors.grey, fontSize: 12)),
+          Text(comment.content, style: TextStyles.font15Regular),
+          const SizedBox(height: 5),
+          Text(formatPostTime(comment.createdAt), style: TextStyles.font12LighterBrownBold),
         ],
       ),
-      trailing: Icon(Icons.favorite_border),
+      trailing: const Icon(Icons.favorite_border),
     );
   }
 }
