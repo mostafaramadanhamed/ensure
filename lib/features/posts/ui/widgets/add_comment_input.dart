@@ -1,12 +1,15 @@
 import 'package:ensure/core/widgets/app_text_filed.dart';
+import 'package:ensure/features/posts/domain/cubit/comments_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/theme/colors.dart';
 
 class AddCommentInput extends StatelessWidget {
+  final int postId;
   const AddCommentInput({
-    super.key,
+    super.key, required this.postId,
   });
 
   @override
@@ -32,10 +35,16 @@ class AddCommentInput extends StatelessWidget {
           Expanded(
             child: AppTextFormField(
               hintText: 'Write a comment...',
+              controller: context.read<CommentsCubit>().commentController,
               keyboardType: TextInputType.multiline,
               suffixIcon: IconButton(
                 icon: Icon(Icons.send, color: AppColors.coralPink, size: 22.sp),
-                onPressed: () {},
+                onPressed: () {
+                  if(context.read<CommentsCubit>().commentController.text.isNotEmpty){
+                    context.read<CommentsCubit>().addComment(postId);
+                    
+                  }
+                },
               ),
             ),
           ),
