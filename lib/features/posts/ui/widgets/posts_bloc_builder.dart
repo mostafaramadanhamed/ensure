@@ -4,19 +4,8 @@ import 'package:ensure/features/posts/ui/widgets/posts_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class PostsBlocBuilder extends StatefulWidget {
+class PostsBlocBuilder extends StatelessWidget {
   const PostsBlocBuilder({super.key});
-
-  @override
-  State<PostsBlocBuilder> createState() => _PostsBlocBuilderState();
-}
-
-class _PostsBlocBuilderState extends State<PostsBlocBuilder> {
-  @override
-  void initState() {
-    super.initState();
-    context.read<PostsCubit>().getPosts();
-  }
 
   @override
   Widget build(BuildContext context) {

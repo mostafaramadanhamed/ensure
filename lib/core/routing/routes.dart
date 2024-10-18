@@ -10,4 +10,5 @@ class Routes {
   static const String editProfile = '/edit-profile';
   static const String editAddress = '/edit-address';
   static const String editPassword = '/edit-password';
+  static const String comments = '/comments';
 }

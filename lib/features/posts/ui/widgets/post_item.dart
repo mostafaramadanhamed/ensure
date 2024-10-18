@@ -1,3 +1,4 @@
+import 'package:ensure/core/helpers/navigation_extension.dart';
 import 'package:ensure/core/helpers/spacing_extension.dart';
 import 'package:ensure/features/posts/data/models/post_model.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/helpers/date_time_format_helper.dart';
+import '../../../../core/routing/routes.dart';
 import '../../../../core/theme/colors.dart';
 import '../../../../core/theme/text_styles.dart';
 import '../../domain/cubit/posts_cubit.dart';
@@ -94,7 +96,11 @@ class PostItem extends StatelessWidget {
                     ),
                     12.pw,
                     IconButton(
-                        onPressed: () {}, icon: const Icon(Icons.comment)),
+                        onPressed: () {
+                          context.pushNamed(Routes.comments,
+                              arguments: post.uId);
+
+                        }, icon: const Icon(Icons.comment)),
                     Text(post.comments.toString(),
                         style: TextStyles.font12LighterBrownBold),
                     12.pw,
