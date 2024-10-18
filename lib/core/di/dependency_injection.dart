@@ -1,7 +1,7 @@
 
 import 'package:ensure/core/network/supabase_constants.dart';
 import 'package:ensure/features/login/data/repos/login_repo.dart';
-import 'package:ensure/features/posts/data/repos/comments_repo.dart';
+import 'package:ensure/features/comments/data/repos/comments_repo.dart';
 import 'package:ensure/features/posts/domain/cubit/posts_cubit.dart';
 import 'package:ensure/features/posts/domain/use%20case/posts_use_case.dart';
 import 'package:ensure/features/setup%20profile/data/repos/setup_profile_repo.dart';
@@ -15,11 +15,11 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../features/login/data/repos/login_repo_impl.dart';
 import '../../features/login/domain/cubit/cubit/login_cubit.dart';
 import '../../features/login/domain/use cases/login_use_case.dart';
-import '../../features/posts/data/repos/comments_repo_impl.dart';
+import '../../features/comments/data/repos/comments_repo_impl.dart';
 import '../../features/posts/data/repos/posts_repo.dart';
 import '../../features/posts/data/repos/posts_repo_impl.dart';
-import '../../features/posts/domain/cubit/comments_cubit.dart';
-import '../../features/posts/domain/use case/comments_use_case.dart';
+import '../../features/comments/domain/cubit/comments_cubit.dart';
+import '../../features/comments/domain/use case/comments_use_case.dart';
 import '../../features/setup profile/data/repos/setup_profile_repo_impl.dart';
 import '../../features/setup profile/domain/cubit/setup_profile_cubit.dart';
 import '../../features/setup profile/domain/use cases/setup_profile_use_case.dart';

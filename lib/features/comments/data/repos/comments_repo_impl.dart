@@ -1,4 +1,4 @@
-import 'package:ensure/features/posts/data/repos/comments_repo.dart';
+import 'package:ensure/features/comments/data/repos/comments_repo.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../models/comment_model.dart';

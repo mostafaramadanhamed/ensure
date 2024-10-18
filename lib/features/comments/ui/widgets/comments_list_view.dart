@@ -1,6 +1,6 @@
-import 'package:ensure/features/posts/domain/cubit/comments_cubit.dart';
-import 'package:ensure/features/posts/domain/cubit/comments_state.dart';
-import 'package:ensure/features/posts/ui/widgets/comment_item.dart';
+import 'package:ensure/features/comments/domain/cubit/comments_cubit.dart';
+import 'package:ensure/features/comments/domain/cubit/comments_state.dart';
+import 'package:ensure/features/comments/ui/widgets/comment_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

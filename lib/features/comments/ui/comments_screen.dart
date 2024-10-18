@@ -1,5 +1,5 @@
-import 'package:ensure/features/posts/ui/widgets/add_comment_input.dart';
-import 'package:ensure/features/posts/ui/widgets/comments_list_view.dart';
+import 'package:ensure/features/comments/ui/widgets/add_comment_input.dart';
+import 'package:ensure/features/comments/ui/widgets/comments_list_view.dart';
 import 'package:flutter/material.dart';
 
 class CommentsScreen extends StatelessWidget {

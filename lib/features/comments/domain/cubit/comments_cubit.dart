@@ -1,5 +1,5 @@
 
-import 'package:ensure/features/posts/domain/use%20case/comments_use_case.dart';
+import 'package:ensure/features/comments/domain/use%20case/comments_use_case.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -34,8 +34,9 @@ final SupabaseClient supabaseClient = Supabase.instance.client;
         ),
       );
       emit(AddCommentSuccess());
+      getComments(postId); 
       commentController.clear();
-      getComments(postId);
+     
     } catch (e) {
       debugPrint(e.toString());
       emit(AddCommentError(e.toString()));

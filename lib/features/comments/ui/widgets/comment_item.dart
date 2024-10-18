@@ -1,6 +1,6 @@
 import 'package:ensure/core/helpers/date_time_format_helper.dart';
 import 'package:ensure/core/theme/text_styles.dart';
-import 'package:ensure/features/posts/data/models/comment_model.dart';
+import 'package:ensure/features/comments/data/models/comment_model.dart';
 import 'package:flutter/material.dart';
 
 class CommentItem extends StatelessWidget {
