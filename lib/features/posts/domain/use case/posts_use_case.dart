@@ -26,10 +26,6 @@ class PostsUseCase {
     return postsRepo.deletePost(post);
   } 
 
-  Future<String> getProfilePic(String authorId) async {
-    return postsRepo.getProfilePic(authorId);
-  }
-
   Future<void> likePost(int postId) async {
     return postsRepo.likePost(postId);
   }

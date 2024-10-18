@@ -1,6 +1,5 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import '../../../../core/network/supabase_constants.dart';
 import '../models/post_model.dart';
 import 'posts_repo.dart';
 
@@ -31,6 +30,7 @@ class PostsRepoImpl implements PostsRepo {
       {
         'author_name':
             supabaseClient.auth.currentUser?.userMetadata!['Display name'],
+        'author_profile_pic': supabaseClient.auth.currentUser?.userMetadata!['profile_pic'],
         'author_id': supabaseClient.auth.currentUser?.id,
         'text': post.text,
         'custom_id': post.uId,
@@ -61,18 +61,7 @@ class PostsRepoImpl implements PostsRepo {
   }
 
   @override
-  Future<String> getProfilePic(String authorId) async {
-    try {
-      final profilePic = supabaseClient.storage
-          .from(SupabaseConstants.profileBucket)
-          .getPublicUrl(
-            'ProfilePictures/$authorId',
-          );
-      return profilePic;
-    } catch (e) {
-      throw Exception(e);
-    }
-  }
+  
 
   @override
   Future<void> likePost(int postId) async {

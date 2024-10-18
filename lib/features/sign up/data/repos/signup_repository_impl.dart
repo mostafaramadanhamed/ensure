@@ -11,7 +11,7 @@ class SignUpRepositoryImpl implements SignUpRepository {
     await supabase.auth.signUp(
           email: user.email,
           password: user.password,
-          data: {'Display name': user.name, 'phone': user.phone,'bio':user.bio},);
+          data: {'Display name': user.name, 'phone': user.phone,'bio':user.bio,'profile_pic':user.profilePic},);
       
     } catch (e) {
       throw Exception(e);

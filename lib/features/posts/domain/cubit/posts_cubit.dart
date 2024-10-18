@@ -15,13 +15,14 @@ class PostsCubit extends Cubit<PostsState> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final SupabaseClient supabaseClient = Supabase.instance.client;
   bool isLiked = false;
-  String profilePic =
-      'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png';
+
   // add post
   Future<void> addPost() async {
     emit(AddPostLoading());
     try {
       await postsUseCase.addPost(PostModel(
+        profilePic:
+            supabaseClient.auth.currentUser!.userMetadata!['profile_pic'],
         text: textController.text,
         authorId: supabaseClient.auth.currentUser!.id,
         uId: getCurrentTimeInMillis(),
@@ -40,30 +41,17 @@ class PostsCubit extends Cubit<PostsState> {
   }
 
 // display user profile pic
-  Future<String> getProfilePic(String authorId) async {
-    try {
-      final profilePic = await postsUseCase.getProfilePic(authorId);
-      emit(GetProfilePicSuccess());
-
-      return profilePic;
-    } catch (e) {
-      emit(GetProfilePicError(
-          SupanbaseExceptionHandler.parseException(e.toString()).message));
-      return '';
-    }
-  }
 
   // get posts
   Future<void> getPosts() async {
     emit(GetPostsLoading());
     try {
       final posts = await postsUseCase.getPosts();
-      profilePic = await getProfilePic(supabaseClient.auth.currentUser!.id);
 
       emit(GetPostsSuccess(posts: posts));
     } catch (e) {
-      emit(GetPostsError(
-          SupanbaseExceptionHandler.parseException(e.toString()).message));
+      debugPrint(e.toString());
+      emit(GetPostsError(e.toString()));
     }
   }
 

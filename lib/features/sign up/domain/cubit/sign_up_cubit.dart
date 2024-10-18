@@ -28,6 +28,7 @@ class SignUpCubit extends Cubit<SignupState> {
           phone: phoneController.text,
           password: passwordController.text,
           bio: bioController.text,
+          profilePic: profilePic,
         );
         await signupUseCase.signUp(user);
         emit(SignupSuccess());

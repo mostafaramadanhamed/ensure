@@ -50,7 +50,7 @@ class PostItem extends StatelessWidget {
                         shape: BoxShape.circle,
                         image: DecorationImage(
                             image: NetworkImage(
-                                context.read<PostsCubit>().profilePic),
+                                post.profilePic,),
                             fit: BoxFit.cover)),
                   ),
                   trailing: GestureDetector(
