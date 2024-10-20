@@ -6,14 +6,14 @@ String formatPostTime(DateTime postDate) {
   final postDateFormat = DateFormat('yyyy-MM-dd HH:mm:ss').format(postDate);
   final difference =
       DateTime.parse(nowFormat).difference(DateTime.parse(postDateFormat));
-  // debugPrint(difference.inSeconds.toString());
+
   if (difference.inSeconds < 60) {
     return 'Just now';
   } else if (difference.inMinutes < 60) {
     return '${difference.inMinutes} ${difference.inMinutes == 1 ? 'minute' : 'minutes'} ago';
   } else if (difference.inHours < 24) {
     return '${difference.inHours} ${difference.inHours == 1 ? 'hour' : 'hours'} ago';
-  } else if (difference.inDays == 1) {
+  } else if (difference.inDays == 1 && difference.inHours < 24) {
     return 'Yesterday at ${_formatTime(postDate)}';
   } else if (difference.inDays < 7) {
     return '${difference.inDays} ${difference.inDays == 1 ? 'day' : 'days'} ago';
