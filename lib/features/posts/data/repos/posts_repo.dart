@@ -12,5 +12,11 @@ abstract class PostsRepo {
 
   Future  <void> deletePost(PostModel post);
 
-  Future<String> getProfilePic(String authorId);
+
+  Future<int> likePost(int postId);
+
+  Future<int> unlikePost(int postId);
+
+  Future<bool> isPostLiked(int postId);
+
 }

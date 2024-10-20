@@ -10,14 +10,35 @@ class SetupProfileRepoImpl implements SetupProfileRepo {
 
   SetupProfileRepoImpl({required this.supabase});
   @override
-  Future<void> saveProfileInfo(
-  File    profilePic) async {
+  Future<void> saveProfileInfo(File profilePic) async {
     try {
-      await supabase.storage.from(SupabaseConstants.profileBucket).upload(
+   await supabase.storage.from(SupabaseConstants.profileBucket).upload(
           'ProfilePictures/${supabase.auth.currentUser!.id}', profilePic,
           fileOptions: const FileOptions(upsert: true));
-
-     
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+ 
+ // get profile pic
+ 
+String getProfilePic()  {
+   try {
+     final response =  supabase.storage
+         .from(SupabaseConstants.profileBucket)
+         .getPublicUrl('ProfilePictures/${supabase.auth.currentUser!.id}');
+     return response;
+   } catch (e) {
+     throw Exception(e);
+   }
+ }
+  
+  // update profile pic
+  @override
+  Future<void> setProfilePic() async {
+    try {
+      await supabase.auth
+          .updateUser(UserAttributes(data: {'profile_pic': getProfilePic()}));
     } catch (e) {
       throw Exception(e);
     }

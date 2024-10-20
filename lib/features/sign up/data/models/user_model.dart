@@ -4,8 +4,9 @@ class UserModel {
   final String phone;
   final String password;
   final String bio;
+  final String profilePic;
 
-  UserModel( {
+  UserModel(  {required this.profilePic,
     required this.name,
     required this.email,
     required this.phone,

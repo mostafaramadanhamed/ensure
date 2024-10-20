@@ -10,4 +10,8 @@ class SetupProfileUseCase {
   Future<void> saveProfileInfo({required File profilePic}) async {
     await setupProfileRepo.saveProfileInfo( profilePic);
   }
+
+  Future<void> setProfilePic() async {
+    await setupProfileRepo.setProfilePic();
+  }
 }

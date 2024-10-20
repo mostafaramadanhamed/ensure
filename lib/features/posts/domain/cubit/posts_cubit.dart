@@ -1,4 +1,5 @@
 import 'package:ensure/core/network/auth_exception_handler.dart';
+import 'package:ensure/core/utils/methods.dart';
 import 'package:ensure/features/posts/data/models/post_model.dart';
 import 'package:ensure/features/posts/domain/cubit/posts_state.dart';
 import 'package:ensure/features/posts/domain/use%20case/posts_use_case.dart';
@@ -13,16 +14,16 @@ class PostsCubit extends Cubit<PostsState> {
   final TextEditingController textController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final SupabaseClient supabaseClient = Supabase.instance.client;
-  String profilePic =
-      'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png';
   // add post
   Future<void> addPost() async {
     emit(AddPostLoading());
     try {
       await postsUseCase.addPost(PostModel(
+        profilePic:
+            supabaseClient.auth.currentUser!.userMetadata!['profile_pic'],
         text: textController.text,
         authorId: supabaseClient.auth.currentUser!.id,
-        uId: hashCode,
+        uId: getCurrentTimeInMillis(DateTime.now()),
         content: '',
         likes: 0,
         comments: 0,
@@ -38,31 +39,17 @@ class PostsCubit extends Cubit<PostsState> {
   }
 
 // display user profile pic
-  Future<String> getProfilePic(String authorId) async {
-    try {
-      final profilePic = await postsUseCase.getProfilePic(authorId);
-      emit(GetProfilePicSuccess());
-    
-      return profilePic;
-    } catch (e) {
-      emit(GetProfilePicError(
-          SupanbaseExceptionHandler.parseException(e.toString()).message));
-      return '';
-    }
-  }
 
   // get posts
   Future<void> getPosts() async {
     emit(GetPostsLoading());
     try {
       final posts = await postsUseCase.getPosts();
-      profilePic = await getProfilePic(supabaseClient.auth.currentUser!.id);
-    
 
       emit(GetPostsSuccess(posts: posts));
     } catch (e) {
-      emit(GetPostsError(
-          SupanbaseExceptionHandler.parseException(e.toString()).message));
+      debugPrint(e.toString());
+      emit(GetPostsError(e.toString()));
     }
   }
 
@@ -99,6 +86,45 @@ class PostsCubit extends Cubit<PostsState> {
     } catch (e) {
       emit(DeletePostError(
           SupanbaseExceptionHandler.parseException(e.toString()).message));
+    }
+  }
+
+  // like post
+  Future<void> likePostAndUpdateState(int postId) async {
+    if (!await isPostLiked(postId)) {
+      try {
+        final updatedLikes = await postsUseCase.likePost(postId);
+        emit(LikePostSuccess(updatedLikes, postId));
+      } catch (error) {
+        emit(LikePostError(error.toString()));
+        // Handle error if necessary
+      }
+    }
+  }
+
+  // unlike post
+  Future<void> unlikePost(int postId) async {
+    if (await isPostLiked(postId)) {
+      try {
+        final updatedLikes = await postsUseCase.unlikePost(postId);
+        emit(UnlikePostSuccess(updatedLikes, postId));
+      } catch (error) {
+        emit(UnlikePostError(error.toString()));
+        // Handle error if necessary
+      }
+    }
+  }
+
+  Future<bool> isPostLiked(int postId) async {
+    try {
+      final response = await postsUseCase.isPostLiked(postId);
+      debugPrint(response.toString());
+      emit(IsPostLikedSuccess(response, postId));
+      return response;
+    } catch (e) {
+      debugPrint(e.toString());
+      emit(IsPostLikedError(e.toString()));
+      return false;
     }
   }
 }

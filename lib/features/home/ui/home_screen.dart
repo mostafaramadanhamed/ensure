@@ -15,7 +15,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   PageController pageController = PageController();
- 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,8 +32,8 @@ class _HomeScreenState extends State<HomeScreen> {
           Center(
             child: Text("videos"),
           ),
-         AddPost(),
-        SettingsScreen()
+          AddPost(),
+          SettingsScreen()
         ],
       ),
       bottomNavigationBar: BottomNavBar(

@@ -11,12 +11,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../features/login/domain/cubit/cubit/login_cubit.dart';
+import '../../features/comments/domain/cubit/comments_cubit.dart';
+import '../../features/comments/ui/comments_screen.dart';
 import '../../features/profile/ui/profile_screen.dart';
 import '../../features/setup profile/domain/cubit/setup_profile_cubit.dart';
 import '../../features/setup profile/ui/setup_profile.dart';
 
 class AppRouter {
   Route? onGenerateRoute(RouteSettings settings) {
+    final args = settings.arguments;
+
     switch (settings.name) {
       case Routes.onBoarding:
         return MaterialPageRoute(
@@ -38,6 +42,7 @@ class AppRouter {
       case Routes.home:
         return MaterialPageRoute(
             builder: (context) => BlocProvider(
+              lazy: false,
                   create: (context) => getIt<PostsCubit>(),
                   child: const HomeScreen(),
                 ));
@@ -48,6 +53,17 @@ class AppRouter {
       case Routes.profile:
         return MaterialPageRoute(builder: (context) => const ProfileScreen());
 
+      case Routes.comments:
+        return MaterialPageRoute(builder: (context) {
+          // declare the arguments
+          int postId = args as int;
+          return BlocProvider(
+            create: (context) => getIt<CommentsCubit>(),
+            child: CommentsScreen(
+              postId: postId,
+            ),
+          );
+        });
       case Routes.setupProfile:
         return MaterialPageRoute(
             builder: (context) => BlocProvider(
