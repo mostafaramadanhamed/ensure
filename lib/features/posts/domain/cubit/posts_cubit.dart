@@ -14,7 +14,6 @@ class PostsCubit extends Cubit<PostsState> {
   final TextEditingController textController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final SupabaseClient supabaseClient = Supabase.instance.client;
-
   // add post
   Future<void> addPost() async {
     emit(AddPostLoading());
@@ -92,36 +91,40 @@ class PostsCubit extends Cubit<PostsState> {
 
   // like post
   Future<void> likePostAndUpdateState(int postId) async {
-if (!await isPostLiked(postId)){  try {
-    final updatedLikes = await postsUseCase.likePost(postId);
-    emit(LikePostSuccess( updatedLikes,postId));
-  } catch (error) {
-    emit(LikePostError(error.toString()));
-    // Handle error if necessary
-  }}
-}
-
+    if (!await isPostLiked(postId)) {
+      try {
+        final updatedLikes = await postsUseCase.likePost(postId);
+        emit(LikePostSuccess(updatedLikes, postId));
+      } catch (error) {
+        emit(LikePostError(error.toString()));
+        // Handle error if necessary
+      }
+    }
+  }
 
   // unlike post
   Future<void> unlikePost(int postId) async {
-  if (await isPostLiked(postId)){  try {
-     final updatedLikes = await postsUseCase.unlikePost(postId);
-      emit(UnlikePostSuccess(updatedLikes,postId));
-    } catch (error) {
-      emit(UnlikePostError(error.toString()));
-      // Handle error if necessary
-    }}
+    if (await isPostLiked(postId)) {
+      try {
+        final updatedLikes = await postsUseCase.unlikePost(postId);
+        emit(UnlikePostSuccess(updatedLikes, postId));
+      } catch (error) {
+        emit(UnlikePostError(error.toString()));
+        // Handle error if necessary
+      }
+    }
   }
 
   Future<bool> isPostLiked(int postId) async {
-    try{
-      final response= await postsUseCase.isPostLiked(postId);
-      emit(IsPostLikedSuccess(response));
+    try {
+      final response = await postsUseCase.isPostLiked(postId);
+      debugPrint(response.toString());
+      emit(IsPostLikedSuccess(response, postId));
       return response;
-    }catch(e){
+    } catch (e) {
       debugPrint(e.toString());
       emit(IsPostLikedError(e.toString()));
-      return false; 
+      return false;
     }
   }
 }

@@ -71,46 +71,54 @@ class PostItem extends StatelessWidget {
             BlocBuilder<PostsCubit, PostsState>(
               builder: (context, state) {
                 // Check if the state contains the likes data
-                bool isLiked = false; // Default to false
-                int likes =
-                    post.likes; // Initialize with the post's current likes
+                bool isLiked = false; 
+    int likes = post.likes; 
 
-                if (state is LikePostSuccess && state.postId == post.uId) {
-                  // Update likes count if the likes have been updated
-                  likes =
-                      state.likes;
-                                        isLiked = true;
- // Use the updated likes count from the state
-                } else if (state is IsPostLikedSuccess) {
-                  // Check if the post is liked in the initial state
-                  debugPrint(state.isLiked.toString());
-                  isLiked = state.isLiked;
-                }
+    // Update likes count if the post has been liked
+       if (state is IsPostLikedSuccess && state.postId == post.uId) {
+      isLiked = state.isLiked; // Update based on initial fetch
+    }
+    if (state is GetPostsSuccess) {
+      context.read<PostsCubit>().isPostLiked(post.uId);
+    }
+
+    // Update likes count and isLiked after liking the post
+    if (state is LikePostSuccess && state.postId == post.uId) {
+      likes = state.likes; // Use the updated likes count
+      isLiked = true; // Ensure the UI shows the post is liked
+    }
+
+    // Update likes count and isLiked after unliking the post
+    if (state is UnlikePostSuccess && state.postId == post.uId) {
+      likes = state.likes; // Use the updated likes count
+      isLiked = false; // Ensure the UI shows the post is not liked
+    }
 
                 return Row(
                   children: [
                     IconButton(
                       onPressed: () async {
-                        if (isLiked) {
-                          debugPrint(isLiked.toString());
-                          await context.read<PostsCubit>().unlikePost(post.uId);
-                        } else {
-                          debugPrint(isLiked.toString());
-                          await context
-                              .read<PostsCubit>()
-                              .likePostAndUpdateState(post.uId);
-                        }
-                        // The UI will automatically update due to BlocBuilder
-                      },
+                      
+                      if (isLiked) {
+                        await context.read<PostsCubit>().unlikePost(post.uId);
+
+                      } else {
+                        await context.read<PostsCubit>().likePostAndUpdateState(post.uId);
+
+                          }
+                                     debugPrint(isLiked.toString());
+                                      },
                       icon: Icon(
                         Icons.favorite,
                         color: isLiked ? Colors.red : Colors.grey,
                       ),
                     ),
-                   likes == 0 ? Container() : Text(
-                      likes.toString(),
-                      style: TextStyles.font12LighterBrownBold,
-                    ),
+                    likes == 0
+                        ? Container()
+                        : Text(
+                            likes.toString(),
+                            style: TextStyles.font12LighterBrownBold,
+                          ),
                     8.ph,
                     IconButton(
                       onPressed: () {
@@ -118,28 +126,30 @@ class PostItem extends StatelessWidget {
                       },
                       icon: const Icon(Icons.comment),
                     ),
-                post.comments == 0 ? Container() :    Text(
-                      post.comments.toString(),
-                      style: TextStyles.font12LighterBrownBold,
-                    ),
+                    post.comments == 0
+                        ? Container()
+                        : Text(
+                            post.comments.toString(),
+                            style: TextStyles.font12LighterBrownBold,
+                          ),
                     8.ph,
-                  
                     IconButton(
                       onPressed: () {},
                       icon: const Icon(Icons.share),
-                    ),  
-                       const Spacer(),  Text(
+                    ),
+                    const Spacer(),
+                    Text(
                       formatPostTime(post.creatdAt),
                       style: TextStyles.font12LighterBrownBold,
                     ),
-               
                   ],
                 );
               },
-            )
+            ),
           ],
         ),
       ),
     );
+
   }
 }

@@ -101,8 +101,9 @@ final class UnlikePostError extends PostsState {
 final class IsPostLikedSuccess extends PostsState {
 
   final bool isLiked; 
+  final int postId;
 
-  IsPostLikedSuccess(this.isLiked);
+  IsPostLikedSuccess(this.isLiked, this.postId);
 
 }
 
