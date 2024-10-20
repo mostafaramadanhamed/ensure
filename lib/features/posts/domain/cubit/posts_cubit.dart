@@ -14,7 +14,6 @@ class PostsCubit extends Cubit<PostsState> {
   final TextEditingController textController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final SupabaseClient supabaseClient = Supabase.instance.client;
-  bool isLiked = false;
 
   // add post
   Future<void> addPost() async {
@@ -92,28 +91,37 @@ class PostsCubit extends Cubit<PostsState> {
   }
 
   // like post
-  Future<void> likePost(int postId) async {
-    try {
-      await postsUseCase.likePost(postId);
-      emit(LikePostSuccess());
-      isLiked = true;
-     getPosts();
-    } catch (e) {
-      debugPrint(e.toString());
-      emit(LikePostError(e.toString()));
-    }
-  }
+  Future<void> likePostAndUpdateState(int postId) async {
+if (!await isPostLiked(postId)){  try {
+    final updatedLikes = await postsUseCase.likePost(postId);
+    emit(LikePostSuccess( updatedLikes,postId));
+  } catch (error) {
+    emit(LikePostError(error.toString()));
+    // Handle error if necessary
+  }}
+}
+
 
   // unlike post
   Future<void> unlikePost(int postId) async {
-    try {
-      await postsUseCase.unlikePost(postId);
-      emit(UnlikePostSuccess());
-      isLiked = false;
-      getPosts();
-    } catch (e) {
+  if (await isPostLiked(postId)){  try {
+     final updatedLikes = await postsUseCase.unlikePost(postId);
+      emit(UnlikePostSuccess(updatedLikes,postId));
+    } catch (error) {
+      emit(UnlikePostError(error.toString()));
+      // Handle error if necessary
+    }}
+  }
+
+  Future<bool> isPostLiked(int postId) async {
+    try{
+      final response= await postsUseCase.isPostLiked(postId);
+      emit(IsPostLikedSuccess(response));
+      return response;
+    }catch(e){
       debugPrint(e.toString());
-      emit(UnlikePostError(e.toString()));
+      emit(IsPostLikedError(e.toString()));
+      return false; 
     }
   }
 }

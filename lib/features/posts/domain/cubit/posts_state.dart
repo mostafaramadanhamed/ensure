@@ -64,21 +64,14 @@ final class DeletePostError extends PostsState {
 // get profile pic states
 
 
-final class GetProfilePicSuccess extends PostsState {
-  
-}
-
-final class GetProfilePicError extends PostsState {
-
-  final String message;
-
-  GetProfilePicError(this.message);
-}
 
 // like post states
 
 final class LikePostSuccess extends PostsState {
+final int likes;
+final int postId;
 
+  LikePostSuccess(this.likes, this.postId);
 }
 
 final class LikePostError extends PostsState {  
@@ -91,7 +84,9 @@ final class LikePostError extends PostsState {
 // unlike post states
 
 final class UnlikePostSuccess extends PostsState {
-
+final int likes;
+final int postId;
+  UnlikePostSuccess(this.likes, this.postId);
 }
 
 final class UnlikePostError extends PostsState {
@@ -99,4 +94,21 @@ final class UnlikePostError extends PostsState {
   final String message;
 
   UnlikePostError(this.message);
+}
+
+// is post liked states
+
+final class IsPostLikedSuccess extends PostsState {
+
+  final bool isLiked; 
+
+  IsPostLikedSuccess(this.isLiked);
+
+}
+
+final class IsPostLikedError extends PostsState { 
+
+  final String message; 
+
+  IsPostLikedError(this.message);
 }

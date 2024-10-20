@@ -1,14 +1,27 @@
 import 'package:ensure/core/helpers/spacing_extension.dart';
 import 'package:ensure/features/posts/ui/widgets/posts_bloc_builder.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../stories/ui/widgets/stories_list_view.dart';
+import '../domain/cubit/posts_cubit.dart';
 import 'widgets/app_title_messages_top_bar.dart';
 
-class PostsScreen extends StatelessWidget {
+class PostsScreen extends StatefulWidget {
   const PostsScreen({super.key});
 
+  @override
+  State<PostsScreen> createState() => _PostsScreenState();
+}
+
+class _PostsScreenState extends State<PostsScreen> {
+  @override
+  void initState() {
+    super.initState();
+
+    context.read<PostsCubit>().getPosts();
+  }
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(

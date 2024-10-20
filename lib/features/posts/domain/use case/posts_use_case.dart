@@ -26,11 +26,16 @@ class PostsUseCase {
     return postsRepo.deletePost(post);
   } 
 
-  Future<void> likePost(int postId) async {
+  Future<int> likePost(int postId) async {
     return postsRepo.likePost(postId);
   }
 
-  Future<void> unlikePost(int postId) async {
+  Future<int> unlikePost(int postId) async {
     return postsRepo.unlikePost(postId);
+  }
+             
+
+  Future<bool> isPostLiked(int postId) async {
+    return postsRepo.isPostLiked(postId);
   }
 }

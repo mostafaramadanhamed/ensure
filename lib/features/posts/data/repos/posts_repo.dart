@@ -13,7 +13,10 @@ abstract class PostsRepo {
   Future  <void> deletePost(PostModel post);
 
 
-  Future<void> likePost(int postId);
+  Future<int> likePost(int postId);
 
-  Future<void> unlikePost(int postId);
+  Future<int> unlikePost(int postId);
+
+  Future<bool> isPostLiked(int postId);
+
 }

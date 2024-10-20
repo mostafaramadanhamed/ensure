@@ -25,17 +25,18 @@ class PostsRepoImpl implements PostsRepo {
   }
 
   @override
+  @override
   Future<void> addPost(PostModel post) async {
     await supabaseClient.from('posts').insert(
       {
         'author_name':
             supabaseClient.auth.currentUser?.userMetadata!['Display name'],
-        'author_profile_pic': supabaseClient.auth.currentUser?.userMetadata!['profile_pic'],
+        'author_profile_pic':
+            supabaseClient.auth.currentUser?.userMetadata!['profile_pic'],
         'author_id': supabaseClient.auth.currentUser?.id,
         'text': post.text,
         'custom_id': post.uId,
         'content': post.content,
-        
         'created_at': DateTime.now().toIso8601String(),
         'likes': post.likes,
         'comments': post.comments,
@@ -62,21 +63,25 @@ class PostsRepoImpl implements PostsRepo {
   }
 
   @override
-  
-
   @override
-  Future<void> likePost(int postId) async {
+  Future<int> likePost(int postId) async {
     final userId = supabaseClient.auth.currentUser?.id;
     await supabaseClient.from('likes').insert({
       'post_id': postId, // Use the generated post ID
       'user_id': userId, // Use the current user's ID
     });
     await supabaseClient.rpc('increment_likes', params: {'post_id': postId});
-   
+    final response = await supabaseClient
+        .from('posts') // Assuming you have a 'posts' table
+        .select('likes') // Adjust the column name if necessary
+        .eq('custom_id', postId)
+        .single();
+
+    return response['likes'];
   }
 
   @override
-  Future<void> unlikePost(int postId) async {
+  Future<int> unlikePost(int postId) async {
     final userId = supabaseClient.auth.currentUser?.id;
     await supabaseClient
         .from('likes')
@@ -86,6 +91,23 @@ class PostsRepoImpl implements PostsRepo {
 
     await supabaseClient.rpc('decrement_likes', params: {'post_id': postId});
 
-  
+    final response = await supabaseClient
+        .from('posts') // Assuming you have a 'posts' table
+        .select('likes') // Adjust the column name if necessary
+        .eq('custom_id', postId)
+        .single();
+
+    return response['likes'];
+  }
+
+  @override
+  Future<bool> isPostLiked(int postId) async {
+    final userId = supabaseClient.auth.currentUser?.id;
+    final response = await supabaseClient
+        .from('likes')
+        .select('*')
+        .eq('post_id', postId)
+        .eq('user_id', userId.toString());
+    return response.isNotEmpty;
   }
 }
