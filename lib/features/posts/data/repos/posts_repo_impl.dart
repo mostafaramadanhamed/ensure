@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../../../core/network/supabase_constants.dart';
 import '../models/post_model.dart';
 import 'posts_repo.dart';
 
@@ -110,4 +113,33 @@ class PostsRepoImpl implements PostsRepo {
         .eq('user_id', userId.toString());
     return response.isNotEmpty;
   }
+  @override
+  Future<void> savePostPic(File profilePic,int postId) async {
+    try {
+   await supabaseClient.storage.from(SupabaseConstants.profileBucket).upload(
+          'PostsPictures/${supabaseClient.auth.currentUser!.id}/$postId', profilePic,
+          fileOptions: const FileOptions(upsert: true));
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+ 
+ // get profile pic
+ 
+String getProfilePic(int postId) { 
+   try {
+     final response =  supabaseClient.storage
+         .from(SupabaseConstants.profileBucket)
+         .getPublicUrl('PostsPictures/${supabaseClient.auth.currentUser!.id}/$postId');
+     return response;
+   } catch (e) {
+     throw Exception(e);
+   }
+ 
+  }
+
+  
+
+
+
 }
