@@ -47,7 +47,7 @@ class AppTextFormField extends StatelessWidget {
       maxLength: maxLength,
       keyboardType: keyboardType ?? TextInputType.text,
       controller: controller,
-      maxLines: maxLines ?? 1,
+      maxLines: maxLines ,
       validator: (value) {
         return validator?.call(value);
       },

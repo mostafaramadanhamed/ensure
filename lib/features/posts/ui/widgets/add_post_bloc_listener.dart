@@ -21,6 +21,7 @@ class AddPostBlocListener extends StatelessWidget {
         if (state is AddPostLoading) {
           setupLoadingState(context);
         } else if (state is AddPostSuccess) {
+          setupSuccessState(context);
         } else if (state is AddPostError) {
           setupErrorState(context, state.message);
         }
