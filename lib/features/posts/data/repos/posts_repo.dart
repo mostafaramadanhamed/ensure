@@ -21,7 +21,7 @@ abstract class PostsRepo {
 
   Future<bool> isPostLiked(int postId);
 
-  Future<void> savePostPic( File postPic, int postId);
+  Future<String> savePostPic( File postPic, int postId);
 
   //Future<void> setPostPic(int postId);
 
