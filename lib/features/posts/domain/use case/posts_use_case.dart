@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import '../../data/models/post_model.dart';
 import '../../data/repos/posts_repo.dart';
 
@@ -38,4 +40,10 @@ class PostsUseCase {
   Future<bool> isPostLiked(int postId) async {
     return postsRepo.isPostLiked(postId);
   }
+
+  Future<String> savePostPic(File postPic,int postId) async {
+    return postsRepo.savePostPic(postPic, postId);
+  }
+
+  
 }
