@@ -1,3 +1,4 @@
+import 'package:ensure/core/helpers/format_text_helper.dart';
 import 'package:ensure/core/helpers/navigation_extension.dart';
 import 'package:ensure/core/helpers/spacing_extension.dart';
 import 'package:ensure/features/posts/data/models/post_model.dart';
@@ -55,20 +56,27 @@ class PostItem extends StatelessWidget {
                   onTap: () {}, child: const Icon(Icons.more_horiz_rounded)),
             ),
             20.ph,
-            Text(
-              post.text,
-              style: TextStyles.font15SemiBold,
+            GestureDetector(
+              onTap: () {
+                
+              },
+              child: Text(
+                formatText(post.text),
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyles.font15SemiBold,
+              ),
             ),
             20.ph,
             post.content == ''
                 ? Container()
                 : Center(
-                  child: ClipRRect(
+                    child: ClipRRect(
                       borderRadius: BorderRadius.circular(16.0.r),
                       child: Image.network(post.content,
-                          height: 250.h, fit: BoxFit.fitHeight),
+                          height: 180.h, fit: BoxFit.cover),
                     ),
-                ),
+                  ),
             14.ph,
             BlocBuilder<PostsCubit, PostsState>(
               builder: (context, state) {
