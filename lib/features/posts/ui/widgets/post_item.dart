@@ -62,11 +62,13 @@ class PostItem extends StatelessWidget {
             20.ph,
             post.content == ''
                 ? Container()
-                : ClipRRect(
-                    borderRadius: BorderRadius.circular(16.0.r),
-                    child: Image.network('https://picsum.photos/400/300',
-                        fit: BoxFit.cover),
-                  ),
+                : Center(
+                  child: ClipRRect(
+                      borderRadius: BorderRadius.circular(16.0.r),
+                      child: Image.network(post.content,
+                          height: 250.h, fit: BoxFit.fitHeight),
+                    ),
+                ),
             14.ph,
             BlocBuilder<PostsCubit, PostsState>(
               builder: (context, state) {
@@ -120,14 +122,10 @@ class PostItem extends StatelessWidget {
                           ),
                     8.ph,
                     IconButton(
-                      onPressed: ()  {
-                      context
-                            .pushNamed(Routes.comments, arguments: post.uId);
-                      
-                          context
-                              .read<PostsCubit>()
-                              .getPosts(); // Refresh posts
-                        
+                      onPressed: () {
+                        context.pushNamed(Routes.comments, arguments: post.uId);
+
+                        context.read<PostsCubit>().getPosts(); // Refresh posts
                       },
                       icon: const Icon(Icons.comment),
                     ),
