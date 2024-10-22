@@ -75,9 +75,15 @@ class PostItem extends StatelessWidget {
                             value: 'Delete',
                             child: const Text('Delete',
                                 style: TextStyle(color: Colors.red)),
-                            onTap: () =>
-                                context.read<PostsCubit>().deletePost(post.uId),
-                          )
+                            onTap: () {
+                              context.read<PostsCubit>().deletePost(post.uId);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('Post Deleted'),
+                                ),
+                              );
+                            
+                            })
                         : const PopupMenuItem(
                             value: 'Unfollow',
                             child: Text('Unfollow'),
