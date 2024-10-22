@@ -74,11 +74,7 @@ class AddPostBlocListener extends StatelessWidget {
       title: const Text('Post Added Successful'),
       actions: <Widget>[
         TextButton(
-          // style: TextButton.styleFrom(
-          //   foregroundColor: Colors.white,
-          //   backgroundColor: Colors.blue,
-          //   disabledForegroundColor: Colors.grey,
-          // ),
+        
           onPressed: () {
             selectedIndex = 0;
             context.pushNamed(Routes.home);

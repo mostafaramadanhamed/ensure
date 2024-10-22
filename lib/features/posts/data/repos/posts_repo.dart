@@ -12,7 +12,7 @@ abstract class PostsRepo {
 
   Future<void> updatePost(PostModel post);
 
-  Future  <void> deletePost(PostModel post);
+  Future  <void> deletePost(int postId);
 
 
   Future<int> likePost(int postId);

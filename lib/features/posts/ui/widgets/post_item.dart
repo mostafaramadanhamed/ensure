@@ -52,14 +52,42 @@ class PostItem extends StatelessWidget {
                         ),
                         fit: BoxFit.cover)),
               ),
-              trailing: GestureDetector(
-                  onTap: () {}, child: const Icon(Icons.more_horiz_rounded)),
+              trailing: PopupMenuButton(itemBuilder: (context) {
+                      return [
+                       context.read<PostsCubit>().isuser(post.authorId) ? const PopupMenuItem(
+                          value: 'Edit',
+                          child: Text('Edit'),
+                        ): const PopupMenuItem(
+                          value: 'About this account',
+                          child: Text('Edit'),
+                          
+                        ),
+                      context.read<PostsCubit>().isuser(post.authorId) ?    PopupMenuItem(
+                          value: 'Delete',
+                          child: const Text('Delete',
+                              style: TextStyle(color: Colors.red)),
+                          onTap: () => context.read<PostsCubit>().deletePost(post.uId),
+                        ): const PopupMenuItem(
+                          value: 'Unfollow',
+                          child: Text('Unfollow'),
+                        ),
+                        const PopupMenuItem(
+                          value: 'Report',
+                          child: Text('Report',
+                              style: TextStyle(color: Colors.red)), 
+                        ),
+                      
+
+                      ];
+                    },
+                    
+                    
+                    ),
+                
             ),
             20.ph,
             GestureDetector(
-              onTap: () {
-                
-              },
+              onTap: () {},
               child: Text(
                 formatText(post.text),
                 maxLines: 3,

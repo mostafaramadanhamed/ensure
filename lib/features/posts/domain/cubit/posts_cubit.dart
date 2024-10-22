@@ -104,13 +104,17 @@ class PostsCubit extends Cubit<PostsState> {
           SupanbaseExceptionHandler.parseException(e.toString()).message));
     }
   }
-
+// add popup menu for delete 
+bool isuser(String userId){
+  return userId == supabaseClient.auth.currentUser!.id;
+}
   // delete post
-  Future<void> deletePost(PostModel post) async {
+  Future<void> deletePost(int postId) async {
     emit(DeletePostLoading());
     try {
-      await postsUseCase.deletePost(post);
+      await postsUseCase.deletePost(postId);
       emit(DeletePostSuccess());
+      getPosts();
     } catch (e) {
       emit(DeletePostError(
           SupanbaseExceptionHandler.parseException(e.toString()).message));

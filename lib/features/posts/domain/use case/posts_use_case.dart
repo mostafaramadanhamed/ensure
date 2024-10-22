@@ -24,8 +24,8 @@ class PostsUseCase {
     return postsRepo.updatePost(post);
   }
 
-  Future<void> deletePost(PostModel post) async {
-    return postsRepo.deletePost(post);
+  Future<void> deletePost(int postId) async {
+    return postsRepo.deletePost(postId);
   } 
 
   Future<int> likePost(int postId) async {

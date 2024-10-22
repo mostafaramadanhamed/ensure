@@ -1,4 +1,3 @@
-import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:ensure/core/helpers/navigation_extension.dart';
 import 'package:ensure/core/helpers/spacing_extension.dart';
 import 'package:ensure/core/utils/constants.dart';
@@ -11,7 +10,6 @@ import '../../../core/theme/text_styles.dart';
 import '../../../core/widgets/app_text_button.dart';
 import '../../../core/widgets/app_text_filed.dart';
 import '../domain/cubit/posts_cubit.dart';
-import '../domain/cubit/posts_state.dart';
 import 'widgets/add_post_bloc_listener.dart';
 
 class AddPost extends StatelessWidget {
@@ -24,9 +22,7 @@ class AddPost extends StatelessWidget {
       child: SingleChildScrollView(
         child: Form(
           key: context.read<PostsCubit>().formKey,
-          child:      BlocBuilder<PostsCubit, PostsState>(
-            builder: (context, state) {
-              return Column(
+          child:    Column(
                 children: [
                   35.ph,
                   Text('Add Post', style: TextStyles.font20SemiBold),
@@ -85,15 +81,14 @@ class AddPost extends StatelessWidget {
                         },
                         buttonHeight: 55.h,
                       )),
-                    ],
+                const AddPostBlocListener()  
+                  ],   
                   ),
 
                   20.ph,
-                  const AddPostBlocListener()
+               
                 ],
-              );
-            },
-          ),
+              ),
         ),
       ),
     );
