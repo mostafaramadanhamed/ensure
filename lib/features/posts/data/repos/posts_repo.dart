@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import '../models/post_model.dart';
 
 abstract class PostsRepo {
@@ -10,7 +12,7 @@ abstract class PostsRepo {
 
   Future<void> updatePost(PostModel post);
 
-  Future  <void> deletePost(PostModel post);
+  Future  <void> deletePost(int postId);
 
 
   Future<int> likePost(int postId);
@@ -18,5 +20,9 @@ abstract class PostsRepo {
   Future<int> unlikePost(int postId);
 
   Future<bool> isPostLiked(int postId);
+
+  Future<String> savePostPic( File postPic, int postId);
+
+  //Future<void> setPostPic(int postId);
 
 }

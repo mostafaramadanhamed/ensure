@@ -1,3 +1,4 @@
+import 'package:ensure/core/helpers/format_text_helper.dart';
 import 'package:ensure/core/helpers/navigation_extension.dart';
 import 'package:ensure/core/helpers/spacing_extension.dart';
 import 'package:ensure/features/posts/data/models/post_model.dart';
@@ -51,21 +52,70 @@ class PostItem extends StatelessWidget {
                         ),
                         fit: BoxFit.cover)),
               ),
-              trailing: GestureDetector(
-                  onTap: () {}, child: const Icon(Icons.more_horiz_rounded)),
+              trailing: PopupMenuButton(
+                itemBuilder: (context) {
+                  return [
+                    context.read<PostsCubit>().isuser(post.authorId)
+                        ? PopupMenuItem(
+                            value: 'Edit',
+                            child: const Text('Edit'),
+                            onTap: () {
+                              context.pushNamed(
+                                Routes.editPost,
+                                arguments: post,
+                              );
+                            },
+                          )
+                        : const PopupMenuItem(
+                            value: 'About this account',
+                            child: Text('Edit'),
+                          ),
+                    context.read<PostsCubit>().isuser(post.authorId)
+                        ? PopupMenuItem(
+                            value: 'Delete',
+                            child: const Text('Delete',
+                                style: TextStyle(color: Colors.red)),
+                            onTap: () {
+                              context.read<PostsCubit>().deletePost(post.uId);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('Post Deleted'),
+                                ),
+                              );
+                            
+                            })
+                        : const PopupMenuItem(
+                            value: 'Unfollow',
+                            child: Text('Unfollow'),
+                          ),
+                    const PopupMenuItem(
+                      value: 'Report',
+                      child:
+                          Text('Report', style: TextStyle(color: Colors.red)),
+                    ),
+                  ];
+                },
+              ),
             ),
             20.ph,
-            Text(
-              post.text,
-              style: TextStyles.font15SemiBold,
+            GestureDetector(
+              onTap: () {},
+              child: Text(
+                formatText(post.text),
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyles.font15SemiBold,
+              ),
             ),
             20.ph,
             post.content == ''
                 ? Container()
-                : ClipRRect(
-                    borderRadius: BorderRadius.circular(16.0.r),
-                    child: Image.network('https://picsum.photos/400/300',
-                        fit: BoxFit.cover),
+                : Center(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(16.0.r),
+                      child: Image.network(post.content,
+                          height: 180.h, fit: BoxFit.cover),
+                    ),
                   ),
             14.ph,
             BlocBuilder<PostsCubit, PostsState>(
@@ -120,14 +170,10 @@ class PostItem extends StatelessWidget {
                           ),
                     8.ph,
                     IconButton(
-                      onPressed: ()  {
-                      context
-                            .pushNamed(Routes.comments, arguments: post.uId);
-                      
-                          context
-                              .read<PostsCubit>()
-                              .getPosts(); // Refresh posts
-                        
+                      onPressed: () {
+                        context.pushNamed(Routes.comments, arguments: post.uId);
+
+                        context.read<PostsCubit>().getPosts(); // Refresh posts
                       },
                       icon: const Icon(Icons.comment),
                     ),

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:ensure/core/network/auth_exception_handler.dart';
 import 'package:ensure/core/utils/methods.dart';
 import 'package:ensure/features/posts/data/models/post_model.dart';
@@ -14,6 +16,30 @@ class PostsCubit extends Cubit<PostsState> {
   final TextEditingController textController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final SupabaseClient supabaseClient = Supabase.instance.client;
+  File? image;
+  String ? content;
+  // save post pic
+  Future<String> savePostPic(
+      {required File postPic, }) async {
+    try {
+    final response= await postsUseCase.savePostPic(postPic, getCurrentTimeInMillis(DateTime.now()));
+      content = response;  
+      debugPrint(response.toString());
+      debugPrint(content.toString());
+
+  return response;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  void selectImage(context,) async {
+    image = await pickImageFromGallery(context);
+    if (image != null) {
+      await savePostPic(postPic: image!,);
+    }
+  }
+
   // add post
   Future<void> addPost() async {
     emit(AddPostLoading());
@@ -24,13 +50,15 @@ class PostsCubit extends Cubit<PostsState> {
         text: textController.text,
         authorId: supabaseClient.auth.currentUser!.id,
         uId: getCurrentTimeInMillis(DateTime.now()),
-        content: '',
+        content:content??'',
         likes: 0,
         comments: 0,
         authorName:
             supabaseClient.auth.currentUser!.userMetadata!['Display name'],
         creatdAt: DateTime.now(),
       ));
+      textController.clear();
+      image = null;
 
       emit(AddPostSuccess());
     } catch (e) {
@@ -71,18 +99,23 @@ class PostsCubit extends Cubit<PostsState> {
     try {
       await postsUseCase.updatePost(post);
       emit(UpdatePostSuccess());
+      getPosts();
     } catch (e) {
       emit(UpdatePostError(
-          SupanbaseExceptionHandler.parseException(e.toString()).message));
+          e.toString()));
     }
   }
-
+// add popup menu for delete 
+bool isuser(String userId){
+  return userId == supabaseClient.auth.currentUser!.id;
+}
   // delete post
-  Future<void> deletePost(PostModel post) async {
+  Future<void> deletePost(int postId) async {
     emit(DeletePostLoading());
     try {
-      await postsUseCase.deletePost(post);
+      await postsUseCase.deletePost(postId);
       emit(DeletePostSuccess());
+      getPosts();
     } catch (e) {
       emit(DeletePostError(
           SupanbaseExceptionHandler.parseException(e.toString()).message));

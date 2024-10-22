@@ -1,5 +1,4 @@
 import 'package:ensure/core/helpers/navigation_extension.dart';
-import 'package:ensure/core/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -9,20 +8,23 @@ import '../../../../core/theme/text_styles.dart';
 import '../../domain/cubit/posts_cubit.dart';
 import '../../domain/cubit/posts_state.dart';
 
-class AddPostBlocListener extends StatelessWidget {
-  const AddPostBlocListener({super.key});
+class UpdatePostBlocListener extends StatelessWidget {
+  const UpdatePostBlocListener({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocListener<PostsCubit, PostsState>(
       listenWhen: (previous, current) =>
-          current is AddPostSuccess || current is AddPostError,
+          current is UpdatePostSuccess ||
+          current is UpdatePostLoading ||
+          current is UpdatePostError,
       listener: (context, state) {
-        if (state is AddPostLoading) {
+        if (state is UpdatePostLoading) {
           setupLoadingState(context);
-        } else if (state is AddPostSuccess) {
+        }  if (state is UpdatePostSuccess) {
+          context.pop(); 
           setupSuccessState(context);
-        } else if (state is AddPostError) {
+        }  if (state is UpdatePostError) {
           setupErrorState(context, state.message);
         }
       },
@@ -74,14 +76,12 @@ class AddPostBlocListener extends StatelessWidget {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text('Post Added Successful'),
+          title: const Text('Post Updated Successful'),
           actions: <Widget>[
             TextButton(
-            
               onPressed: () {
-                   selectedIndex = 0;
-                            context.pushNamed(Routes.home);
-                            context.read<PostsCubit>().getPosts();
+               
+                context.pushNamed(Routes.home);
               },
               child: const Text('Continue'),
             ),
