@@ -21,10 +21,11 @@ class AppTextFormField extends StatelessWidget {
   final TextInputType? keyboardType;
   final int? maxLines;
   final int? maxLength;
-
+  final Function(String)? onChanged;
   const AppTextFormField({
     super.key,
     this.maxLength,
+    this.onChanged,
     this.contentPadding,
     this.maxLines,
     this.focusedBorder,
@@ -44,6 +45,7 @@ class AppTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onChanged: onChanged,
       maxLength: maxLength,
       keyboardType: keyboardType ?? TextInputType.text,
       controller: controller,

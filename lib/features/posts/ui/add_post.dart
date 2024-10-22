@@ -74,9 +74,7 @@ class AddPost extends StatelessWidget {
                               .currentState!
                               .validate()) {
                             context.read<PostsCubit>().addPost();
-                            selectedIndex = 0;
-                            context.pushNamed(Routes.home);
-                            context.read<PostsCubit>().getPosts();
+                          
                           }
                         },
                         buttonHeight: 55.h,

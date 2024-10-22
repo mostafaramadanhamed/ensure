@@ -3,6 +3,7 @@ import 'package:ensure/core/routing/routes.dart';
 import 'package:ensure/features/home/ui/home_screen.dart';
 import 'package:ensure/features/login/ui/login_screen.dart';
 import 'package:ensure/features/onboarding/ui/onboarding_screen.dart';
+import 'package:ensure/features/posts/data/models/post_model.dart';
 import 'package:ensure/features/posts/domain/cubit/posts_cubit.dart';
 import 'package:ensure/features/sign%20up/domain/cubit/sign_up_cubit.dart';
 import 'package:ensure/features/sign%20up/ui/signup_screen.dart';
@@ -13,6 +14,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../features/login/domain/cubit/cubit/login_cubit.dart';
 import '../../features/comments/domain/cubit/comments_cubit.dart';
 import '../../features/comments/ui/comments_screen.dart';
+import '../../features/posts/ui/edit_post.dart';
 import '../../features/profile/ui/profile_screen.dart';
 import '../../features/setup profile/domain/cubit/setup_profile_cubit.dart';
 import '../../features/setup profile/ui/setup_profile.dart';
@@ -42,7 +44,7 @@ class AppRouter {
       case Routes.home:
         return MaterialPageRoute(
             builder: (context) => BlocProvider(
-              lazy: false,
+                  lazy: false,
                   create: (context) => getIt<PostsCubit>(),
                   child: const HomeScreen(),
                 ));
@@ -70,6 +72,18 @@ class AppRouter {
                   create: (context) => getIt<SetupProfileCubit>(),
                   child: const SetupProfileScreen(),
                 ));
+
+      case Routes.editPost:
+        return MaterialPageRoute(builder: (context) {
+          // declare the arguments
+          PostModel postModel = args as PostModel;
+          return BlocProvider.value(
+            value: getIt<PostsCubit>(), 
+            child: EditPost(
+              post: postModel,
+            ),
+          );
+        });
 
       default:
         return null;

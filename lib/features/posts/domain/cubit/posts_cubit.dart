@@ -99,9 +99,10 @@ class PostsCubit extends Cubit<PostsState> {
     try {
       await postsUseCase.updatePost(post);
       emit(UpdatePostSuccess());
+      getPosts();
     } catch (e) {
       emit(UpdatePostError(
-          SupanbaseExceptionHandler.parseException(e.toString()).message));
+          e.toString()));
     }
   }
 // add popup menu for delete 
