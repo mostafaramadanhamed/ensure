@@ -68,7 +68,7 @@ class PostItem extends StatelessWidget {
                           )
                         : const PopupMenuItem(
                             value: 'About this account',
-                            child: Text('Edit'),
+                            child: Text('About this account'),
                           ),
                     context.read<PostsCubit>().isuser(post.authorId)
                         ? PopupMenuItem(
@@ -114,7 +114,9 @@ class PostItem extends StatelessWidget {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(16.0.r),
                       child: Image.network(post.content,
-                          height: 180.h, fit: BoxFit.cover),
+                          width: double.infinity,
+                          height: 180.h, 
+                          fit: BoxFit.cover),
                     ),
                   ),
             14.ph,
