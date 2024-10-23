@@ -8,11 +8,18 @@ class SignUpRepositoryImpl implements SignUpRepository {
   @override
   Future<void> signUp(UserModel user) async {
     try {
-    await supabase.auth.signUp(
-          email: user.email,
-          password: user.password,
-          data: {'Display name': user.name, 'phone': user.phone,'bio':user.bio,'profile_pic':user.profilePic},);
-      
+      await supabase.auth.signUp(
+        email: user.email,
+        password: user.password,
+        data: {
+          'Display name': user.name,
+          'phone': user.phone,
+          'bio': user.bio,
+          'profile_pic': user.profilePic,
+          'followers': 0,
+          'following': 0,
+        },
+      );
     } catch (e) {
       throw Exception(e);
     }
