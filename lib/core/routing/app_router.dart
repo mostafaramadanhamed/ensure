@@ -15,6 +15,7 @@ import '../../features/login/domain/cubit/cubit/login_cubit.dart';
 import '../../features/comments/domain/cubit/comments_cubit.dart';
 import '../../features/comments/ui/comments_screen.dart';
 import '../../features/posts/ui/edit_post.dart';
+import '../../features/profile/domain/cubit/profile_cubit.dart';
 import '../../features/profile/ui/profile_screen.dart';
 import '../../features/setup profile/domain/cubit/setup_profile_cubit.dart';
 import '../../features/setup profile/ui/setup_profile.dart';
@@ -54,7 +55,14 @@ class AppRouter {
         return MaterialPageRoute(builder: (context) => const StoryScreen());
 
       case Routes.profile:
-        return MaterialPageRoute(builder: (context) => const ProfileScreen());
+        return MaterialPageRoute(builder: (context) {
+           String userId = args.toString();
+           debugPrint('user id: $userId');
+          return BlocProvider(
+            create: (context) => getIt<ProfileCubit>()..getProfile(userId),
+            child: const ProfileScreen(),
+          );
+        });
 
       case Routes.comments:
         return MaterialPageRoute(builder: (context) {
@@ -72,7 +80,7 @@ class AppRouter {
           UserModel user = args as UserModel;
           return BlocProvider(
             create: (context) => getIt<SetupProfileCubit>(),
-            child:  SetupProfileScreen(
+            child: SetupProfileScreen(
               user: user,
             ),
           );

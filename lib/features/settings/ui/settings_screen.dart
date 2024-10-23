@@ -44,13 +44,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
               physics: const BouncingScrollPhysics(),
               children: [
                 DisplayUserName(
-                  user: state.user,
+                  user: state.user 
                 ),
                 24.ph,
                 SettingItem(
                   title: 'Profile',
                   onTap: () {
-                    context.pushNamed(Routes.profile);
+                    context.pushNamed(
+                      Routes.profile,
+                      arguments: state.user['user_id'],
+                    );
+                    
                   },
                   widgetLeading: SvgPicture.asset(
                     Assets.profileIcon,

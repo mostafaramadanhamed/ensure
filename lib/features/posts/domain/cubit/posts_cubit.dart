@@ -17,26 +17,32 @@ class PostsCubit extends Cubit<PostsState> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final SupabaseClient supabaseClient = Supabase.instance.client;
   File? image;
-  String ? content;
+  String? content;
   // save post pic
-  Future<String> savePostPic(
-      {required File postPic, }) async {
+  Future<String> savePostPic({
+    required File postPic,
+  }) async {
     try {
-    final response= await postsUseCase.savePostPic(postPic, getCurrentTimeInMillis(DateTime.now()));
-      content = response;  
+      final response = await postsUseCase.savePostPic(
+          postPic, getCurrentTimeInMillis(DateTime.now()));
+      content = response;
       debugPrint(response.toString());
       debugPrint(content.toString());
 
-  return response;
+      return response;
     } catch (e) {
       throw Exception(e);
     }
   }
 
-  void selectImage(context,) async {
+  void selectImage(
+    context,
+  ) async {
     image = await pickImageFromGallery(context);
     if (image != null) {
-      await savePostPic(postPic: image!,);
+      await savePostPic(
+        postPic: image!,
+      );
     }
   }
 
@@ -50,7 +56,7 @@ class PostsCubit extends Cubit<PostsState> {
         text: textController.text,
         authorId: supabaseClient.auth.currentUser!.id,
         uId: getCurrentTimeInMillis(DateTime.now()),
-        content:content??'',
+        content: content ?? '',
         likes: 0,
         comments: 0,
         authorName:
@@ -101,14 +107,15 @@ class PostsCubit extends Cubit<PostsState> {
       emit(UpdatePostSuccess());
       getPosts();
     } catch (e) {
-      emit(UpdatePostError(
-          e.toString()));
+      emit(UpdatePostError(e.toString()));
     }
   }
-// add popup menu for delete 
-bool isuser(String userId){
-  return userId == supabaseClient.auth.currentUser!.id;
-}
+
+// add popup menu for delete
+  bool isuser(String userId) {
+    return userId == supabaseClient.auth.currentUser!.id;
+  }
+
   // delete post
   Future<void> deletePost(int postId) async {
     emit(DeletePostLoading());
@@ -122,17 +129,15 @@ bool isuser(String userId){
     }
   }
 
-// logout 
+// logout
   Future<void> logout() async {
     emit(LogoutLoading());
     try {
       await postsUseCase.logout();
       emit(LogoutSuccess());
     } catch (e) {
-      emit(LogoutError(
-         e.toString()));
+      emit(LogoutError(e.toString()));
     }
-
   }
 
   // get user details
@@ -140,13 +145,22 @@ bool isuser(String userId){
     emit(GetUserDetailsLoading());
     try {
       final user = await postsUseCase.getUserDetails();
-      emit(GetUserDetailsSuccess(user: user));
+      final result = {
+        'name': user['name'],
+        'email': user['email'],
+        'profile_pic': user['profile_pic'],
+        'user_id': supabaseClient.auth.currentUser!.id,
+      };
+      emit(GetUserDetailsSuccess(user: result));
+      debugPrint(result.toString());
+      debugPrint(user.toString());
       return user;
     } catch (e) {
       emit(GetUserDetailsError(e.toString()));
       return {};
     }
   }
+
   // like post
   Future<void> likePostAndUpdateState(int postId) async {
     if (!await isPostLiked(postId)) {
@@ -185,6 +199,4 @@ bool isuser(String userId){
       return false;
     }
   }
-
-
 }
