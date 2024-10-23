@@ -44,6 +44,13 @@ class PostsUseCase {
   Future<String> savePostPic(File postPic,int postId) async {
     return postsRepo.savePostPic(postPic, postId);
   }
+  
+  Future<Map<String, dynamic>> getUserDetails() async {
+    return postsRepo.getUserDetails();
+  }
 
+  Future<void> logout() async {
+    return postsRepo.logout();
+  }
   
 }

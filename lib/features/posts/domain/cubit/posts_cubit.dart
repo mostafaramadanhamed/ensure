@@ -122,6 +122,31 @@ bool isuser(String userId){
     }
   }
 
+// logout 
+  Future<void> logout() async {
+    emit(LogoutLoading());
+    try {
+      await postsUseCase.logout();
+      emit(LogoutSuccess());
+    } catch (e) {
+      emit(LogoutError(
+         e.toString()));
+    }
+
+  }
+
+  // get user details
+  Future<Map<String, dynamic>> getUserDetails() async {
+    emit(GetUserDetailsLoading());
+    try {
+      final user = await postsUseCase.getUserDetails();
+      emit(GetUserDetailsSuccess(user: user));
+      return user;
+    } catch (e) {
+      emit(GetUserDetailsError(e.toString()));
+      return {};
+    }
+  }
   // like post
   Future<void> likePostAndUpdateState(int postId) async {
     if (!await isPostLiked(postId)) {
@@ -160,4 +185,6 @@ bool isuser(String userId){
       return false;
     }
   }
+
+
 }

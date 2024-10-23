@@ -6,13 +6,15 @@ import '../../../../core/theme/colors.dart';
 import '../../../../core/theme/text_styles.dart';
 
 class DisplayUserName extends StatelessWidget {
+  final Map<String, dynamic> user;
   const DisplayUserName({
     super.key,
+    required this.user,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+ return Container(
       height: 120.h,
       width: double.infinity,
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
@@ -29,12 +31,14 @@ class DisplayUserName extends StatelessWidget {
           ]),
       child: Row(
         children: [
-          Container(
+       Container(
+              height: 120.h,
+              clipBehavior: Clip.antiAliasWithSaveLayer,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20.r),
                 color: AppColors.mistyRose,
               ),
-              child: Icon(
+              child:  user['profile_pic'] != null ? Image.network(user['profile_pic'],fit: BoxFit.cover) :  Icon(
                 Icons.person_outline_rounded,
                 size: 88.sp,
                 color: AppColors.coralPink,
@@ -44,9 +48,9 @@ class DisplayUserName extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               8.ph,
-              Text("Mostafa Ramadan", style: TextStyles.font17SemiBold),
+              Text(user['name'], style: TextStyles.font17SemiBold),
               Text(
-                "@mostafaramadan",
+                user['email'],
                 style: TextStyles.font15Regular,
               ),
             ],
