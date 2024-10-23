@@ -27,6 +27,7 @@ class LoginForm extends StatelessWidget {
             hintText: "Enter your email",
             controller: context.read<LoginCubit>().emailController,
             keyboardType: TextInputType.emailAddress,
+            maxLines: 1,
            
                validator: (value) {
            if (value == null ||
@@ -41,6 +42,7 @@ class LoginForm extends StatelessWidget {
             label: 'Password',
             hintText: "Enter your password",
             isObscureText: true,
+            maxLines: 1,
             controller: context.read<LoginCubit>().passwordController,
             keyboardType: TextInputType.visiblePassword,
             validator: (value) {
