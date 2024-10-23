@@ -14,4 +14,8 @@ class SetupProfileUseCase {
   Future<void> setProfilePic() async {
     await setupProfileRepo.setProfilePic();
   }
+
+  Future<void> setProfile() async {
+    await setupProfileRepo.setProfile();
+  }
 }

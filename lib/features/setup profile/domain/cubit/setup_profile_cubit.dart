@@ -31,4 +31,15 @@ class SetupProfileCubit extends Cubit<SetupProfileState> {
       await saveProfileInfo(profilePic: image!);
     }
   }
+
+  Future<void> setProfile() async {
+    emit(SetupProfileLoading());
+    try {
+      await setupProfileUseCase.setProfile();
+      emit(SetupProfileSuccess());
+    } catch (e) {
+      debugPrint(e.toString());
+      emit(SetupProfileError(e.toString()));
+    }
+  }
 }

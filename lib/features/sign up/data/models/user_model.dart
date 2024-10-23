@@ -5,9 +5,7 @@ class UserModel {
   final String password;
   final String bio;
   final String profilePic;
-  final int followers;
-  final int following;
-
+  
   UserModel({
     required this.profilePic,
     required this.name,
@@ -15,7 +13,6 @@ class UserModel {
     required this.phone,
     required this.password,
     required this.bio,
-    required this.followers,
-    required this.following,
+   
   });
 }
