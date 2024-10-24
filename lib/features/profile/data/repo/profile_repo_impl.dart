@@ -1,5 +1,6 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../../posts/data/models/post_model.dart';
 import '../models/profile_model.dart';
 import 'profile_repo.dart';
 
@@ -49,5 +50,15 @@ class ProfileRepoImpl implements ProfileRepo {
       'user_id': supabaseClient.auth.currentUser!.id,
       'following_id': userId
     });
+  }
+
+  @override
+  Future<List<PostModel>> getPostsByUserId(int userId) async {
+    final response = await supabaseClient
+        .from('posts')
+        .select()
+        .eq('user_id', userId)
+        .order('created_at', ascending: false);
+    return response.map((e) => PostModel.fromMap(e)).toList();
   }
 }

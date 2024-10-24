@@ -1,5 +1,7 @@
 import 'package:ensure/features/profile/data/models/profile_model.dart';
 
+import '../../../posts/data/models/post_model.dart';
+
 abstract class ProfileRepo {
   Future<ProfileModel> getProfile(String userId);
   
@@ -10,4 +12,7 @@ abstract class ProfileRepo {
   Future<void> setFollowing(int userId);
   Future<void> setFollower(int userId);
   
+  // get post by user id
+  Future<List<PostModel>> getPostsByUserId(int userId);
+ 
 }
