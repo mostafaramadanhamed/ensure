@@ -40,7 +40,14 @@ class PostItem extends StatelessWidget {
             12.ph,
             ListTile(
               contentPadding: EdgeInsets.zero,
-              title: Text(post.authorName, style: TextStyles.font15SemiBold),
+              title: GestureDetector(
+                onTap: () {
+                  context.pushNamed(
+                    Routes.profile,
+                    arguments: post.authorId,
+                  );
+                },
+                child: Text(post.authorName, style: TextStyles.font15SemiBold)),
               leading: Container(
                 height: 40.h,
                 width: 40.w,

@@ -8,13 +8,16 @@ import 'package:ensure/features/profile/domain/cubit/profile_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'widgets/content_tab_bar.dart';
 import 'widgets/posts_followers_counter.dart';
 import 'widgets/tab_bar_views.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+  const ProfileScreen({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -87,18 +90,33 @@ class ProfileScreen extends StatelessWidget {
                                           color: AppColors.lightBrown,
                                         )),
                                     8.ph,
-                                    AppTextButton(
-                                      buttonText: 'Edit Profile',
-                                      onPressed: () {},
-                                      buttonWidth: 200.w,
-                                      buttonHeight: 42.h,
-                                      textStyle:
-                                          TextStyles.font15SemiBold.copyWith(
-                                        color: AppColors.white,
-                                      ),
-                                      borderRadius: 25.r,
-                                      verticalPadding: 8,
-                                    )
+                                    Supabase.instance.client.auth.currentUser!
+                                                .id ==
+                                            profile.id
+                                        ? AppTextButton(
+                                            buttonText: 'Edit Profile',
+                                            onPressed: () {},
+                                            buttonWidth: 200.w,
+                                            buttonHeight: 42.h,
+                                            textStyle: TextStyles.font15SemiBold
+                                                .copyWith(
+                                              color: AppColors.white,
+                                            ),
+                                            borderRadius: 25.r,
+                                            verticalPadding: 8,
+                                          )
+                                        : AppTextButton(
+                                            buttonText: 'Follow',
+                                            onPressed: () {},
+                                            buttonWidth: 200.w,
+                                            buttonHeight: 42.h,
+                                            textStyle: TextStyles.font15SemiBold
+                                                .copyWith(
+                                              color: AppColors.white,
+                                            ),
+                                            borderRadius: 25.r,
+                                            verticalPadding: 8,
+                                          ),
                                   ],
                                 ),
                               ],

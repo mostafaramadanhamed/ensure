@@ -57,10 +57,11 @@ class AppRouter {
       case Routes.profile:
         return MaterialPageRoute(builder: (context) {
            String userId = args.toString();
+           
            debugPrint('user id: $userId');
           return BlocProvider(
             create: (context) => getIt<ProfileCubit>()..getProfile(userId),
-            child: const ProfileScreen(),
+            child:  const ProfileScreen(),
           );
         });
 
