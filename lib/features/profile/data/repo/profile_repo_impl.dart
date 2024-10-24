@@ -53,11 +53,11 @@ class ProfileRepoImpl implements ProfileRepo {
   }
 
   @override
-  Future<List<PostModel>> getPostsByUserId(int userId) async {
+  Future<List<PostModel>> getPostsByUserId(String userId) async {
     final response = await supabaseClient
         .from('posts')
         .select()
-        .eq('user_id', userId)
+        .eq('author_id', userId)
         .order('created_at', ascending: false);
     return response.map((e) => PostModel.fromMap(e)).toList();
   }

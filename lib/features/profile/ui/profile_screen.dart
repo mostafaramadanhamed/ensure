@@ -1,17 +1,17 @@
 import 'package:ensure/core/helpers/spacing_extension.dart';
-import 'package:ensure/core/theme/colors.dart';
-import 'package:ensure/core/theme/text_styles.dart';
-import 'package:ensure/core/widgets/app_text_button.dart';
-import 'package:ensure/features/profile/data/models/profile_model.dart';
-import 'package:ensure/features/profile/domain/cubit/profile_cubit.dart';
-import 'package:ensure/features/profile/domain/cubit/profile_state.dart';
+import 'package:ensure/features/profile/ui/widgets/content_tab_bar.dart';
+import 'package:ensure/features/profile/ui/widgets/posts_followers_counter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import 'widgets/content_tab_bar.dart';
-import 'widgets/posts_followers_counter.dart';
+import '../../../core/theme/colors.dart';
+import '../../../core/theme/text_styles.dart';
+import '../../../core/widgets/app_text_button.dart';
+import '../data/models/profile_model.dart';
+import '../domain/cubit/profile_cubit.dart';
+import '../domain/cubit/profile_state.dart';
 import 'widgets/tab_bar_views.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -21,6 +21,8 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final userId = Supabase.instance.client.auth.currentUser!.id;
+
     return DefaultTabController(
       length: 3,
       child: Scaffold(
@@ -32,10 +34,23 @@ class ProfileScreen extends StatelessWidget {
         ),
         body: BlocBuilder<ProfileCubit, ProfileState>(
           builder: (context, state) {
+            if (state is ProfileLoading) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            if (state is ProfileError) {
+              return Center(child: Text(state.message));
+            }
             if (state is ProfileSuccess) {
               ProfileModel profile = state.profile;
+
               return NestedScrollView(
-                body: const TabBarViews(),
+                body: BlocBuilder<ProfileCubit, ProfileState>(
+                  builder: (context, postState) {
+                    return TabBarViews(
+                      userId: profile.id,
+                    );
+                  },
+                ),
                 headerSliverBuilder:
                     (BuildContext context, bool innerBoxIsScrolled) {
                   return <Widget>[
@@ -47,7 +62,6 @@ class ProfileScreen extends StatelessWidget {
                             padding: EdgeInsets.symmetric(
                                 horizontal: 16.0.w, vertical: 16.0.h),
                             child: Row(
-                              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Container(
                                   height: 80.h,
@@ -90,9 +104,7 @@ class ProfileScreen extends StatelessWidget {
                                           color: AppColors.lightBrown,
                                         )),
                                     8.ph,
-                                    Supabase.instance.client.auth.currentUser!
-                                                .id ==
-                                            profile.id
+                                    userId == profile.id
                                         ? AppTextButton(
                                             buttonText: 'Edit Profile',
                                             onPressed: () {},
@@ -137,14 +149,8 @@ class ProfileScreen extends StatelessWidget {
                 },
               );
             }
-            if (state is ProfileError) {
-              return Center(
-                child: Text(state.message),
-              );
-            }
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+
+            return const SizedBox.shrink();
           },
         ),
       ),

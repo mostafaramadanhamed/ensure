@@ -13,6 +13,6 @@ abstract class ProfileRepo {
   Future<void> setFollower(int userId);
   
   // get post by user id
-  Future<List<PostModel>> getPostsByUserId(int userId);
+  Future<List<PostModel>> getPostsByUserId(String userId);
  
 }
