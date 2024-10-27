@@ -130,9 +130,11 @@ class ProfileScreen extends StatelessWidget {
                                             },
                                             buttonWidth: 200.w,
                                             buttonHeight: 42.h,
+                                            backgroundColor: Theme.of(context)
+                                                .scaffoldBackgroundColor,
                                             textStyle: TextStyles.font15SemiBold
                                                 .copyWith(
-                                              color: AppColors.white,
+                                         //     color: AppColors.white,
                                             ),
                                             borderRadius: 25.r,
                                             verticalPadding: 8,
