@@ -15,7 +15,7 @@ class ProfileRepoImpl implements ProfileRepo {
           'user_id',
           userId,
         );
-        return response.map((e) => ProfileModel.fromMap(e)).single;
+    return response.map((e) => ProfileModel.fromMap(e)).single;
   }
 
   @override
@@ -37,18 +37,14 @@ class ProfileRepoImpl implements ProfileRepo {
   }
 
   @override
-  Future<void> setFollower(int userId) async {
+  Future<void> setFollow(String userId, String followingId) async {
     await supabaseClient.from('followers').insert({
-      'user_id': supabaseClient.auth.currentUser!.id,
-      'following_id': userId
+      'followed_id': followingId,
+      'follower_id': userId,
     });
-  }
-
-  @override
-  Future<void> setFollowing(int userId) async {
-    await supabaseClient.from('following').insert({
-      'user_id': supabaseClient.auth.currentUser!.id,
-      'following_id': userId
+    await supabaseClient.rpc('increment_follow', params: {
+      'follower_id': userId,
+      'followed_id': followingId,
     });
   }
 

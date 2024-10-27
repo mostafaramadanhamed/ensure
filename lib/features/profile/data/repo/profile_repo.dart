@@ -9,8 +9,8 @@ abstract class ProfileRepo {
   Future<List<Map<String, dynamic>>> getFollowers();
   Future<List<Map<String, dynamic>>> getFollowing();
   // set following
-  Future<void> setFollowing(int userId);
-  Future<void> setFollower(int userId);
+  Future<void> setFollow(String userId, String followingId);
+ // Future<void> setFollower(int userId);
   
   // get post by user id
   Future<List<PostModel>> getPostsByUserId(String userId);

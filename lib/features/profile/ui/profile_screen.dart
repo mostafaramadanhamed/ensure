@@ -105,7 +105,11 @@ class ProfileScreen extends StatelessWidget {
                                     )
                                   : AppTextButton(
                                       buttonText: 'Follow',
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        context
+                                            .read<ProfileCubit>()
+                                            .setFollow(userId, profile.id);
+                                      },
                                       buttonWidth: 200.w,
                                       buttonHeight: 42.h,
                                       textStyle:
@@ -143,7 +147,7 @@ class ProfileScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-               32.ph,
+                32.ph,
                 PostsPorfile(userId: profile.id),
               ],
             );

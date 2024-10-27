@@ -29,3 +29,14 @@ class ProfilePostsError extends ProfileState {
   final String message;
   ProfilePostsError(this.message);
 }
+
+// set follow state
+class ProfileSetFollowSuccess extends ProfileState {
+  final bool isFollowing;
+  ProfileSetFollowSuccess({this.isFollowing=false});
+}
+
+class ProfileSetFollowError extends ProfileState {
+  final String message;
+  ProfileSetFollowError(this.message);
+}

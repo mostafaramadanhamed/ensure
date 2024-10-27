@@ -15,4 +15,8 @@ class ProfileUseCase {
   Future<List<PostModel>> getPostsByUserId(String userId) async {
     return await profileRepo.getPostsByUserId(userId);
   }
+
+  Future<void> setFollow(String userId, String followingId) async {
+    return await profileRepo.setFollow(userId, followingId);
+  }
 }
