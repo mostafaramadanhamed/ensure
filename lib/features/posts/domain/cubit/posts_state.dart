@@ -61,9 +61,36 @@ final class DeletePostError extends PostsState {
   DeletePostError(this.message);
 }
 
-// get profile pic states
+// get user details states
 
+final class GetUserDetailsLoading extends PostsState {}
 
+final class GetUserDetailsSuccess extends PostsState {
+
+  final Map<String, dynamic> user;
+
+  GetUserDetailsSuccess({required this.user});
+}
+
+final class GetUserDetailsError extends PostsState {
+
+  final String message; 
+
+  GetUserDetailsError(this.message);
+}
+
+// logout states
+
+final class LogoutLoading extends PostsState {}
+
+final class LogoutSuccess extends PostsState {}
+
+final class LogoutError extends PostsState {
+
+  final String message;
+
+  LogoutError(this.message);              
+}
 
 // like post states
 

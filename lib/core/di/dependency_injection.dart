@@ -20,6 +20,10 @@ import '../../features/posts/data/repos/posts_repo.dart';
 import '../../features/posts/data/repos/posts_repo_impl.dart';
 import '../../features/comments/domain/cubit/comments_cubit.dart';
 import '../../features/comments/domain/use case/comments_use_case.dart';
+import '../../features/profile/data/repo/profile_repo.dart';
+import '../../features/profile/data/repo/profile_repo_impl.dart';
+import '../../features/profile/domain/cubit/profile_cubit.dart';
+import '../../features/profile/domain/use case/profile_use_case.dart';
 import '../../features/setup profile/data/repos/setup_profile_repo_impl.dart';
 import '../../features/setup profile/domain/cubit/setup_profile_cubit.dart';
 import '../../features/setup profile/domain/use cases/setup_profile_use_case.dart';
@@ -91,6 +95,14 @@ Future<void> setupGetIt() async {
 
       getIt.registerFactory<CommentsCubit>(() => CommentsCubit(getIt()));
 
-      
+      // profile
+
+      getIt.registerLazySingleton<ProfileRepo>(
+      () => ProfileRepoImpl(supabaseClient: getIt()));
+
+      getIt.registerLazySingleton<ProfileUseCase>(
+      () => ProfileUseCase(profileRepo: getIt()));
+
+      getIt.registerFactory<ProfileCubit>(() => ProfileCubit(getIt()));
  
 }

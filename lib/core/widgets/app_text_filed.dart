@@ -49,52 +49,52 @@ class AppTextFormField extends StatelessWidget {
       maxLength: maxLength,
       keyboardType: keyboardType ?? TextInputType.text,
       controller: controller,
-      maxLines: maxLines ,
+      maxLines: isObscureText == true ? 1 : maxLines,
       validator: (value) {
         return validator?.call(value);
       },
       decoration: InputDecoration(
-        isDense: true,
-        contentPadding: contentPadding ??
-            EdgeInsets.symmetric(horizontal: 24.w, vertical: 22.h),
-        focusedBorder: focusedBorder ??
-            OutlineInputBorder(
-              borderSide: const BorderSide(
-                color: AppColors.coralPink,
-                width: 1.3,
+          isDense: true,
+          contentPadding: contentPadding ??
+              EdgeInsets.symmetric(horizontal: 24.w, vertical: 22.h),
+          focusedBorder: focusedBorder ??
+              OutlineInputBorder(
+                borderSide: const BorderSide(
+                  color: AppColors.coralPink,
+                  width: 1.3,
+                ),
+                borderRadius: BorderRadius.circular(16.0.r),
               ),
-              borderRadius: BorderRadius.circular(16.0.r),
-            ),
-        enabledBorder: enabledBorder ??
-            OutlineInputBorder(
-              borderSide: const BorderSide(
-                color: AppColors.teaRose,
-                width: 1.3,
+          enabledBorder: enabledBorder ??
+              OutlineInputBorder(
+                borderSide: const BorderSide(
+                  color: AppColors.teaRose,
+                  width: 1.3,
+                ),
+                borderRadius: BorderRadius.circular(16.r),
               ),
-              borderRadius: BorderRadius.circular(16.r),
+          errorBorder: OutlineInputBorder(
+            borderSide: const BorderSide(
+              color: Colors.red,
+              width: 1.3,
             ),
-        errorBorder: OutlineInputBorder(
-          borderSide: const BorderSide(
-            color: Colors.red,
-            width: 1.3,
+            borderRadius: BorderRadius.circular(16.0.r),
           ),
-          borderRadius: BorderRadius.circular(16.0.r),
-        ),
-        focusedErrorBorder: OutlineInputBorder(
-          borderSide: const BorderSide(
-            color: Colors.red,
-            width: 1.3,
+          focusedErrorBorder: OutlineInputBorder(
+            borderSide: const BorderSide(
+              color: Colors.red,
+              width: 1.3,
+            ),
+            borderRadius: BorderRadius.circular(16.0.r),
           ),
-          borderRadius: BorderRadius.circular(16.0.r),
-        ),
-        hintStyle: hintStyle ?? TextStyles.font15Regular,
-        hintText: hintText,
-        suffixIcon: suffixIcon,
-        labelText: label,
-        alignLabelWithHint: true
-        //  fillColor: backgroundColor ?? AppColors.moreLightGray,
-        //  filled: true,
-      ),
+          hintStyle: hintStyle ?? TextStyles.font15Regular,
+          hintText: hintText,
+          suffixIcon: suffixIcon,
+          labelText: label,
+          alignLabelWithHint: true
+          //  fillColor: backgroundColor ?? AppColors.moreLightGray,
+          //  filled: true,
+          ),
       obscureText: isObscureText ?? false,
       style: TextStyles.font15SemiBold,
     );

@@ -1,6 +1,7 @@
 
 import 'package:ensure/core/helpers/navigation_extension.dart';
 import 'package:ensure/core/theme/colors.dart';
+import 'package:ensure/features/sign%20up/data/models/user_model.dart';
 import 'package:ensure/features/sign%20up/domain/cubit/sign_up_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,7 +35,7 @@ class SignupBlocListener extends StatelessWidget {
        
         if  (state is SignupSuccess) {
            context.pop();
-            showSuccessDialog(context);
+            showSuccessDialog(context,state.user);
         }
           
            if (state is SignupFailure) {
@@ -45,7 +46,7 @@ class SignupBlocListener extends StatelessWidget {
     );
   }
 
-  void showSuccessDialog(BuildContext context) {
+  void showSuccessDialog(BuildContext context, UserModel user) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -66,7 +67,9 @@ class SignupBlocListener extends StatelessWidget {
               //   disabledForegroundColor: Colors.grey,
               // ),
               onPressed: () {
-                context.pushNamed(Routes.setupProfile);
+                context.pushNamed(Routes.setupProfile,
+                arguments:user,
+                 );
               },
               child: const Text('Continue'),
             ),

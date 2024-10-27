@@ -1,5 +1,3 @@
-
-
 import 'package:ensure/core/helpers/spacing_extension.dart';
 import 'package:flutter/material.dart';
 
@@ -7,8 +5,12 @@ import '../../../../core/theme/colors.dart';
 import '../../../../core/theme/text_styles.dart';
 
 class PostsFollowersFollowsCounter extends StatelessWidget {
+  final int followers;
+  final int following;
   const PostsFollowersFollowsCounter({
     super.key,
+    required this.followers,
+    required this.following,
   });
 
   @override
@@ -37,7 +39,7 @@ class PostsFollowersFollowsCounter extends StatelessWidget {
               ),
             ),
             8.ph,
-            Text('77.8K', style: TextStyles.font20SemiBold),
+            Text(followers.toString(), style: TextStyles.font20SemiBold),
           ],
         ),
         Column(
@@ -50,7 +52,7 @@ class PostsFollowersFollowsCounter extends StatelessWidget {
             ),
             8.ph,
             Text(
-              '1',
+              following.toString(),
               style: TextStyles.font20SemiBold,
             ),
           ],

@@ -15,3 +15,12 @@ class SetupProfileError extends SetupProfileState {
   final String message;
   SetupProfileError(this.message);
 }
+
+// set profile
+
+class SetProfilePicSuccess extends SetupProfileState {}
+
+class SetProfilePicError extends SetupProfileState {
+  final String message;
+  SetProfilePicError(this.message);
+}

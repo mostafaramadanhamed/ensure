@@ -29,9 +29,10 @@ class SignUpCubit extends Cubit<SignupState> {
           password: passwordController.text,
           bio: bioController.text,
           profilePic: profilePic,
+          
         );
         await signupUseCase.signUp(user);
-        emit(SignupSuccess());
+        emit(SignupSuccess(user));
       } catch (e) {
         emit(SignupFailure(
             SupanbaseExceptionHandler.parseException(e.toString())

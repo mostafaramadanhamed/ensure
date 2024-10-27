@@ -25,4 +25,9 @@ abstract class PostsRepo {
 
   //Future<void> setPostPic(int postId);
 
+  // display user name and profile pic 
+  Future<Map<String, dynamic>> getUserDetails();
+  
+  // logout
+  Future<void> logout();
 }

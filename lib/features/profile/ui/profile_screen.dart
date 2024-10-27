@@ -1,89 +1,201 @@
 import 'package:ensure/core/helpers/spacing_extension.dart';
-import 'package:ensure/core/theme/colors.dart';
-import 'package:ensure/core/theme/text_styles.dart';
-import 'package:ensure/core/widgets/app_text_button.dart';
+import 'package:ensure/features/profile/ui/widgets/posts_followers_counter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-import 'widgets/content_tab_bar.dart';
-import 'widgets/posts_followers_counter.dart';
+import '../../../core/theme/colors.dart';
+import '../../../core/theme/text_styles.dart';
+import '../../../core/widgets/app_text_button.dart';
+import '../data/models/profile_model.dart';
+import '../domain/cubit/profile_cubit.dart';
+import '../domain/cubit/profile_state.dart';
 import 'widgets/tab_bar_views.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+  const ProfileScreen({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 3,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('My Profile',
-              style: TextStyles.font20SemiBold
-                  .copyWith(fontSize: 23.sp, fontWeight: FontWeight.bold)),
-          centerTitle: true,
-        ),
-        body: NestedScrollView(
-          body: const TabBarViews(),
-          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-            return <Widget>[
-              SliverToBoxAdapter(
-                child: Column(
+    final userId = Supabase.instance.client.auth.currentUser!.id;
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Profile',
+            style: TextStyles.font20SemiBold
+                .copyWith(fontSize: 23.sp, fontWeight: FontWeight.bold)),
+        centerTitle: true,
+      ),
+      body: BlocBuilder<ProfileCubit, ProfileState>(
+        builder: (context, state) {
+          if (state is ProfileLoading) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (state is ProfileError) {
+            return Center(child: Text(state.message));
+          }
+          if (state is ProfileSuccess) {
+            ProfileModel profile = state.profile;
+
+            return ListView(
+              children: [
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Padding(
                       padding: EdgeInsets.symmetric(
                           horizontal: 16.0.w, vertical: 16.0.h),
                       child: Row(
-                        //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          CircleAvatar(
-                            radius: 45.r,
-                            backgroundImage: const NetworkImage(
-                                'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
-                                scale: 0.5),
+                          Container(
+                            height: 80.h,
+                            width: 80.w,
+                            clipBehavior: Clip.antiAliasWithSaveLayer,
+                            decoration: BoxDecoration(
+                              color: AppColors.teaRose,
+                              shape: BoxShape.circle,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: AppColors.mistyRose,
+                                  blurRadius: 7.r,
+                                  offset: const Offset(0, 3),
+                                  spreadRadius: 0,
+                                ),
+                              ],
+                            ),
+                            child: profile.photoUrl != ''
+                                ? Image.network(profile.photoUrl,
+                                    fit: BoxFit.cover)
+                                : Icon(
+                                    Icons.person_outline_sharp,
+                                    size: 75.r,
+                                    color: Theme.of(context)
+                                        .scaffoldBackgroundColor,
+                                  ),
                           ),
                           16.pw,
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Mostafa Ramadan',
+                                profile.name,
                                 style: TextStyles.font20SemiBold,
                               ),
                               8.ph,
-                              Text('@mostafaramadan',
+                              Text(profile.bio,
                                   style: TextStyles.font15SemiBold.copyWith(
                                     color: AppColors.lightBrown,
                                   )),
                               8.ph,
-                              AppTextButton(
-                                buttonText: 'Edit Profile',
-                                onPressed: () {},
-                                buttonWidth: 200.w,
-                                buttonHeight: 42.h,
-                                textStyle: TextStyles.font15SemiBold.copyWith(
-                                  color: AppColors.white,
-                                ),
-                                borderRadius: 25.r,
-                                verticalPadding: 8,
-                              )
+                              userId == profile.id
+                                  ? AppTextButton(
+                                      buttonText: 'Edit Profile',
+                                      onPressed: () {},
+                                      buttonWidth: 200.w,
+                                      buttonHeight: 42.h,
+                                      textStyle:
+                                          TextStyles.font15SemiBold.copyWith(
+                                        color: AppColors.white,
+                                      ),
+                                      borderRadius: 25.r,
+                                      verticalPadding: 8,
+                                    )
+                                  : FutureBuilder<bool>(
+                                      future: context
+                                          .read<ProfileCubit>()
+                                          .checkFollowing(userId, profile.id),
+                                      builder: (context, snapshot) {
+                                        if (snapshot.connectionState ==
+                                            ConnectionState.waiting) {
+                                          return const CircularProgressIndicator();
+                                        }
+                                        if (snapshot.hasError) {
+                                          return Text(
+                                              'Error: ${snapshot.error}');
+                                        }
+                                        if (!snapshot.hasData) {
+                                          return const Text('No data');
+                                        }
+                                        if (snapshot.data==true) {
+                                          return AppTextButton(
+                                            buttonText: 'Unfollow',
+                                            onPressed: () {
+                                              context
+                                                  .read<ProfileCubit>()
+                                                  .setFollow(
+                                                      userId, profile.id);
+                                            },
+                                            buttonWidth: 200.w,
+                                            buttonHeight: 42.h,
+                                            backgroundColor: Theme.of(context)
+                                                .scaffoldBackgroundColor,
+                                            textStyle: TextStyles.font15SemiBold
+                                                .copyWith(
+                                         //     color: AppColors.white,
+                                            ),
+                                            borderRadius: 25.r,
+                                            verticalPadding: 8,
+                                          );
+                                        } if (snapshot.data==false) {
+                                          return AppTextButton(
+                                            buttonText: 'Follow',
+                                            onPressed: () {
+                                              context
+                                                  .read<ProfileCubit>()
+                                                  .setFollow(
+                                                      userId, profile.id);
+                                            },
+                                            buttonWidth: 200.w,
+                                            buttonHeight: 42.h,
+                                            textStyle: TextStyles.font15SemiBold
+                                                .copyWith(
+                                              color: AppColors.white,
+                                            ),
+                                            borderRadius: 25.r,
+                                            verticalPadding: 8,
+                                          );
+                                        }
+                                        return const SizedBox.shrink();
+                                      }),
                             ],
                           ),
                         ],
                       ),
                     ),
                     16.ph,
-                    const PostsFollowersFollowsCounter(),
+                    PostsFollowersFollowsCounter(
+                      followers: profile.followersCount,
+                      following: profile.followingCount,
+                    ),
                     32.ph,
-                    const ContentTabBar(),
-                    32.ph,
+                    Container(
+                      height: 50,
+                      width: double.infinity,
+                      alignment: Alignment.center,
+                      margin: EdgeInsets.symmetric(horizontal: 16.w),
+                      decoration: BoxDecoration(
+                        color: AppColors.lighterBrown,
+                        borderRadius: BorderRadius.circular(
+                          25.0,
+                        ),
+                      ),
+                      child: Text('Posts',
+                          style: TextStyles.font17SemiBold
+                              .copyWith(color: AppColors.mistyRose)),
+                    ),
                   ],
                 ),
-              ),
-            ];
-          },
-        ),
+                32.ph,
+                PostsPorfile(userId: profile.id),
+              ],
+            );
+          }
+
+          return const SizedBox.shrink();
+        },
       ),
     );
   }

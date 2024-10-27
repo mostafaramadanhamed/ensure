@@ -29,6 +29,7 @@ class _SignupFormState extends State<SignupForm> {
           AppTextFormField(
             label: 'Name',
             keyboardType: TextInputType.name,
+            maxLines: 1,
             validator: (name) {
               if (name!.isEmpty|| name == "") {
                 return "Name cannot be empty";
@@ -42,6 +43,7 @@ class _SignupFormState extends State<SignupForm> {
           AppTextFormField(
             label: 'Email',
             hintText: "Enter your email",
+            maxLines: 1,
             validator: (email) {
               if (email == null || email.isEmpty || !AppRegex.isEmailValid(email)) {
                 return 'Please enter a valid email';
