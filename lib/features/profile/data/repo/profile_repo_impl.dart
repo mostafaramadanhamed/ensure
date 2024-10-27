@@ -49,6 +49,16 @@ class ProfileRepoImpl implements ProfileRepo {
   }
 
   @override
+  Future<bool> isFollowing(String userId, String followingId) async {
+    final response = await supabaseClient
+        .from('followers')
+        .select()
+        .eq('followed_id', followingId)
+        .eq('follower_id', userId);
+    return response.isNotEmpty;
+  }
+
+  @override
   Future<List<PostModel>> getPostsByUserId(String userId) async {
     final response = await supabaseClient
         .from('posts')

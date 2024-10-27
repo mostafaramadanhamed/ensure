@@ -15,4 +15,6 @@ abstract class ProfileRepo {
   // get post by user id
   Future<List<PostModel>> getPostsByUserId(String userId);
  
+ // is following
+  Future<bool> isFollowing(String userId, String followingId);
 }

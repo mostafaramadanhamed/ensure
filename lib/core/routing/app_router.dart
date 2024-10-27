@@ -61,7 +61,9 @@ class AppRouter {
            debugPrint('user id: $userId');
           return BlocProvider(
             create: (context) => getIt<ProfileCubit>()..getProfile(userId),
-            child:  const ProfileScreen(),
+            child:   const ProfileScreen(
+              
+            ),
           );
         });
 

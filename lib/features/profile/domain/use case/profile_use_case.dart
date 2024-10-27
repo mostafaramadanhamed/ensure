@@ -19,4 +19,8 @@ class ProfileUseCase {
   Future<void> setFollow(String userId, String followingId) async {
     return await profileRepo.setFollow(userId, followingId);
   }
+
+  Future<bool> isFollowing(String userId, String followingId) async {
+    return await profileRepo.isFollowing(userId, followingId);
+  }
 }

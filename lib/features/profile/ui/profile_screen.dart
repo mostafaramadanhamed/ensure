@@ -14,6 +14,7 @@ import '../domain/cubit/profile_state.dart';
 import 'widgets/tab_bar_views.dart';
 
 class ProfileScreen extends StatelessWidget {
+  
   const ProfileScreen({
     super.key,
   });
