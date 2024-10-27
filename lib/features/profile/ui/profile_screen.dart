@@ -14,7 +14,6 @@ import '../domain/cubit/profile_state.dart';
 import 'widgets/tab_bar_views.dart';
 
 class ProfileScreen extends StatelessWidget {
-  
   const ProfileScreen({
     super.key,
   });
@@ -104,22 +103,61 @@ class ProfileScreen extends StatelessWidget {
                                       borderRadius: 25.r,
                                       verticalPadding: 8,
                                     )
-                                  : AppTextButton(
-                                      buttonText: 'Follow',
-                                      onPressed: () {
-                                        context
-                                            .read<ProfileCubit>()
-                                            .setFollow(userId, profile.id);
-                                      },
-                                      buttonWidth: 200.w,
-                                      buttonHeight: 42.h,
-                                      textStyle:
-                                          TextStyles.font15SemiBold.copyWith(
-                                        color: AppColors.white,
-                                      ),
-                                      borderRadius: 25.r,
-                                      verticalPadding: 8,
-                                    ),
+                                  : FutureBuilder<bool>(
+                                      future: context
+                                          .read<ProfileCubit>()
+                                          .checkFollowing(userId, profile.id),
+                                      builder: (context, snapshot) {
+                                        if (snapshot.connectionState ==
+                                            ConnectionState.waiting) {
+                                          return const CircularProgressIndicator();
+                                        }
+                                        if (snapshot.hasError) {
+                                          return Text(
+                                              'Error: ${snapshot.error}');
+                                        }
+                                        if (!snapshot.hasData) {
+                                          return const Text('No data');
+                                        }
+                                        if (snapshot.data==true) {
+                                          return AppTextButton(
+                                            buttonText: 'Unfollow',
+                                            onPressed: () {
+                                              context
+                                                  .read<ProfileCubit>()
+                                                  .setFollow(
+                                                      userId, profile.id);
+                                            },
+                                            buttonWidth: 200.w,
+                                            buttonHeight: 42.h,
+                                            textStyle: TextStyles.font15SemiBold
+                                                .copyWith(
+                                              color: AppColors.white,
+                                            ),
+                                            borderRadius: 25.r,
+                                            verticalPadding: 8,
+                                          );
+                                        } if (snapshot.data==false) {
+                                          return AppTextButton(
+                                            buttonText: 'Follow',
+                                            onPressed: () {
+                                              context
+                                                  .read<ProfileCubit>()
+                                                  .setFollow(
+                                                      userId, profile.id);
+                                            },
+                                            buttonWidth: 200.w,
+                                            buttonHeight: 42.h,
+                                            textStyle: TextStyles.font15SemiBold
+                                                .copyWith(
+                                              color: AppColors.white,
+                                            ),
+                                            borderRadius: 25.r,
+                                            verticalPadding: 8,
+                                          );
+                                        }
+                                        return const SizedBox.shrink();
+                                      }),
                             ],
                           ),
                         ],

@@ -11,19 +11,24 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   bool isFollowing = false;
 
-  void checkFollowing(String userId, String followingId) async {
-    isFollowing = await profileUseCase.isFollowing(userId, followingId);
+Future<bool> checkFollowing(String userId, String followingId) async {
+    debugPrint("isFollowing before: $isFollowing");
+   bool followingStatus = await profileUseCase.isFollowing(userId, followingId);
+   debugPrint("following Status after: $followingStatus");
+    isFollowing = followingStatus;
+    debugPrint("isFollowing: $isFollowing");
+    return followingStatus;
   }
 
   Future<ProfileModel> getProfile(String userId) async {
     emit(ProfileLoading());
     try {
+
       final profile = await profileUseCase.getProfile(userId);
       emit(ProfileSuccess(profile: profile));
-
+     
       // Fetch posts after successfully getting the profile
       await getPostsByUserId(profile.id);
-
       return profile;
     } catch (e) {
       emit(ProfileError(e.toString()));
@@ -32,17 +37,15 @@ class ProfileCubit extends Cubit<ProfileState> {
   }
 
   Future<void> setFollow(String userId, String followingId) async {
-    try {
-      if (isFollowing) {
- 
-      }
-      else {
-        await profileUseCase.setFollow(userId, followingId);
-      }
-    } catch (e) {
-      debugPrint(e.toString());
-      emit(ProfileSetFollowError(e.toString()));
+    if (isFollowing) {
+      await profileUseCase.setUnfollow(userId, followingId);
+    } else {
+      await profileUseCase.setFollow(userId, followingId);
     }
+    debugPrint("isFollowing: $isFollowing");
+
+    checkFollowing(userId, followingId);
+    getProfile(followingId);
   }
 
   Future<List<PostModel>> getPostsByUserId(String userId) async {

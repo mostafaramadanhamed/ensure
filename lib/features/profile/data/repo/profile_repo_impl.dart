@@ -48,6 +48,16 @@ class ProfileRepoImpl implements ProfileRepo {
     });
   }
 
+  @override 
+  Future<void> setUnfollow(String userId, String followingId) async {
+ 
+  await supabaseClient.from('followers').delete().eq('follower_id', userId).eq('followed_id', followingId);
+     await supabaseClient.rpc('decrement_follow', params: {
+      'follower_id': userId,
+      'followed_id': followingId,
+  });
+  }
+
   @override
   Future<bool> isFollowing(String userId, String followingId) async {
     final response = await supabaseClient
