@@ -5,6 +5,7 @@ import 'package:ensure/features/login/ui/login_screen.dart';
 import 'package:ensure/features/onboarding/ui/onboarding_screen.dart';
 import 'package:ensure/features/posts/data/models/post_model.dart';
 import 'package:ensure/features/posts/domain/cubit/posts_cubit.dart';
+import 'package:ensure/features/search/domain/cubit/search_cubit.dart';
 import 'package:ensure/features/search/ui/search_screen.dart';
 import 'package:ensure/features/sign%20up/domain/cubit/sign_up_cubit.dart';
 import 'package:ensure/features/sign%20up/ui/signup_screen.dart';
@@ -57,14 +58,12 @@ class AppRouter {
 
       case Routes.profile:
         return MaterialPageRoute(builder: (context) {
-           String userId = args.toString();
-           
-           debugPrint('user id: $userId');
+          String userId = args.toString();
+
+          debugPrint('user id: $userId');
           return BlocProvider(
             create: (context) => getIt<ProfileCubit>()..getProfile(userId),
-            child:   const ProfileScreen(
-              
-            ),
+            child: const ProfileScreen(),
           );
         });
 
@@ -103,7 +102,10 @@ class AppRouter {
 
       case Routes.search:
         return MaterialPageRoute(builder: (context) {
-          return const SearchScreen();
+          return BlocProvider(
+            create: (context) => getIt<SearchCubit>(),
+            child: const SearchScreen(),
+          );
         });
       default:
         return null;
