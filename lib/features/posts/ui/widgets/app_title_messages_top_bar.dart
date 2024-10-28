@@ -1,8 +1,8 @@
-
-
+import 'package:ensure/core/helpers/navigation_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../core/routing/routes.dart';
 import '../../../../core/theme/colors.dart';
 import '../../../../core/theme/text_styles.dart';
 
@@ -14,11 +14,11 @@ class AppTitleAndMessageIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-       padding: EdgeInsets.only(
-            left: 16.w,
-            right: 16.w,
-            top: 32.h,
-          ),
+      padding: EdgeInsets.only(
+        left: 16.w,
+        right: 16.w,
+        top: 32.h,
+      ),
       child: Row(
         children: [
           Text(
@@ -26,6 +26,14 @@ class AppTitleAndMessageIcon extends StatelessWidget {
             style: TextStyles.fontAppName,
           ),
           const Spacer(),
+          IconButton(
+              onPressed: () { 
+               context.pushNamed(Routes.search);
+              },
+              icon: const Icon(
+                Icons.search_rounded,
+                color: AppColors.coralPink,
+              )),
           IconButton(
               onPressed: () {},
               icon: const Icon(

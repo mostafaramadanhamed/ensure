@@ -4,6 +4,7 @@ import 'package:ensure/features/login/data/repos/login_repo.dart';
 import 'package:ensure/features/comments/data/repos/comments_repo.dart';
 import 'package:ensure/features/posts/domain/cubit/posts_cubit.dart';
 import 'package:ensure/features/posts/domain/use%20case/posts_use_case.dart';
+import 'package:ensure/features/search/data/repo/search_repo_impl.dart';
 import 'package:ensure/features/setup%20profile/data/repos/setup_profile_repo.dart';
 import 'package:ensure/features/sign%20up/data/repos/signup_repository.dart';
 import 'package:ensure/features/sign%20up/data/repos/signup_repository_impl.dart';
@@ -24,6 +25,9 @@ import '../../features/profile/data/repo/profile_repo.dart';
 import '../../features/profile/data/repo/profile_repo_impl.dart';
 import '../../features/profile/domain/cubit/profile_cubit.dart';
 import '../../features/profile/domain/use case/profile_use_case.dart';
+import '../../features/search/data/repo/search_repo.dart';
+import '../../features/search/domain/cubit/search_cubit.dart';
+import '../../features/search/domain/use case/search_use_case.dart';
 import '../../features/setup profile/data/repos/setup_profile_repo_impl.dart';
 import '../../features/setup profile/domain/cubit/setup_profile_cubit.dart';
 import '../../features/setup profile/domain/use cases/setup_profile_use_case.dart';
@@ -105,4 +109,14 @@ Future<void> setupGetIt() async {
 
       getIt.registerFactory<ProfileCubit>(() => ProfileCubit(getIt()));
  
+
+ // search
+ 
+     getIt.registerLazySingleton<SearchRepo>(
+      () => SearchRepoImpl(supabaseClient: getIt()));
+
+      getIt.registerLazySingleton<SearchUseCase>(
+      () => SearchUseCase(searchRepo: getIt()));
+
+      getIt.registerFactory<SearchCubit>(() => SearchCubit(getIt()));
 }
