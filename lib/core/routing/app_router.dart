@@ -5,6 +5,7 @@ import 'package:ensure/features/login/ui/login_screen.dart';
 import 'package:ensure/features/onboarding/ui/onboarding_screen.dart';
 import 'package:ensure/features/posts/data/models/post_model.dart';
 import 'package:ensure/features/posts/domain/cubit/posts_cubit.dart';
+import 'package:ensure/features/search/ui/search_screen.dart';
 import 'package:ensure/features/sign%20up/domain/cubit/sign_up_cubit.dart';
 import 'package:ensure/features/sign%20up/ui/signup_screen.dart';
 import 'package:ensure/features/stories/ui/story_screen.dart';
@@ -100,6 +101,10 @@ class AppRouter {
           );
         });
 
+      case Routes.search:
+        return MaterialPageRoute(builder: (context) {
+          return const SearchScreen();
+        });
       default:
         return null;
     }
