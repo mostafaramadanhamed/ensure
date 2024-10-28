@@ -8,4 +8,12 @@ class SearchModel {
     required this.userName,
     required this.userImage,
   });
+
+  factory SearchModel.fromJson(Map<String, dynamic> json) {
+    return SearchModel(
+      userId: json['user_id'],
+      userName: json['name'],
+      userImage: json['profile_pic'],
+    );
+  }
 }
