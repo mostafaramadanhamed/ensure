@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../core/theme/text_styles.dart';
 import '../domain/cubit/search_cubit.dart';
 import '../domain/cubit/search_state.dart';
 
@@ -40,8 +41,11 @@ class SearchScreen extends StatelessWidget {
               if (state.data.isNotEmpty) {
                 return SearchedUsersListView(users: state.data);
               } else {
-                return const Center(
-                  child: Text('No User Founded'),
+                return Center(
+                  child: Text(
+                    'User not found',
+                    style: TextStyles.font17SemiBold,
+                  ),
                 );
               }
             } else if (state is SearchError) {
