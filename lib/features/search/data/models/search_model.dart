@@ -1,5 +1,5 @@
 class SearchModel {
-  final int userId;
+  final String userId;
   final String userName;
   final String userImage;
 
