@@ -41,13 +41,14 @@ class PostItem extends StatelessWidget {
             ListTile(
               contentPadding: EdgeInsets.zero,
               title: GestureDetector(
-                onTap: () {
-                  context.pushNamed(
-                    Routes.profile,
-                    arguments: post.authorId,
-                  );
-                },
-                child: Text(post.authorName, style: TextStyles.font15SemiBold)),
+                  onTap: () {
+                    context.pushNamed(
+                      Routes.profile,
+                      arguments: post.authorId,
+                    );
+                  },
+                  child:
+                      Text(post.authorName, style: TextStyles.font15SemiBold)),
               leading: Container(
                 height: 40.h,
                 width: 40.w,
@@ -73,9 +74,15 @@ class PostItem extends StatelessWidget {
                               );
                             },
                           )
-                        : const PopupMenuItem(
+                        : PopupMenuItem(
                             value: 'About this account',
-                            child: Text('About this account'),
+                            child: const Text('About this account'),
+                            onTap: () {
+                              context.pushNamed(
+                                Routes.profile,
+                                arguments: post.authorId,
+                              );
+                            },
                           ),
                     context.read<PostsCubit>().isuser(post.authorId)
                         ? PopupMenuItem(
@@ -89,11 +96,16 @@ class PostItem extends StatelessWidget {
                                   content: Text('Post Deleted'),
                                 ),
                               );
-                            
                             })
-                        : const PopupMenuItem(
+                        : PopupMenuItem(
                             value: 'Unfollow',
-                            child: Text('Unfollow'),
+                            child: const Text('Unfollow'),
+                            onTap: () {
+                              context.pushNamed(
+                                Routes.profile,
+                                arguments: post.authorId,
+                              );
+                            },
                           ),
                     const PopupMenuItem(
                       value: 'Report',
@@ -122,7 +134,7 @@ class PostItem extends StatelessWidget {
                       borderRadius: BorderRadius.circular(16.0.r),
                       child: Image.network(post.content,
                           width: double.infinity,
-                          height: 180.h, 
+                          height: 180.h,
                           fit: BoxFit.cover),
                     ),
                   ),
