@@ -26,8 +26,12 @@ class SetupProfileScreen extends StatelessWidget {
             actions: [
               TextButton(
                 onPressed: () {
-                  context.read<SetupProfileCubit>().setProfile();
-                  context.pushNamed(Routes.home);
+                  context.read<SetupProfileCubit>().setProfile().then(
+                    (value) {
+                      if (!context.mounted) return;
+                      context.pushReplacementNamed(Routes.home,);
+                    },
+                  );
                 },
                 child: Text(
                     context.read<SetupProfileCubit>().image != null
