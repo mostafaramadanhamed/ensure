@@ -21,7 +21,7 @@ class EnsureApp extends StatelessWidget {
         // themeMode: ThemeMode.dark,  
         
         debugShowCheckedModeBanner: false,
-        initialRoute: isLoggedInUser?Routes.home:Routes.login,
+        initialRoute: isLoggedInUser?Routes.home:Routes.onBoarding,
         onGenerateRoute: appRouter.onGenerateRoute,
       ),
     );

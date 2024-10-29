@@ -44,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
             pageController.animateToPage(
               index,
               duration: const Duration(milliseconds: 300),
-              curve: Curves.easeInOut,
+              curve: Curves.easeInCubic,
             );
           });
         },

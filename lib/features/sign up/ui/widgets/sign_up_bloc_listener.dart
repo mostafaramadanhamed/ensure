@@ -67,7 +67,7 @@ class SignupBlocListener extends StatelessWidget {
               //   disabledForegroundColor: Colors.grey,
               // ),
               onPressed: () {
-                context.pushNamed(Routes.setupProfile,
+                context.pushReplacementNamed(Routes.setupProfile,
                 arguments:user,
                  );
               },
