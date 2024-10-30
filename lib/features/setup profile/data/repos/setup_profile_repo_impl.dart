@@ -54,6 +54,7 @@ class SetupProfileRepoImpl implements SetupProfileRepo {
         'profile_pic': supabase.auth.currentUser!.userMetadata!['profile_pic'],
         'following_count': 0,
         'followers_count': 0,
+        'posts':0,
       });
      
     } catch (e) {

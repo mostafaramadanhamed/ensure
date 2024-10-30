@@ -104,7 +104,7 @@ class _SignupFormState extends State<SignupForm> {
           ),
           20.ph,
           AppTextButton(
-            buttonText: "Login",
+            buttonText: "Sign Up",
             onPressed: ()  {
               if(context.read<SignUpCubit>().formKey.currentState!.validate()){
                 context.read<SignUpCubit>().onSignUp();

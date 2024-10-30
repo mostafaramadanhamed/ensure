@@ -16,10 +16,10 @@ class OnboardingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16.0.w),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
+          padding: EdgeInsets.symmetric(horizontal: 16.0.w),
+          child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
           const OnboardingLogo(),
           55.ph,
           Text(
@@ -46,8 +46,8 @@ class OnboardingScreen extends StatelessWidget {
             },
             // backgroundColor: AppColors.coralPink,
           )
-        ],
-      ),
-    ));
+                    ],
+                  ),
+        ));
   }
 }

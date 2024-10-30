@@ -169,6 +169,7 @@ class ProfileScreen extends StatelessWidget {
                     PostsFollowersFollowsCounter(
                       followers: profile.followersCount,
                       following: profile.followingCount,
+                      posts: profile.posts,
                     ),
                     32.ph,
                     Container(
