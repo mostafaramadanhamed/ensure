@@ -38,11 +38,16 @@ class PostsCubit extends Cubit<PostsState> {
   void selectImage(
     context,
   ) async {
+    emit(ImagePickerLoading());
     image = await pickImageFromGallery(context);
     if (image != null) {
       await savePostPic(
         postPic: image!,
       );
+      emit(ImagePickerSuccess(image: image!));
+    }
+    else {
+      emit(ImagePickerError('No image selected'));
     }
   }
 

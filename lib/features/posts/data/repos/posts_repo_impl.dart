@@ -29,7 +29,6 @@ class PostsRepoImpl implements PostsRepo {
   }
 
   @override
-  @override
   Future<void> addPost(PostModel post) async {
     await supabaseClient.from('posts').insert(
       {
@@ -46,6 +45,7 @@ class PostsRepoImpl implements PostsRepo {
         'comments': post.comments,
       },
     );
+    await supabaseClient.rpc('increment_posts', params: {'author_id': supabaseClient.auth.currentUser!.id});
   }
 
   @override
@@ -64,7 +64,7 @@ class PostsRepoImpl implements PostsRepo {
     await supabaseClient.from('likes').delete().eq('post_id', postId);
 
     await supabaseClient.from('comments').delete().eq('post_id', postId);
-
+    await supabaseClient.rpc('decrement_posts', params: {'author_id': supabaseClient.auth.currentUser!.id});
     try {
       await supabaseClient.storage
           .from(SupabaseConstants.profileBucket)

@@ -13,4 +13,5 @@ class Routes {
   static const String comments = '/comments';
   static const String editPost = '/edit-post';
   static const String search = '/search';
+  static const String displayImage = '/display-image';
 }

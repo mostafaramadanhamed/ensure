@@ -5,6 +5,7 @@ class ProfileModel {
   final String bio;
   final int followersCount;
   final int followingCount;
+  final int posts;
 
   ProfileModel({
     required this.name,
@@ -13,8 +14,8 @@ class ProfileModel {
     required this.bio,
     required this.followersCount,
     required this.followingCount,
+    required this.posts,
   });
-
 
 // from map
   factory ProfileModel.fromMap(Map<String, dynamic> map) {
@@ -25,7 +26,7 @@ class ProfileModel {
       bio: map['bio'] as String,
       followersCount: map['followers_count'] as int,
       followingCount: map['following_count'] as int,
+      posts: map['posts'] as int,
     );
   }
- 
 }

@@ -1,3 +1,4 @@
+import 'package:ensure/core/helpers/navigation_extension.dart';
 import 'package:ensure/core/helpers/spacing_extension.dart';
 import 'package:ensure/features/posts/data/models/post_model.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/helpers/date_time_format_helper.dart';
 import '../../../../core/helpers/format_text_helper.dart';
+import '../../../../core/routing/routes.dart';
 import '../../../../core/theme/colors.dart';
 import '../../../../core/theme/text_styles.dart';
 
@@ -62,15 +64,20 @@ class ProfilePostItem extends StatelessWidget {
             20.ph,
             post.content == ''
                 ? Container()
-                : Center(
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(16.0.r),
-                      child: Image.network(post.content,
-                          width: double.infinity,
-                          height: 180.h, 
-                          fit: BoxFit.cover),
+                : GestureDetector(
+                  onTap: () {
+                    context.pushNamed(Routes.displayImage, arguments: post.content);
+                  },
+                  child: Center(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(16.0.r),
+                        child: Image.network(post.content,
+                            width: double.infinity,
+                            height: 180.h, 
+                            fit: BoxFit.cover),
+                      ),
                     ),
-                  ),
+                ),
             14.ph,
           Row(
                   children: [

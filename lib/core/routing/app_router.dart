@@ -16,6 +16,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../features/login/domain/cubit/cubit/login_cubit.dart';
 import '../../features/comments/domain/cubit/comments_cubit.dart';
 import '../../features/comments/ui/comments_screen.dart';
+import '../../features/posts/ui/display_post_image_screen.dart';
 import '../../features/posts/ui/edit_post.dart';
 import '../../features/profile/domain/cubit/profile_cubit.dart';
 import '../../features/profile/ui/profile_screen.dart';
@@ -106,6 +107,11 @@ class AppRouter {
             create: (context) => getIt<SearchCubit>(),
             child: const SearchScreen(),
           );
+        });
+      case Routes.displayImage:
+        return MaterialPageRoute(builder: (context) {
+          String imageUrl = args as String;
+          return DisplayPostImageScreen(imageUrl: imageUrl);
         });
       default:
         return null;

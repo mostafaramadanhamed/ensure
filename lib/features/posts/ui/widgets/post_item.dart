@@ -129,15 +129,23 @@ class PostItem extends StatelessWidget {
             20.ph,
             post.content == ''
                 ? Container()
-                : Center(
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(16.0.r),
-                      child: Image.network(post.content,
-                          width: double.infinity,
-                          height: 180.h,
-                          fit: BoxFit.cover),
+                : GestureDetector(
+                  onTap: () {
+                    context.pushNamed(
+                      Routes.displayImage,
+                      arguments: post.content,
+                    );
+                  },
+                  child: Center(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(16.0.r),
+                        child: Image.network(post.content,
+                            width: double.infinity,
+                            height: 180.h,
+                            fit: BoxFit.cover),
+                      ),
                     ),
-                  ),
+                ),
             14.ph,
             BlocBuilder<PostsCubit, PostsState>(
               builder: (context, state) {
