@@ -1,3 +1,4 @@
+import 'package:ensure/core/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomTheme {
@@ -10,6 +11,7 @@ class CustomTheme {
         bodyColor: lightScheme().onSurface,
         displayColor: lightScheme().onSurface,
       ),
+      primaryColorLight: AppColors.coralPink,
       scaffoldBackgroundColor: lightScheme().surface,
       canvasColor: lightScheme().surface,
     );
@@ -75,6 +77,7 @@ class CustomTheme {
         bodyColor: darkScheme().onSurface,
         displayColor: darkScheme().onSurface,
       ),
+      primaryColorLight: AppColors.oldRose,
       scaffoldBackgroundColor: darkScheme().surface,
       canvasColor: darkScheme().surface,
     );
