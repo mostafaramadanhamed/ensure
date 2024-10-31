@@ -1,5 +1,6 @@
 import 'package:ensure/core/di/dependency_injection.dart';
 import 'package:ensure/core/routing/routes.dart';
+import 'package:ensure/features/chat/ui/conversations_screen.dart';
 import 'package:ensure/features/home/ui/home_screen.dart';
 import 'package:ensure/features/login/ui/login_screen.dart';
 import 'package:ensure/features/onboarding/ui/onboarding_screen.dart';
@@ -108,10 +109,16 @@ class AppRouter {
             child: const SearchScreen(),
           );
         });
+
       case Routes.displayImage:
         return MaterialPageRoute(builder: (context) {
           String imageUrl = args as String;
           return DisplayPostImageScreen(imageUrl: imageUrl);
+        });
+      case Routes.conversations:
+        return MaterialPageRoute(builder: (context) {
+         
+          return const ConversationsScreen();
         });
       default:
         return null;
