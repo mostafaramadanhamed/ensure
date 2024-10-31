@@ -14,6 +14,7 @@ import 'package:ensure/features/stories/ui/story_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../features/chat/ui/messages_screen.dart';
 import '../../features/login/domain/cubit/cubit/login_cubit.dart';
 import '../../features/comments/domain/cubit/comments_cubit.dart';
 import '../../features/comments/ui/comments_screen.dart';
@@ -119,6 +120,11 @@ class AppRouter {
         return MaterialPageRoute(builder: (context) {
          
           return const ConversationsScreen();
+        });
+        case Routes.messages:
+        return MaterialPageRoute(builder: (context) {
+         
+          return const MessagesScreen();
         });
       default:
         return null;
