@@ -1,5 +1,6 @@
 import 'package:ensure/core/di/dependency_injection.dart';
 import 'package:ensure/core/routing/routes.dart';
+import 'package:ensure/features/chat/ui/conversations_screen.dart';
 import 'package:ensure/features/home/ui/home_screen.dart';
 import 'package:ensure/features/login/ui/login_screen.dart';
 import 'package:ensure/features/onboarding/ui/onboarding_screen.dart';
@@ -13,6 +14,7 @@ import 'package:ensure/features/stories/ui/story_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../features/chat/ui/messages_screen.dart';
 import '../../features/login/domain/cubit/cubit/login_cubit.dart';
 import '../../features/comments/domain/cubit/comments_cubit.dart';
 import '../../features/comments/ui/comments_screen.dart';
@@ -108,10 +110,21 @@ class AppRouter {
             child: const SearchScreen(),
           );
         });
+
       case Routes.displayImage:
         return MaterialPageRoute(builder: (context) {
           String imageUrl = args as String;
           return DisplayPostImageScreen(imageUrl: imageUrl);
+        });
+      case Routes.conversations:
+        return MaterialPageRoute(builder: (context) {
+         
+          return const ConversationsScreen();
+        });
+        case Routes.messages:
+        return MaterialPageRoute(builder: (context) {
+         
+          return const MessagesScreen();
         });
       default:
         return null;

@@ -27,15 +27,17 @@ class AppTitleAndMessageIcon extends StatelessWidget {
           ),
           const Spacer(),
           IconButton(
-              onPressed: () { 
-               context.pushNamed(Routes.search);
+              onPressed: () {
+                context.pushNamed(Routes.search);
               },
               icon: const Icon(
                 Icons.search_rounded,
                 color: AppColors.coralPink,
               )),
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                context.pushNamed(Routes.conversations);
+              },
               icon: const Icon(
                 Icons.message_rounded,
                 color: AppColors.coralPink,

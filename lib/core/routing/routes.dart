@@ -8,8 +8,8 @@ class Routes {
   static const String profile = '/profile';
   static const String setupProfile = '/setup-profile';
   static const String editProfile = '/edit-profile';
-  static const String editAddress = '/edit-address';
-  static const String editPassword = '/edit-password';
+  static const String conversations = '/conversations';
+  static const String messages = '/messages';
   static const String comments = '/comments';
   static const String editPost = '/edit-post';
   static const String search = '/search';
