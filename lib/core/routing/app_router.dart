@@ -64,8 +64,14 @@ class AppRouter {
           String userId = args.toString();
 
           debugPrint('user id: $userId');
-          return BlocProvider(
-            create: (context) => getIt<ProfileCubit>()..getProfile(userId),
+          return MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                  create: (context) =>
+                      getIt<ProfileCubit>()..getProfile(userId)),
+ BlocProvider.value(
+          value: getIt<PostsCubit>(), // Use .value to reuse the instance
+        ),            ],
             child: const ProfileScreen(),
           );
         });
@@ -118,12 +124,10 @@ class AppRouter {
         });
       case Routes.conversations:
         return MaterialPageRoute(builder: (context) {
-         
           return const ConversationsScreen();
         });
-        case Routes.messages:
+      case Routes.messages:
         return MaterialPageRoute(builder: (context) {
-         
           return const MessagesScreen();
         });
       default:

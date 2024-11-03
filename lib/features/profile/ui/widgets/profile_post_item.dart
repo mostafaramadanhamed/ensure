@@ -2,6 +2,7 @@ import 'package:ensure/core/helpers/navigation_extension.dart';
 import 'package:ensure/core/helpers/spacing_extension.dart';
 import 'package:ensure/features/posts/data/models/post_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/helpers/date_time_format_helper.dart';
@@ -9,16 +10,18 @@ import '../../../../core/helpers/format_text_helper.dart';
 import '../../../../core/routing/routes.dart';
 import '../../../../core/theme/colors.dart';
 import '../../../../core/theme/text_styles.dart';
+import '../../../posts/domain/cubit/posts_cubit.dart';
+import '../../domain/cubit/profile_cubit.dart';
 
 class ProfilePostItem extends StatelessWidget {
   final PostModel post;
-  const ProfilePostItem({super.key, required this.post});
+  final String userId;
+  const ProfilePostItem({super.key, required this.post, required this.userId});
 
   @override
   Widget build(BuildContext context) {
     return Card(
       surfaceTintColor: Colors.grey.shade300,
-      
       color: Theme.of(context).cardColor,
       margin: EdgeInsets.symmetric(horizontal: 24.w),
       elevation: 8,
@@ -26,19 +29,22 @@ class ProfilePostItem extends StatelessWidget {
       shape:
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0.r)),
       child: Padding(
-        padding: EdgeInsets.only(
-          left: 16.w,
-          right: 16.w,
-          top: 0.h,
-          bottom: 16.h,
-        ),
+        padding: EdgeInsets.symmetric(horizontal: 16.0.w, vertical: 12.h),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             12.ph,
             ListTile(
               contentPadding: EdgeInsets.zero,
-              title: Text(post.authorName, style: TextStyles.font15SemiBold),
+              title: GestureDetector(
+                  onTap: () {
+                    context.pushNamed(
+                      Routes.profile,
+                      arguments: post.authorId,
+                    );
+                  },
+                  child:
+                      Text(post.authorName, style: TextStyles.font15SemiBold)),
               leading: Container(
                 height: 40.h,
                 width: 40.w,
@@ -50,7 +56,59 @@ class ProfilePostItem extends StatelessWidget {
                         ),
                         fit: BoxFit.cover)),
               ),
-       ),
+              trailing: PopupMenuButton(
+                itemBuilder: (context) {
+                  return [
+                    context.read<PostsCubit>().isuser(post.authorId)
+                        ? PopupMenuItem(
+                            value: 'Edit',
+                            child: const Text('Edit'),
+                            onTap: () {
+                              context.pushNamed(
+                                Routes.editPost,
+                                arguments: post,
+                              );
+                            },
+                          )
+                        : PopupMenuItem(
+                            value: 'About this account',
+                            child: const Text(''),
+                            onTap: () {
+                              
+                            }
+                          ),
+                    context.read<PostsCubit>().isuser(post.authorId)
+                        ? PopupMenuItem(
+                            value: 'Delete',
+                            child: const Text('Delete',
+                                style: TextStyle(color: Colors.red)),
+                            onTap: () {
+                              context.read<PostsCubit>().deletePost(post.uId);
+                              context.read<ProfileCubit>().getPostsByUserId(
+                                  post.authorId);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('Post Deleted'),
+                                ),
+                              );
+                            })
+                        : 
+                        PopupMenuItem(
+                            value: 'About this account',
+                            child: const Text('About this account'),
+                            onTap: () {
+                             
+                            },
+                          ),
+                    const PopupMenuItem(
+                      value: 'Report',
+                      child:
+                          Text('Report', style: TextStyle(color: Colors.red)),
+                    ),
+                  ];
+                },
+              ),
+            ),
             20.ph,
             GestureDetector(
               onTap: () {},
@@ -66,14 +124,17 @@ class ProfilePostItem extends StatelessWidget {
                 ? Container()
                 : GestureDetector(
                   onTap: () {
-                    context.pushNamed(Routes.displayImage, arguments: post.content);
+                    context.pushNamed(
+                      Routes.displayImage,
+                      arguments: post.content,
+                    );
                   },
                   child: Center(
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(16.0.r),
                         child: Image.network(post.content,
                             width: double.infinity,
-                            height: 180.h, 
+                            height: 180.h,
                             fit: BoxFit.cover),
                       ),
                     ),
@@ -81,27 +142,33 @@ class ProfilePostItem extends StatelessWidget {
             14.ph,
           Row(
                   children: [
-                    const Icon(
+                    IconButton(
+                      onPressed: ()  {
+                    
+                      },
+                      icon: const Icon(
                         Icons.favorite,
-                        
-                        color: AppColors.coralPink,
+                        color: Colors.red,
+                      ),
                     ),
-                    8.pw,
                    Text(
                             post.likes.toString(),
                             style: TextStyles.font12LighterBrownBold,
                           ),
-                    8.pw,
-                  const Icon(Icons.comment),
-                    8.pw,
-                   
-                    post.comments == 0
-                        ? Container()
-                        : Text(
+                    8.ph,
+                    IconButton(
+                      onPressed: () {
+                        context.pushNamed(Routes.comments, arguments: post.uId);
+
+                        context.read<PostsCubit>().getPosts(); // Refresh posts
+                      },
+                      icon: const Icon(Icons.comment),
+                    ),
+                     Text(
                             post.comments.toString(),
                             style: TextStyles.font12LighterBrownBold,
                           ),
-                    8.pw,
+                    8.ph,
                     IconButton(
                       onPressed: () {},
                       icon: const Icon(Icons.share),
@@ -112,11 +179,12 @@ class ProfilePostItem extends StatelessWidget {
                       style: TextStyles.font12LighterBrownBold,
                     ),
                   ],
-                ),
-           
+              
+              
+            ),
           ],
         ),
       ),
     );
-  }
+   }
 }

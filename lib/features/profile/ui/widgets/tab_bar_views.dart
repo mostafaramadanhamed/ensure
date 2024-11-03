@@ -37,7 +37,7 @@ class PostsPorfile extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             itemCount: posts.length,
             itemBuilder: (context, index) {
-              return ProfilePostItem(post: posts[index]);
+              return ProfilePostItem(post: posts[index],userId: userId,);
             },
           );
         },
