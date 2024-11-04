@@ -1,5 +1,6 @@
 import 'package:ensure/core/di/dependency_injection.dart';
 import 'package:ensure/core/routing/routes.dart';
+import 'package:ensure/features/chat/domain/cubit/chat_cubit.dart';
 import 'package:ensure/features/chat/ui/conversations_screen.dart';
 import 'package:ensure/features/home/ui/home_screen.dart';
 import 'package:ensure/features/login/ui/login_screen.dart';
@@ -69,9 +70,10 @@ class AppRouter {
               BlocProvider(
                   create: (context) =>
                       getIt<ProfileCubit>()..getProfile(userId)),
- BlocProvider.value(
-          value: getIt<PostsCubit>(), // Use .value to reuse the instance
-        ),            ],
+              BlocProvider.value(
+                value: getIt<PostsCubit>(), // Use .value to reuse the instance
+              ),
+            ],
             child: const ProfileScreen(),
           );
         });
@@ -124,11 +126,17 @@ class AppRouter {
         });
       case Routes.conversations:
         return MaterialPageRoute(builder: (context) {
-          return const ConversationsScreen();
+          return BlocProvider(
+            create: (context) => getIt<ChatCubit>(),
+            child: const ConversationsScreen(),
+          );
         });
       case Routes.messages:
         return MaterialPageRoute(builder: (context) {
-          return const MessagesScreen();
+          return BlocProvider.value(
+            value: getIt<ChatCubit>(),
+            child: const MessagesScreen(),
+          );
         });
       default:
         return null;

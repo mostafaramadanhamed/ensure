@@ -5,7 +5,9 @@ import '../models/message_model.dart';
 import 'chat_repo.dart';
 
 class ChatRepoImpl implements ChatRepository {
-  final supabase = Supabase.instance.client;
+  final SupabaseClient supabase ;
+
+  ChatRepoImpl({required this.supabase});
 
   @override
   Future<List<ConversationModel>> fetchConversations() async {
