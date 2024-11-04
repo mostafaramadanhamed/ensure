@@ -1,5 +1,5 @@
 class MessageModel {
-  final int id;
+  final String messageId;
   final String content;
   final String senderId;
   final String receiverId;
@@ -8,7 +8,7 @@ class MessageModel {
   final bool isRead;
 
   MessageModel({
-    required this.id,
+    required this.messageId,
     required this.content,
     required this.senderId,
     required this.receiverId,
@@ -19,7 +19,7 @@ class MessageModel {
 
   factory MessageModel.fromJson(Map<String, dynamic> json) {
     return MessageModel(
-      id: json['id'],
+      messageId: json['message_id'],
       content: json['content'],
       senderId: json['sender_id'],
       receiverId: json['receiver_id'],
