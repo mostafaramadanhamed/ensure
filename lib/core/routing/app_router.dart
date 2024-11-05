@@ -127,7 +127,7 @@ class AppRouter {
       case Routes.conversations:
         return MaterialPageRoute(builder: (context) {
           return BlocProvider(
-            create: (context) => getIt<ChatCubit>(),
+            create: (context) => getIt<ChatCubit>()..fetchConversations(),
             child: const ConversationsScreen(),
           );
         });
