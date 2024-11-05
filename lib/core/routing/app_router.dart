@@ -7,6 +7,7 @@ import 'package:ensure/features/login/ui/login_screen.dart';
 import 'package:ensure/features/onboarding/ui/onboarding_screen.dart';
 import 'package:ensure/features/posts/data/models/post_model.dart';
 import 'package:ensure/features/posts/domain/cubit/posts_cubit.dart';
+import 'package:ensure/features/profile/data/models/profile_model.dart';
 import 'package:ensure/features/search/domain/cubit/search_cubit.dart';
 import 'package:ensure/features/search/ui/search_screen.dart';
 import 'package:ensure/features/sign%20up/domain/cubit/sign_up_cubit.dart';
@@ -15,6 +16,7 @@ import 'package:ensure/features/stories/ui/story_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../features/chat/ui/add_conversation_screen.dart';
 import '../../features/chat/ui/messages_screen.dart';
 import '../../features/login/domain/cubit/cubit/login_cubit.dart';
 import '../../features/comments/domain/cubit/comments_cubit.dart';
@@ -133,10 +135,12 @@ class AppRouter {
         });
       case Routes.messages:
         return MaterialPageRoute(builder: (context) {
-          return BlocProvider.value(
-            value: getIt<ChatCubit>(),
-            child: const MessagesScreen(),
-          );
+          return const MessagesScreen();
+        });
+      case Routes.addConversation:
+        return MaterialPageRoute(builder: (context) {
+          List<ProfileModel> users = args as List<ProfileModel>;
+          return AddConversationScreen(users: users,);
         });
       default:
         return null;
