@@ -1,3 +1,5 @@
+import 'package:ensure/features/profile/data/models/profile_model.dart';
+
 import '../../data/models/conversation_model.dart';
 import '../../data/models/message_model.dart';
 
@@ -9,8 +11,10 @@ final class ChatInitial extends ChatState {}
 
 final class FetchConversationsLoading extends ChatState {}
 final class FetchConversationsSuccess extends ChatState {
-  final List<ConversationModel> conversations;  
-  FetchConversationsSuccess(this.conversations);
+  final List<ConversationModel> conversations;   
+   final List<ProfileModel>suggestions;
+
+  FetchConversationsSuccess({required this.conversations , required this.suggestions});
 }
 
 final class FetchConversationsError extends ChatState {
@@ -23,7 +27,7 @@ final class FetchConversationsError extends ChatState {
 final class FetchMessagesLoading extends ChatState {}
 final class FetchMessagesSuccess extends ChatState {
   final List<MessageModel> messages;
-  FetchMessagesSuccess(this.messages);
+  FetchMessagesSuccess({required this.messages,});
 }
 
 final class FetchMessagesError extends ChatState {

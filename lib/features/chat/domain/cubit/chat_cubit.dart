@@ -13,7 +13,8 @@ class ChatCubit extends Cubit<ChatState> {
         emit(FetchConversationsLoading());
   try {
       final conversations = await chatUseCase.fetchConversations();
-      emit(FetchConversationsSuccess(conversations));
+         final suggestedUsers = await chatUseCase.fetchUsers();
+      emit(FetchConversationsSuccess(conversations: conversations, suggestions: suggestedUsers));
     } catch (e) {
       emit(FetchConversationsError(e.toString()));
       debugPrint(e.toString());
@@ -24,7 +25,8 @@ class ChatCubit extends Cubit<ChatState> {
     emit(FetchMessagesLoading());
     try {
       final messages = await chatUseCase.fetchMessages(conversationId);
-      emit(FetchMessagesSuccess(messages));
+   
+      emit(FetchMessagesSuccess(messages: messages,));
     } catch (e) {
       emit(FetchMessagesError(e.toString()));
       debugPrint(e.toString());
