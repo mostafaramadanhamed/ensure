@@ -1,5 +1,6 @@
 import 'package:ensure/features/chat/data/repo/chat_repo.dart';
 
+import '../../../profile/data/models/profile_model.dart';
 import '../../data/models/conversation_model.dart';
 import '../../data/models/message_model.dart';
 
@@ -23,4 +24,8 @@ class ChatUseCase {
   Future<void> markMessageAsRead(int messageId) {
     return chatRepository.markMessageAsRead(messageId);
   } 
+
+  Future<List<ProfileModel>> fetchUsers() {
+    return chatRepository.fetchUsers();
+  }
 }
