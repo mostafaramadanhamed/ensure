@@ -1,4 +1,5 @@
 import 'package:ensure/features/chat/domain/use%20case/chat_use_case.dart';
+import 'package:ensure/features/profile/data/models/profile_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -8,13 +9,13 @@ import 'chat_state.dart';
 class ChatCubit extends Cubit<ChatState> {
   final ChatUseCase chatUseCase;
   ChatCubit(this.chatUseCase) : super(ChatInitial());
-
+List<ProfileModel> suggestions = [];
   Future<void> fetchConversations() async {
         emit(FetchConversationsLoading());
   try {
       final conversations = await chatUseCase.fetchConversations();
-         final suggestedUsers = await chatUseCase.fetchUsers();
-      emit(FetchConversationsSuccess(conversations: conversations, suggestions: suggestedUsers));
+        suggestions = await chatUseCase.fetchUsers();
+      emit(FetchConversationsSuccess(conversations: conversations, suggestions: suggestions));
     } catch (e) {
       emit(FetchConversationsError(e.toString()));
       debugPrint(e.toString());
