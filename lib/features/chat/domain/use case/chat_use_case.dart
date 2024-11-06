@@ -13,7 +13,7 @@ class ChatUseCase {
     return chatRepository.fetchConversations();
   }
 
-  Future<List<MessageModel>> fetchMessages(int conversationId) {
+  Future<List<MessageModel>> fetchMessages(String conversationId) {
     return chatRepository.fetchMessages(conversationId);
   }
 
@@ -23,9 +23,13 @@ class ChatUseCase {
 
   Future<void> markMessageAsRead(int messageId) {
     return chatRepository.markMessageAsRead(messageId);
-  } 
+  }
 
   Future<List<ProfileModel>> fetchUsers() {
     return chatRepository.fetchUsers();
+  }
+
+  Future<void> addConversation(ConversationModel conversation) {
+    return chatRepository.addConversation(conversation);
   }
 }
