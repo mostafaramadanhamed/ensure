@@ -6,9 +6,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../core/routing/routes.dart';
 import '../../../../../core/theme/colors.dart';
 import '../../../../../core/theme/text_styles.dart';
+import '../../../../profile/data/models/profile_model.dart';
 
 class ConversationItem extends StatelessWidget {
-  const ConversationItem({super.key});
+  final ProfileModel profile;
+  const ConversationItem({super.key, required this.profile});
 
   @override
   Widget build(BuildContext context) {
@@ -40,16 +42,24 @@ class ConversationItem extends StatelessWidget {
             Container(
               height: 80.h,
               width: 80.w,
-              clipBehavior: Clip.antiAliasWithSaveLayer,
-              decoration: const BoxDecoration(
-                color: AppColors.teaRose,
+              decoration: BoxDecoration(
                 shape: BoxShape.circle,
+                color: AppColors.mistyRose,
               ),
-              child: const Icon(
-                Icons.person_outline_rounded,
-                size: 64,
+              child: profile.photoUrl != ''
+                  ? Image.network(
+                      profile.photoUrl,
+                      fit: BoxFit.cover,
+                    )
+                  : Center(
+                      child: Text(
+                        profile.name[0],
+                        style: TextStyles.font17SemiBold,
+                      ),
+                  )
               ),
-            ),
+
+            
             16.pw,
             Expanded(
               child: Column(
@@ -57,7 +67,7 @@ class ConversationItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'User Name',
+                    profile.name,
                     style: TextStyles.font17SemiBold,
                   ),
                   4.ph,
