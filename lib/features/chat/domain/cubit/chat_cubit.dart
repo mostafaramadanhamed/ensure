@@ -15,17 +15,33 @@ class ChatCubit extends Cubit<ChatState> {
   List<ProfileModel> suggestions = [];
   Future<void> fetchConversations() async {
     emit(FetchConversationsLoading());
+    List<ProfileModel>profiles=[];
     try {
+      // get conversations
       final conversations = await chatUseCase.fetchConversations();
       suggestions = await chatUseCase.fetchUsers();
+      // get user profile for each conversation
+      for (var conversation in conversations) {
+      
+      profiles.add(await getUserProfile(conversation.user2Id));
+      }
       emit(FetchConversationsSuccess(
-          conversations: conversations, suggestions: suggestions));
+          conversations: conversations, suggestions: suggestions, profiles: profiles));
     } catch (e) {
       emit(FetchConversationsError(e.toString()));
       debugPrint(e.toString());
     }
   }
 
+  Future<ProfileModel> getUserProfile(String userId) async {
+    try {
+      final profile = await chatUseCase.getUserProfile(userId);
+      return profile;
+    } catch (e) {
+      debugPrint(e.toString());
+      rethrow;
+    }
+  }
   Future<void> fetchMessages(String conversationId) async {
     emit(FetchMessagesLoading());
     try {

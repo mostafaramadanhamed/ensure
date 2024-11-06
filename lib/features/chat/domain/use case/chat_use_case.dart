@@ -32,4 +32,8 @@ class ChatUseCase {
   Future<void> addConversation(ConversationModel conversation) {
     return chatRepository.addConversation(conversation);
   }
+
+  Future<ProfileModel> getUserProfile(String userId) {
+    return chatRepository.getUserProfile(userId);
+  }
 }

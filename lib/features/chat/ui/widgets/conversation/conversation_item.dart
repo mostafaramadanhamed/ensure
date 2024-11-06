@@ -16,7 +16,7 @@ class ConversationItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        context.pushNamed(Routes.messages);
+        context.pushNamed(Routes.messages, arguments: profile);
       },
       child: Container(
         height: 80.h,
@@ -40,43 +40,28 @@ class ConversationItem extends StatelessWidget {
         child: Row(
           children: [
             Container(
-              height: 80.h,
-              width: 80.w,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: AppColors.mistyRose,
-              ),
-              child: profile.photoUrl != ''
-                  ? Image.network(
-                      profile.photoUrl,
-                      fit: BoxFit.cover,
-                    )
-                  : Center(
-                      child: Text(
-                        profile.name[0],
-                        style: TextStyles.font17SemiBold,
-                      ),
-                  )
-              ),
-
-            
+                height: 80.h,
+                width: 80.w,
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: AppColors.mistyRose,
+                ),
+                child: profile.photoUrl != ''
+                    ? Image.network(
+                        profile.photoUrl,
+                        fit: BoxFit.cover,
+                      )
+                    : Center(
+                        child: Text(
+                          profile.name[0],
+                          style: TextStyles.font17SemiBold,
+                        ),
+                      )),
             16.pw,
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    profile.name,
-                    style: TextStyles.font17SemiBold,
-                  ),
-                  4.ph,
-                  Text(
-                    'Last message',
-                    style: TextStyles.font15Regular,
-                  ),
-                ],
-              ),
+            Text(
+              profile.name,
+              style: TextStyles.font17SemiBold,
             ),
           ],
         ),

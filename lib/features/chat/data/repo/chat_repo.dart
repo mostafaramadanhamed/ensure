@@ -10,4 +10,6 @@ abstract class ChatRepository {
   Future<void> markMessageAsRead(int messageId);
   Future<List<ProfileModel>> fetchUsers();
   Future<void> addConversation(ConversationModel conversation);
+  // get user profile by id
+  Future<ProfileModel> getUserProfile(String userId);
 }

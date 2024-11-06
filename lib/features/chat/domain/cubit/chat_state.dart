@@ -10,11 +10,14 @@ final class ChatInitial extends ChatState {}
 // fetchConversations State
 
 final class FetchConversationsLoading extends ChatState {}
-final class FetchConversationsSuccess extends ChatState {
-  final List<ConversationModel> conversations;   
-   final List<ProfileModel>suggestions;
 
-  FetchConversationsSuccess({required this.conversations , required this.suggestions});
+final class FetchConversationsSuccess extends ChatState {
+  final List<ConversationModel> conversations;
+  final List<ProfileModel> suggestions;
+  final List<ProfileModel> profiles;
+
+  FetchConversationsSuccess(
+      {required this.conversations, required this.suggestions, required this.profiles});
 }
 
 final class FetchConversationsError extends ChatState {
@@ -25,9 +28,12 @@ final class FetchConversationsError extends ChatState {
 // fetchMessages State
 
 final class FetchMessagesLoading extends ChatState {}
+
 final class FetchMessagesSuccess extends ChatState {
   final List<MessageModel> messages;
-  FetchMessagesSuccess({required this.messages,});
+  FetchMessagesSuccess({
+    required this.messages,
+  });
 }
 
 final class FetchMessagesError extends ChatState {
@@ -45,9 +51,9 @@ final class SendMessageSuccess extends ChatState {
 final class SendMessageError extends ChatState {
   final String error;
   SendMessageError(this.error);
-} 
+}
 
-// markMessageAsRead State  
+// markMessageAsRead State
 
 final class MarkMessageAsReadSuccess extends ChatState {
   final int messageId;
