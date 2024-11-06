@@ -82,6 +82,7 @@ class ChatRepoImpl implements ChatRepository {
     });
   }
 
+  @override
   Future<ProfileModel> getUserProfile(String userId) async {
     final response =
         await supabase.from('profiles').select().eq('user_id', userId);

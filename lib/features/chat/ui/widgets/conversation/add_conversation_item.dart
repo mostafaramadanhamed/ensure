@@ -19,8 +19,10 @@ class AddConversationItem extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
       contentPadding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
       onTap: () {
-        context.read<ChatCubit>().addConversation(user.id).then((value)
-         => context.pushNamed(Routes.messages, arguments: user));
+        context.read<ChatCubit>().addConversation(user.id).then((value) {
+          if (!context.mounted) return;
+          context.pushNamed(Routes.messages, arguments: user);
+        });
       },
       leading: Container(
         height: 50.h,
@@ -50,7 +52,6 @@ class AddConversationItem extends StatelessWidget {
         overflow: TextOverflow.ellipsis,
         style: TextStyles.font12LighterBrownBold,
       ),
-     
     );
   }
 }
