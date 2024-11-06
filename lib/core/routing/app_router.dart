@@ -135,12 +135,20 @@ class AppRouter {
         });
       case Routes.messages:
         return MaterialPageRoute(builder: (context) {
-          return const MessagesScreen();
+          ProfileModel user = args as ProfileModel;
+          return MessagesScreen(
+            user: user,
+          );
         });
       case Routes.addConversation:
         return MaterialPageRoute(builder: (context) {
           List<ProfileModel> users = args as List<ProfileModel>;
-          return AddConversationScreen(users: users,);
+          return BlocProvider.value(
+            value: getIt<ChatCubit>(),
+            child: AddConversationScreen(
+              users: users,
+            ),
+          );
         });
       default:
         return null;
