@@ -1,11 +1,13 @@
 import 'package:ensure/core/di/dependency_injection.dart';
 import 'package:ensure/core/routing/routes.dart';
+import 'package:ensure/features/chat/domain/cubit/chat_cubit.dart';
 import 'package:ensure/features/chat/ui/conversations_screen.dart';
 import 'package:ensure/features/home/ui/home_screen.dart';
 import 'package:ensure/features/login/ui/login_screen.dart';
 import 'package:ensure/features/onboarding/ui/onboarding_screen.dart';
 import 'package:ensure/features/posts/data/models/post_model.dart';
 import 'package:ensure/features/posts/domain/cubit/posts_cubit.dart';
+import 'package:ensure/features/profile/data/models/profile_model.dart';
 import 'package:ensure/features/search/domain/cubit/search_cubit.dart';
 import 'package:ensure/features/search/ui/search_screen.dart';
 import 'package:ensure/features/sign%20up/domain/cubit/sign_up_cubit.dart';
@@ -14,6 +16,7 @@ import 'package:ensure/features/stories/ui/story_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../features/chat/ui/add_conversation_screen.dart';
 import '../../features/chat/ui/messages_screen.dart';
 import '../../features/login/domain/cubit/cubit/login_cubit.dart';
 import '../../features/comments/domain/cubit/comments_cubit.dart';
@@ -69,9 +72,10 @@ class AppRouter {
               BlocProvider(
                   create: (context) =>
                       getIt<ProfileCubit>()..getProfile(userId)),
- BlocProvider.value(
-          value: getIt<PostsCubit>(), // Use .value to reuse the instance
-        ),            ],
+              BlocProvider.value(
+                value: getIt<PostsCubit>(), // Use .value to reuse the instance
+              ),
+            ],
             child: const ProfileScreen(),
           );
         });
@@ -124,11 +128,27 @@ class AppRouter {
         });
       case Routes.conversations:
         return MaterialPageRoute(builder: (context) {
-          return const ConversationsScreen();
+          return BlocProvider(
+            create: (context) => getIt<ChatCubit>()..fetchConversations(),
+            child: const ConversationsScreen(),
+          );
         });
       case Routes.messages:
         return MaterialPageRoute(builder: (context) {
-          return const MessagesScreen();
+          ProfileModel user = args as ProfileModel;
+          return MessagesScreen(
+            user: user,
+          );
+        });
+      case Routes.addConversation:
+        return MaterialPageRoute(builder: (context) {
+          List<ProfileModel> users = args as List<ProfileModel>;
+          return BlocProvider.value(
+            value: getIt<ChatCubit>(),
+            child: AddConversationScreen(
+              users: users,
+            ),
+          );
         });
       default:
         return null;

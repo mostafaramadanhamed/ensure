@@ -1,5 +1,7 @@
 
 import 'package:ensure/core/network/supabase_constants.dart';
+import 'package:ensure/features/chat/data/repo/chat_repo.dart';
+import 'package:ensure/features/chat/domain/cubit/chat_cubit.dart';
 import 'package:ensure/features/login/data/repos/login_repo.dart';
 import 'package:ensure/features/comments/data/repos/comments_repo.dart';
 import 'package:ensure/features/posts/domain/cubit/posts_cubit.dart';
@@ -13,6 +15,8 @@ import 'package:ensure/features/sign%20up/domain/use%20case/signup_use_case.dart
 import 'package:get_it/get_it.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../features/chat/data/repo/chat_repo_impl.dart';
+import '../../features/chat/domain/use case/chat_use_case.dart';
 import '../../features/login/data/repos/login_repo_impl.dart';
 import '../../features/login/domain/cubit/cubit/login_cubit.dart';
 import '../../features/login/domain/use cases/login_use_case.dart';
@@ -119,4 +123,14 @@ Future<void> setupGetIt() async {
       () => SearchUseCase(searchRepo: getIt()));
 
       getIt.registerFactory<SearchCubit>(() => SearchCubit(getIt()));
+
+      // chat 
+
+      getIt.registerLazySingleton<ChatRepository>(
+      () => ChatRepoImpl(supabase: getIt()));
+
+      getIt.registerLazySingleton<ChatUseCase>(
+      () => ChatUseCase(chatRepository: getIt()));
+
+      getIt.registerFactory<ChatCubit>(() => ChatCubit(getIt()));
 }

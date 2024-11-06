@@ -6,15 +6,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../core/routing/routes.dart';
 import '../../../../../core/theme/colors.dart';
 import '../../../../../core/theme/text_styles.dart';
+import '../../../../profile/data/models/profile_model.dart';
 
 class ConversationItem extends StatelessWidget {
-  const ConversationItem({super.key});
+  final ProfileModel profile;
+  const ConversationItem({super.key, required this.profile});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        context.pushNamed(Routes.messages);
+        context.pushNamed(Routes.messages, arguments: profile);
       },
       child: Container(
         height: 80.h,
@@ -38,35 +40,28 @@ class ConversationItem extends StatelessWidget {
         child: Row(
           children: [
             Container(
-              height: 80.h,
-              width: 80.w,
-              clipBehavior: Clip.antiAliasWithSaveLayer,
-              decoration: const BoxDecoration(
-                color: AppColors.teaRose,
-                shape: BoxShape.circle,
-              ),
-              child: const Icon(
-                Icons.person_outline_rounded,
-                size: 64,
-              ),
-            ),
+                height: 80.h,
+                width: 80.w,
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: AppColors.mistyRose,
+                ),
+                child: profile.photoUrl != ''
+                    ? Image.network(
+                        profile.photoUrl,
+                        fit: BoxFit.cover,
+                      )
+                    : Center(
+                        child: Text(
+                          profile.name[0],
+                          style: TextStyles.font17SemiBold,
+                        ),
+                      )),
             16.pw,
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'User Name',
-                    style: TextStyles.font17SemiBold,
-                  ),
-                  4.ph,
-                  Text(
-                    'Last message',
-                    style: TextStyles.font15Regular,
-                  ),
-                ],
-              ),
+            Text(
+              profile.name,
+              style: TextStyles.font17SemiBold,
             ),
           ],
         ),

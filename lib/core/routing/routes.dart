@@ -11,6 +11,7 @@ class Routes {
   static const String conversations = '/conversations';
   static const String messages = '/messages';
   static const String comments = '/comments';
+  static const String addConversation = '/add-conversation';
   static const String editPost = '/edit-post';
   static const String search = '/search';
   static const String displayImage = '/display-image';
