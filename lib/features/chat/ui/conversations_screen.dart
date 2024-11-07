@@ -18,8 +18,7 @@ class ConversationsScreen extends StatelessWidget {
           title: const Text('Conversations'),
           centerTitle: true,
         ),
-        floatingActionButton: FloatingActionButton(
-          
+        floatingActionButton: FloatingActionButton(  
           onPressed: () {
             Navigator.pushNamed(
               context,
@@ -44,7 +43,7 @@ class ConversationsScreen extends StatelessWidget {
                   itemCount: state.conversations.length,
                   itemBuilder: (context, index) {
                     
-                    return  ConversationItem(profile: state.profiles[index],);
+                    return  ConversationItem(profile: state.profiles[index],conversationId: state.conversations[index].conversationId,);
                   },
                 );
               } else {
