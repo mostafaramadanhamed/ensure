@@ -1,3 +1,5 @@
+import 'package:ensure/core/helpers/date_time_format_helper.dart';
+import 'package:ensure/core/helpers/spacing_extension.dart';
 import 'package:ensure/core/theme/colors.dart';
 import 'package:ensure/features/chat/data/models/message_model.dart';
 import 'package:flutter/material.dart';
@@ -32,10 +34,20 @@ class MyMessageCard extends StatelessWidget {
             ),
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
-              child: Text(
-                message.content,
-                style:
-                    TextStyles.font15SemiBold.copyWith(color: AppColors.white),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    message.content,
+                    style:
+                        TextStyles.font17SemiBold.copyWith(color: AppColors.white),
+                  ),
+                  4.ph,
+                  Text(formatPostTime(message.createdAt), 
+                  style: TextStyles.font12LighterBrownBold.copyWith(
+                    color:AppColors.mistyRose
+                  )),
+                ],
               ),
             ),
           ),
