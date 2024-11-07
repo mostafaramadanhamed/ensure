@@ -21,7 +21,10 @@ class AddConversationItem extends StatelessWidget {
       onTap: () {
         context.read<ChatCubit>().addConversation(user.id).then((value) {
           if (!context.mounted) return;
-          context.pushNamed(Routes.messages, arguments: user);
+          context.pushNamed(Routes.messages, arguments: {
+            'profile': user,
+            'conversationId': value
+          });
         });
       },
       leading: Container(
