@@ -5,11 +5,11 @@ import '../models/message_model.dart';
 
 abstract class ChatRepository {
   Future<List<ConversationModel>> fetchConversations();
-  Future<List<MessageModel>> fetchMessages(String conversationId);
+  Future<List<MessageModel>> fetchMessages(int conversationId);
   Future<void> sendMessage(MessageModel message);
   Future<void> markMessageAsRead(int messageId);
   Future<List<ProfileModel>> fetchUsers();
-  Future<void> addConversation(ConversationModel conversation);
+  Future<int> addConversation(ConversationModel conversation);
   // get user profile by id
   Future<ProfileModel> getUserProfile(String userId);
 }
