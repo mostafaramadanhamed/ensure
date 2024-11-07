@@ -13,20 +13,26 @@ class ChatCubit extends Cubit<ChatState> {
   final ChatUseCase chatUseCase;
   ChatCubit(this.chatUseCase) : super(ChatInitial());
   List<ProfileModel> suggestions = [];
+  TextEditingController messageController = TextEditingController();
   Future<void> fetchConversations() async {
     emit(FetchConversationsLoading());
-    List<ProfileModel>profiles=[];
+    List<ProfileModel> profiles = [];
     try {
       // get conversations
       final conversations = await chatUseCase.fetchConversations();
       suggestions = await chatUseCase.fetchUsers();
       // get user profile for each conversation
       for (var conversation in conversations) {
-      
-      profiles.add(await getUserProfile(conversation.user2Id));
+        profiles.add(await getUserProfile(
+          conversation.user1Id == Supabase.instance.client.auth.currentUser!.id
+              ? conversation.user2Id
+              : conversation.user1Id,
+        ));
       }
       emit(FetchConversationsSuccess(
-          conversations: conversations, suggestions: suggestions, profiles: profiles));
+          conversations: conversations,
+          suggestions: suggestions,
+          profiles: profiles));
     } catch (e) {
       emit(FetchConversationsError(e.toString()));
       debugPrint(e.toString());
@@ -42,7 +48,23 @@ class ChatCubit extends Cubit<ChatState> {
       rethrow;
     }
   }
-  Future<void> fetchMessages(String conversationId) async {
+
+  Future<int> addConversation(String user2Id) async {
+    try {
+      final conversation = ConversationModel(
+          user1Id: Supabase.instance.client.auth.currentUser!.id,
+          user2Id: user2Id,
+          createdAt: DateTime.now(),
+          conversationId: getCurrentTimeInMillis(DateTime.now()));
+      await chatUseCase.addConversation(conversation);
+      return conversation.conversationId;
+    } catch (e) {
+      debugPrint(e.toString());
+      rethrow;
+    }
+  }
+
+  Future<void> fetchMessages(int conversationId) async {
     emit(FetchMessagesLoading());
     try {
       final messages = await chatUseCase.fetchMessages(conversationId);
@@ -56,22 +78,23 @@ class ChatCubit extends Cubit<ChatState> {
     }
   }
 
-  Future<void> addConversation(String user2Id) async {
+  Future<void> sendMessage({
+    required int conversationId,
+    required String receiverId,
+  }) async {
     try {
-      final conversation = ConversationModel(
-          user1Id: Supabase.instance.client.auth.currentUser!.id,
-          user2Id: user2Id,
-          createdAt: DateTime.now(),
-          conversationId: getCurrentTimeInMillis(DateTime.now()));
-      await chatUseCase.addConversation(conversation);
-    } catch (e) {
-      debugPrint(e.toString());
-    }
-  }
+      await chatUseCase.sendMessage(MessageModel(
+        conversationId: conversationId,
+        senderId: Supabase.instance.client.auth.currentUser!.id,
+        content: messageController.text.trim(),
+        createdAt: DateTime.now(),
+        receiverId: receiverId,
+        isRead: false,
+        messageId: getCurrentTimeInMillis(DateTime.now()),
+      ));
 
-  Future<void> sendMessage(MessageModel message) async {
-    try {
-      await chatUseCase.sendMessage(message);
+      messageController.clear();
+      fetchMessages(conversationId);
     } catch (e) {
       debugPrint(e.toString());
     }
