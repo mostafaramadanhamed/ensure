@@ -13,7 +13,8 @@ class ChatRepoImpl implements ChatRepository {
 
   @override
   Future<List<ProfileModel>> fetchUsers() async {
-    // get list of followed ids exept current conversations user2Id
+      final currentUserId = supabase.auth.currentUser!.id;
+
 
     final followingResponse = await supabase
         .from('followers')
@@ -21,14 +22,15 @@ class ChatRepoImpl implements ChatRepository {
         .eq('follower_id', supabase.auth.currentUser!.id);
     final followedIds =
         (followingResponse.map((e) => e['followed_id'])).toList();
-    final conversationsResponse = await supabase
-        .from('conversations')
-        .select('user2_id')
-        .eq('user1_id', supabase.auth.currentUser!.id);
+  final conversationsResponse = await supabase
+      .from('conversations')
+      .select('user1_id, user2_id')
+      .or('user1_id.eq.$currentUserId,user2_id.eq.$currentUserId');
 
-    final conversationUserIds = (conversationsResponse as List)
-        .map((e) => e['user2_id'] as String)
-        .toList();
+  final conversationUserIds = (conversationsResponse as List).expand((e) {
+    return [e['user1_id'], e['user2_id']];
+  }).where((id) => id != currentUserId).toSet();
+
 
     // Step 3: Filter out users in conversations from followed IDs
     final suggestedUserIds =
@@ -63,23 +65,14 @@ class ChatRepoImpl implements ChatRepository {
   }
 
   @override
-  Future<List<MessageModel>> fetchMessages(String conversationId) async {
-    final response = await supabase
-        .from('messages')
-        .select('*')
-        .eq('conversation_id', conversationId)
-        .order('updated_at', ascending: true);
-    return response.map((e) => MessageModel.fromJson(e)).toList();
-  }
-
-  @override
-  Future<void> addConversation(ConversationModel conversation) async {
+  Future<int> addConversation(ConversationModel conversation) async {
     await supabase.from('conversations').insert({
       'conversation_id': conversation.conversationId,
       'user1_id': conversation.user1Id,
       'user2_id': conversation.user2Id,
       'created_at': DateTime.now().toIso8601String(),
     });
+    return conversation.conversationId;
   }
 
   @override
@@ -90,12 +83,22 @@ class ChatRepoImpl implements ChatRepository {
   }
 
   @override
+  Future<List<MessageModel>> fetchMessages(int conversationId) async {
+    final response = await supabase
+        .from('messages')
+        .select('*')
+        .eq('conversation_id', conversationId)
+        .order('created_at', ascending: true);
+    return response.map((e) => MessageModel.fromJson(e)).toList();
+  }
+
+  @override
   Future<void> sendMessage(MessageModel message) async {
     await supabase.from('messages').insert({
       'conversation_id': message.conversationId,
       'sender_id': message.senderId,
-      'message': message.content,
-      'created_at': message.createdAt,
+      'content': message.content,
+      'created_at': DateTime.now().toIso8601String(),
       'receiver_id': message.receiverId,
       'is_read': message.isRead,
       'message_id': message.messageId,

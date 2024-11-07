@@ -135,9 +135,13 @@ class AppRouter {
         });
       case Routes.messages:
         return MaterialPageRoute(builder: (context) {
-          ProfileModel user = args as ProfileModel;
-          return MessagesScreen(
-            user: user,
+         Map<String,dynamic>arguments=args as Map<String,dynamic>;
+          return BlocProvider.value(
+           value: getIt<ChatCubit>()..fetchMessages(arguments['conversationId']),
+            child: MessagesScreen(
+              user: arguments['profile'],
+              conversationId: arguments['conversationId'],
+            ),
           );
         });
       case Routes.addConversation:

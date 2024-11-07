@@ -13,7 +13,7 @@ class ChatUseCase {
     return chatRepository.fetchConversations();
   }
 
-  Future<List<MessageModel>> fetchMessages(String conversationId) {
+  Future<List<MessageModel>> fetchMessages(int conversationId) {
     return chatRepository.fetchMessages(conversationId);
   }
 

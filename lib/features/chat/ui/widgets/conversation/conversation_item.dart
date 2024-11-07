@@ -10,13 +10,21 @@ import '../../../../profile/data/models/profile_model.dart';
 
 class ConversationItem extends StatelessWidget {
   final ProfileModel profile;
-  const ConversationItem({super.key, required this.profile});
+  final int conversationId;
+  const ConversationItem({  
+    super.key,
+    required this.profile,
+    required this.conversationId,
+  });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        context.pushNamed(Routes.messages, arguments: profile);
+        context.pushNamed(Routes.messages, arguments: {
+          'profile': profile,
+          'conversationId': conversationId,
+        });
       },
       child: Container(
         height: 80.h,
