@@ -1,11 +1,13 @@
 import 'package:ensure/core/theme/colors.dart';
+import 'package:ensure/features/chat/data/models/message_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../core/theme/text_styles.dart';
 
 class MyMessageCard extends StatelessWidget {
-  const MyMessageCard({super.key});
+  final MessageModel message;
+  const MyMessageCard({super.key, required this.message});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +21,7 @@ class MyMessageCard extends StatelessWidget {
           ),
           child: Card(
             elevation: 3,
-            color:Theme.of(context).primaryColorLight,
+            color: Theme.of(context).primaryColorLight,
             margin: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadiusDirectional.only(
@@ -31,10 +33,9 @@ class MyMessageCard extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
               child: Text(
-                'This is my message',
-                style:  TextStyles.font15SemiBold.copyWith(
-                  color: AppColors.white
-                ),
+                message.content,
+                style:
+                    TextStyles.font15SemiBold.copyWith(color: AppColors.white),
               ),
             ),
           ),
