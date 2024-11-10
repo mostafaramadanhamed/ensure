@@ -28,7 +28,12 @@ dependencies:
   supabase_flutter: ^2.8.0
   timezone: ^0.9.4
   water_drop_nav_bar: ^2.2.2
-
+flutter_icons:
+  android: "launcher_icon"
+  ios: false
+  image_path: "assets/images/icon.png"
+  adaptive_icon_background: "assets/images/background.png"
+  adaptive_icon_foreground: "assets/images/icon.png"
 dev_dependencies:
   flutter_lints: ^4.0.0
   flutter_test:
