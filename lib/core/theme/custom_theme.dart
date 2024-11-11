@@ -14,6 +14,7 @@ class CustomTheme {
       primaryColorLight: AppColors.coralPink,
       scaffoldBackgroundColor: lightScheme().surface,
       canvasColor: lightScheme().surface,
+      fontFamily: 'Poppins',
     );
   }
 
@@ -80,6 +81,7 @@ class CustomTheme {
       primaryColorLight: AppColors.oldRose,
       scaffoldBackgroundColor: darkScheme().surface,
       canvasColor: darkScheme().surface,
+      fontFamily: 'Poppins',
     );
   }
 
