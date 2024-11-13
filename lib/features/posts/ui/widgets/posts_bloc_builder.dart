@@ -4,6 +4,8 @@ import 'package:ensure/features/posts/ui/widgets/posts_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'shimmer_post_loading.dart';
+
 class PostsBlocBuilder extends StatelessWidget {
   const PostsBlocBuilder({super.key});
 
@@ -20,9 +22,7 @@ class PostsBlocBuilder extends StatelessWidget {
         } else if (state is GetPostsError) {
           return setupError();
         } else if (state is GetPostsLoading) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
+          return setupLoading();
         }
 
         return const SizedBox.shrink();
@@ -32,6 +32,10 @@ class PostsBlocBuilder extends StatelessWidget {
 
   Widget setupError() {
     return const SizedBox.shrink();
+  }
+
+  Widget setupLoading() {
+    return const ShimmerPostLoading();
   }
 
   Widget setupSuccess(posts) {
