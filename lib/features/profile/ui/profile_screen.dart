@@ -11,6 +11,7 @@ import '../../../core/widgets/app_text_button.dart';
 import '../data/models/profile_model.dart';
 import '../domain/cubit/profile_cubit.dart';
 import '../domain/cubit/profile_state.dart';
+import 'widgets/shimmer_follow_loading.dart';
 import 'widgets/tab_bar_views.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -110,7 +111,7 @@ class ProfileScreen extends StatelessWidget {
                                       builder: (context, snapshot) {
                                         if (snapshot.connectionState ==
                                             ConnectionState.waiting) {
-                                          return const CircularProgressIndicator();
+                                          return const ShimmerFollowLoading();
                                         }
                                         if (snapshot.hasError) {
                                           return Text(
@@ -119,7 +120,7 @@ class ProfileScreen extends StatelessWidget {
                                         if (!snapshot.hasData) {
                                           return const Text('No data');
                                         }
-                                        if (snapshot.data==true) {
+                                        if (snapshot.data == true) {
                                           return AppTextButton(
                                             buttonText: 'Unfollow',
                                             onPressed: () {
@@ -134,12 +135,13 @@ class ProfileScreen extends StatelessWidget {
                                                 .scaffoldBackgroundColor,
                                             textStyle: TextStyles.font15SemiBold
                                                 .copyWith(
-                                         //     color: AppColors.white,
-                                            ),
+                                                    //     color: AppColors.white,
+                                                    ),
                                             borderRadius: 25.r,
                                             verticalPadding: 8,
                                           );
-                                        } if (snapshot.data==false) {
+                                        }
+                                        if (snapshot.data == false) {
                                           return AppTextButton(
                                             buttonText: 'Follow',
                                             onPressed: () {
