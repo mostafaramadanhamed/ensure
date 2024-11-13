@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'widgets/messages/add_message_input.dart';
 import 'widgets/messages/messages_list_view.dart';
+import 'widgets/messages/shimmer_message_loading.dart';
 
 class MessagesScreen extends StatelessWidget {
   final ProfileModel user;
@@ -31,7 +32,9 @@ class MessagesScreen extends StatelessWidget {
                     child: Text(state.error),
                   );
                 }
-
+                else if (state is FetchMessagesLoading) {
+                  return const ShimmerMessageLoading(); 
+                }
                 return const SizedBox.shrink();
               },
             ),

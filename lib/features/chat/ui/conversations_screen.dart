@@ -1,6 +1,6 @@
 import 'package:ensure/core/helpers/spacing_extension.dart';
 import 'package:ensure/features/chat/domain/cubit/chat_cubit.dart';
-import 'package:ensure/features/chat/ui/widgets/shimmer_conversation_loading.dart';
+import 'package:ensure/features/chat/ui/widgets/conversation/shimmer_conversation_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

@@ -1,5 +1,5 @@
 import 'package:ensure/core/widgets/app_text_filed.dart';
-import 'package:ensure/features/chat/ui/widgets/shimmer_conversation_loading.dart';
+import 'package:ensure/features/chat/ui/widgets/conversation/shimmer_conversation_loading.dart';
 import 'package:ensure/features/search/ui/widgets/searched_users_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
