@@ -4,6 +4,8 @@ import 'package:ensure/features/comments/ui/widgets/comment_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'shimmer_comment_loading.dart';
+
 class CommentsListView extends StatefulWidget {
   final int postId;
   const CommentsListView({super.key, required this.postId});
@@ -35,9 +37,7 @@ class _CommentsListViewState extends State<CommentsListView> {
             child: Text(state.message),
           );
         } else if (state is GetCommentsLoading) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
+          return const ShimmerCommentLoading();
         }
         return const SizedBox.shrink();
       },
