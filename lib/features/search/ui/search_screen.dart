@@ -1,4 +1,5 @@
 import 'package:ensure/core/widgets/app_text_filed.dart';
+import 'package:ensure/features/chat/ui/widgets/shimmer_conversation_loading.dart';
 import 'package:ensure/features/search/ui/widgets/searched_users_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,9 +35,7 @@ class SearchScreen extends StatelessWidget {
         body: BlocBuilder<SearchCubit, SearchState>(
           builder: (context, state) {
             if (state is SearchLoading) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
+              return const ShimmerConversationLoading();
             } else if (state is SearchLoaded) {
               if (state.data.isNotEmpty) {
                 return SearchedUsersListView(users: state.data);
