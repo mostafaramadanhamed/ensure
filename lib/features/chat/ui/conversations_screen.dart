@@ -1,5 +1,6 @@
 import 'package:ensure/core/helpers/spacing_extension.dart';
 import 'package:ensure/features/chat/domain/cubit/chat_cubit.dart';
+import 'package:ensure/features/chat/ui/widgets/shimmer_conversation_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -18,7 +19,7 @@ class ConversationsScreen extends StatelessWidget {
           title: const Text('Conversations'),
           centerTitle: true,
         ),
-        floatingActionButton: FloatingActionButton(  
+        floatingActionButton: FloatingActionButton(
           onPressed: () {
             Navigator.pushNamed(
               context,
@@ -42,11 +43,13 @@ class ConversationsScreen extends StatelessWidget {
                   separatorBuilder: (context, index) => 16.ph,
                   itemCount: state.conversations.length,
                   itemBuilder: (context, index) {
-                    
-                    return  ConversationItem(profile: state.profiles[index],conversationId: state.conversations[index].conversationId,);
+                    return ConversationItem(
+                      profile: state.profiles[index],
+                      conversationId: state.conversations[index].conversationId,
+                    );
                   },
                 );
-              } else {
+                } else {
                 return Center(
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -76,9 +79,7 @@ class ConversationsScreen extends StatelessWidget {
               );
             }
             if (state is FetchConversationsLoading) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
+              return const ShimmerConversationLoading();
             }
             return const SizedBox.shrink();
           },
