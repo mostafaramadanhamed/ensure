@@ -24,5 +24,20 @@
     "OR":"او",
     "Don't have an account?":"ليس لديك حساب؟",
     "Sign up with Google":"انشاء حساب بواسطة جوجل",
-    "Sign in with Google":"تسجيل الدخول بواسطة جوجل"
+    "Sign in with Google":"تسجيل الدخول بواسطة جوجل",
+    "Add Photo":"اضافة صورة",
+    "Next":"التالي",
+    "Skip":"تخطي",
+    "Profile":"الملف الشخصي",
+    "Logout":"تسجيل الخروج",
+    "Are you sure you want to logout?":"هل انت متاكد انك تريد تسجيل الخروج؟",
+    "Yes":"نعم",
+    "No":"لا",
+    "Dark Mode":"الوضع الداكن",
+    "Language":"اللغة",
+    "Notifications":"الاشعارات",
+    "About":"عن",
+    "Privacy Policy":"سياسة الخصوصية",
+    "Help & Support":"مساعدة ودعم",
+    "Rate the app":"تقييم التطبيق"
 }

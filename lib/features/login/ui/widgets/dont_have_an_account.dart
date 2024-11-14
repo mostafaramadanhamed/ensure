@@ -33,7 +33,7 @@ class DontHaveAccount extends StatelessWidget {
 
           },
           child: Text(
-            "Sign up".tr(),
+            "Sign Up".tr(),
             style: TextStyles.font15Regular,
           ),
         ),

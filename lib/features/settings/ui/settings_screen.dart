@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ensure/core/helpers/navigation_extension.dart';
 import 'package:ensure/core/helpers/shared_pref_helper.dart';
 import 'package:ensure/core/helpers/spacing_extension.dart';
@@ -100,7 +101,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
                 16.ph,
                 SettingItem(
-                  title: 'Privacy policy',
+                  title: 'Privacy Policy',
                   onTap: () {},
                   widgetLeading: const Icon(Icons.privacy_tip_rounded),
                 ),
@@ -112,15 +113,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         context: context,
                         builder: (_) {
                           return AlertDialog(
-                            title: const Text('Logout'),
+                            title:  Text('Logout'.tr()),
                             content:
-                                const Text('Are you sure you want to logout?'),
+                                 Text('Are you sure you want to logout?'.tr()),
                             actions: [
                               TextButton(
                                 onPressed: () {
                                   Navigator.of(context).pop();
                                 },
-                                child: const Text('No'),
+                                child:  Text('No'.tr()),
                               ),
                               TextButton(
                                 onPressed: () async {
@@ -128,7 +129,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   SharedPrefHelper.clearAllSecuredData();
                                   context.pushReplacementNamed(Routes.login);
                                 },
-                                child: const Text('Yes'),
+                                child:  Text('Yes'.tr()),
                               ),
                             ],
                           );
