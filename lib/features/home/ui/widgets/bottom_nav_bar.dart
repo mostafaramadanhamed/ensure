@@ -41,9 +41,7 @@ class BottomNavBar extends StatelessWidget {
             filledIcon: Icons.home_filled,
             outlinedIcon: Icons.home_outlined,
           ),
-          BarItem(
-              filledIcon: Icons.smart_display_rounded,
-              outlinedIcon: Icons.smart_display_outlined),
+     
           BarItem(
               filledIcon: Icons.add_box_rounded,
               outlinedIcon: Icons.add_box_outlined),

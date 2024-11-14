@@ -29,9 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
         },
         children: const [
           PostsScreen(),
-          Center(
-            child: Text("videos"),
-          ),
+        
           AddPost(),
           SettingsScreen()
         ],
