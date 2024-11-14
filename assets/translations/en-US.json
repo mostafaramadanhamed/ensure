@@ -39,7 +39,15 @@
     "Logout":"Logout",
     "Are you sure you want to logout?":"Are you sure you want to logout?",
     "Yes":"Yes",
-    "No":"No"
+    "No":"No",
+    "Add Conversation":"Add Conversation",
+    "No users found":"No users found",
+    "Conversations":"Conversations",
+    "No conversations found.":"No conversations found.",
+    "Start a conversation by sending a message.":"Start a conversation by sending a message.",
+    
+
+
 
     
    
