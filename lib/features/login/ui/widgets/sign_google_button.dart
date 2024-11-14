@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ensure/core/helpers/spacing_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -24,8 +25,7 @@ class SignGoogleButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: () {
-         // TODO: implement the sign in with Google
-         // TODO: implement the sign up with Google
+       
 
       },
       style: ButtonStyle(
@@ -51,7 +51,7 @@ class SignGoogleButton extends StatelessWidget {
           ),
           20.pw,
           Text(
-           isSignup ? "Sign up with Google" : "Sign in with Google",
+           isSignup ? "Sign up with Google".tr() : "Sign in with Google".tr(),
             style: TextStyles.font15Regular,
           ),
         ],

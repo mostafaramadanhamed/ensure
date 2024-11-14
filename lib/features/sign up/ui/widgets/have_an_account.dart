@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ensure/core/helpers/navigation_extension.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +15,7 @@ class HaveAnAccount extends StatelessWidget {
       children: [
         
         Text(
-          "Already have an account?",
+          "Already have an account?".tr(),
           style: TextStyles.font15SemiBold,
         ),
       
@@ -24,7 +25,7 @@ class HaveAnAccount extends StatelessWidget {
 
           },
           child: Text(
-            "Login",
+            "Login".tr(),
             style: TextStyles.font15Regular,
           ),
         ),

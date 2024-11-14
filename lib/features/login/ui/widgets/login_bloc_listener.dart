@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ensure/core/helpers/navigation_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -60,7 +61,7 @@ class LoginBlocListener extends StatelessWidget {
               context.pop();
             },
             child: Text(
-              'Got it',
+              'Got it'.tr(),
               style: TextStyles.font15SemiBold,
             ),
           ),

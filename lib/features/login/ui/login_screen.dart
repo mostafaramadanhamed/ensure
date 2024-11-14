@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ensure/core/helpers/spacing_extension.dart';
 import 'package:ensure/core/widgets/app_text_filed.dart';
 import 'package:ensure/features/login/ui/widgets/top_container.dart';
@@ -49,7 +50,7 @@ class LoginScreen extends StatelessWidget {
 
                 /// The title of the app bar.
                 title: Text(
-                  "Login",
+                  "Login".tr(),
 
                   /// The style of the title.
                   style: TextStyles.font28Bold.copyWith(
