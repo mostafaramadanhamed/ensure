@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ensure/core/helpers/spacing_extension.dart';
 import 'package:flutter/material.dart';
 
@@ -23,7 +24,7 @@ class PostsFollowersFollowsCounter extends StatelessWidget {
         Column(
           children: [
             Text(
-              'Posts',
+              'Posts'.tr(),
               style: TextStyles.font15SemiBold.copyWith(
                 color: AppColors.lightBrown,
               ),
@@ -35,7 +36,7 @@ class PostsFollowersFollowsCounter extends StatelessWidget {
         Column(
           children: [
             Text(
-              'Followers',
+              'Followers'.tr(),
               style: TextStyles.font15SemiBold.copyWith(
                 color: AppColors.lightBrown,
               ),
@@ -47,7 +48,7 @@ class PostsFollowersFollowsCounter extends StatelessWidget {
         Column(
           children: [
             Text(
-              'Following',
+              'Following'.tr(),
               style: TextStyles.font15SemiBold.copyWith(
                 color: AppColors.lightBrown,
               ),

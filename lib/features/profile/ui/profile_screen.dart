@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ensure/core/helpers/spacing_extension.dart';
 import 'package:ensure/features/profile/ui/widgets/posts_followers_counter.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,7 @@ class ProfileScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Profile',
+        title: Text('Profile'.tr(),
             style: TextStyles.font20SemiBold
                 .copyWith(fontSize: 23.sp, fontWeight: FontWeight.bold)),
         centerTitle: true,
@@ -93,7 +94,7 @@ class ProfileScreen extends StatelessWidget {
                               8.ph,
                               userId == profile.id
                                   ? AppTextButton(
-                                      buttonText: 'Edit Profile',
+                                      buttonText: 'Edit Profile'.tr(),
                                       onPressed: () {},
                                       buttonWidth: 200.w,
                                       buttonHeight: 42.h,
@@ -118,11 +119,11 @@ class ProfileScreen extends StatelessWidget {
                                               'Error: ${snapshot.error}');
                                         }
                                         if (!snapshot.hasData) {
-                                          return const Text('No data');
+                                          return  Text('No data'.tr());
                                         }
                                         if (snapshot.data == true) {
                                           return AppTextButton(
-                                            buttonText: 'Unfollow',
+                                            buttonText: 'Unfollow'.tr(),
                                             onPressed: () {
                                               context
                                                   .read<ProfileCubit>()
@@ -143,7 +144,7 @@ class ProfileScreen extends StatelessWidget {
                                         }
                                         if (snapshot.data == false) {
                                           return AppTextButton(
-                                            buttonText: 'Follow',
+                                            buttonText: 'Follow'.tr(),
                                             onPressed: () {
                                               context
                                                   .read<ProfileCubit>()
@@ -185,7 +186,7 @@ class ProfileScreen extends StatelessWidget {
                           25.0,
                         ),
                       ),
-                      child: Text('Posts',
+                      child: Text('Posts'.tr(),
                           style: TextStyles.font17SemiBold
                               .copyWith(color: AppColors.mistyRose)),
                     ),

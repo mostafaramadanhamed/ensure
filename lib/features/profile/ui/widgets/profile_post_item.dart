@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ensure/core/helpers/navigation_extension.dart';
 import 'package:ensure/core/helpers/spacing_extension.dart';
 import 'package:ensure/features/posts/data/models/post_model.dart';
@@ -61,8 +62,8 @@ class ProfilePostItem extends StatelessWidget {
                   return [
                     context.read<PostsCubit>().isuser(post.authorId)
                         ? PopupMenuItem(
-                            value: 'Edit',
-                            child: const Text('Edit'),
+                            value: 'Edit'.tr(),
+                            child:  Text('Edit'.tr()),
                             onTap: () {
                               context.pushNamed(
                                 Routes.editPost,
@@ -71,7 +72,7 @@ class ProfilePostItem extends StatelessWidget {
                             },
                           )
                         : PopupMenuItem(
-                            value: 'About this account',
+                            value: 'About this account'.tr(),
                             child: const Text(''),
                             onTap: () {
                               
@@ -79,31 +80,31 @@ class ProfilePostItem extends StatelessWidget {
                           ),
                     context.read<PostsCubit>().isuser(post.authorId)
                         ? PopupMenuItem(
-                            value: 'Delete',
-                            child: const Text('Delete',
+                            value: 'Delete'.tr(),
+                            child:  Text('Delete'.tr(),
                                 style: TextStyle(color: Colors.red)),
                             onTap: () {
                               context.read<PostsCubit>().deletePost(post.uId);
                               context.read<ProfileCubit>().getPostsByUserId(
                                   post.authorId);
                               ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text('Post Deleted'),
+                                 SnackBar(
+                                  content: Text('Post Deleted'.tr()),
                                 ),
                               );
                             })
                         : 
                         PopupMenuItem(
-                            value: 'About this account',
-                            child: const Text('About this account'),
+                            value: 'About this account'.tr(),
+                            child:  Text('About this account'.tr()),
                             onTap: () {
                              
                             },
                           ),
-                    const PopupMenuItem(
-                      value: 'Report',
+                     PopupMenuItem(
+                      value: 'Report'.tr(),
                       child:
-                          Text('Report', style: TextStyle(color: Colors.red)),
+                          Text('Report'.tr(), style: TextStyle(color: Colors.red)),
                     ),
                   ];
                 },
