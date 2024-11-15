@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ensure/core/widgets/app_text_filed.dart';
 import 'package:ensure/features/comments/domain/cubit/comments_cubit.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +35,7 @@ class AddCommentInput extends StatelessWidget {
         children: [
           Expanded(
             child: AppTextFormField(
-              hintText: 'Write a comment...',
+              hintText: 'Write a comment...'.tr(),
               controller: context.read<CommentsCubit>().commentController,
               keyboardType: TextInputType.multiline,
               suffixIcon: IconButton(
