@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ensure/core/helpers/spacing_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,15 +24,15 @@ class AddPost extends StatelessWidget {
           child: Column(
             children: [
               35.ph,
-              Text('Add Post', style: TextStyles.font20SemiBold),
+              Text('Add Post'.tr(), style: TextStyles.font20SemiBold),
               25.ph,
               AppTextFormField(
-                label: 'Text',
-                hintText: "Enter your text",
+                label: 'Text'.tr(),
+                hintText: "Enter your text".tr(),
                 controller: context.read<PostsCubit>().textController,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter some text';
+                    return 'Please enter some text'.tr();
                   }
                   return null;
                 },
@@ -81,7 +82,7 @@ class AddPost extends StatelessWidget {
                   20.pw,
                   Expanded(
                       child: AppTextButton(
-                    buttonText: 'Post',
+                    buttonText: 'Post'.tr(),
                     onPressed: () {
                       if (context
                           .read<PostsCubit>()

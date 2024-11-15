@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ensure/core/helpers/navigation_extension.dart';
 import 'package:ensure/core/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +50,7 @@ class AddPostBlocListener extends StatelessWidget {
               context.pop();
             },
             child: Text(
-              'Got it',
+              'Got it'.tr(),
               style: TextStyles.font15Regular,
             ),
           ),
@@ -74,7 +75,7 @@ class AddPostBlocListener extends StatelessWidget {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text('Post Added Successful'),
+          title:  Text('Post Added Successful'.tr()),
           actions: <Widget>[
             TextButton(
             
@@ -83,7 +84,7 @@ class AddPostBlocListener extends StatelessWidget {
                             context.pushNamed(Routes.home);
                             context.read<PostsCubit>().getPosts();
               },
-              child: const Text('Continue'),
+              child:  Text('Continue'.tr()),
             ),
           ],
         );

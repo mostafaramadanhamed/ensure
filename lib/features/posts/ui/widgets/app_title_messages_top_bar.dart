@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ensure/core/helpers/navigation_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -22,7 +23,7 @@ class AppTitleAndMessageIcon extends StatelessWidget {
       child: Row(
         children: [
           Text(
-            'Ensure',
+            'Ensure'.tr(),
             style: TextStyles.fontAppName,
           ),
           const Spacer(),

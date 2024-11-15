@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class DisplayPostImageScreen extends StatelessWidget {
@@ -8,7 +9,7 @@ class DisplayPostImageScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Post Image'),
+        title:  Text('Post Image'.tr()),
       ),
       body: Center(
           child:

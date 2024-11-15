@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ensure/features/posts/domain/cubit/posts_cubit.dart';
 import 'package:ensure/features/posts/domain/cubit/posts_state.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,7 @@ class PostReactions extends StatelessWidget {
               ),
               const SizedBox(width: 10),
               Text(
-                "Reactions",
+                "Reactions".tr(),
                 style: TextStyles.font15SemiBold,
               ),
             ],
@@ -45,7 +46,7 @@ class PostReactions extends StatelessWidget {
                         TextButton(
                           onPressed: () {},
                           child: Text(
-                            'Got it',
+                            'Got it'.tr(),
                             style: TextStyles.font15Regular,
                           ),
                         ),

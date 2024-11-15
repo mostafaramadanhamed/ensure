@@ -20,7 +20,7 @@ class PostsBlocBuilder extends StatelessWidget {
         if (state is GetPostsSuccess) {
           return setupSuccess(state.posts);
         } else if (state is GetPostsError) {
-          return setupError();
+          return setupError(state.message);
         } else if (state is GetPostsLoading) {
           return setupLoading();
         }
@@ -30,8 +30,13 @@ class PostsBlocBuilder extends StatelessWidget {
     );
   }
 
-  Widget setupError() {
-    return const SizedBox.shrink();
+  Widget setupError(String message) {
+    return Center(
+      child: Text(
+        message,
+        style: const TextStyle(color: Colors.red),
+      ),
+    );
   }
 
   Widget setupLoading() {
