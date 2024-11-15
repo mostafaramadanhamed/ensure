@@ -17,6 +17,7 @@ void main() async {
     Bloc.observer = AppBlocObserver();
 
     await checkIfLoggedInUser();
+    Intl.defaultLocale = 'en_US';
 
   
   runApp(EasyLocalization(

@@ -71,10 +71,35 @@
     "No data":"لا يوجد بيانات",
     "Posts":"المنشورات",
     "No Posts":"لا يوجد منشورات",
-    "Following":"يتابع"
-    
-   
-    
+    "Following":"يتابع",
+    "Just now":"الان",
+    "minute":"دقيقة",
+    "minutes":"دقايق",
+    "hour":"ساعة",
+    "hours":"ساعات",
+    "day":"يوم",
+    "days":"يوم",
+    "month":"شهر",
+    "months":"شهور",
+    "year":"سنة",
+    "years":"سنوات",
+    "ago":"منذ",
+    "Yesterday at":"منذ يوم",
+    "PM":"مساءً",
+    "AM":"صباحا",
+    "at":"في",
+    "January":"يناير",
+    "February":"فبراير",
+    "March":"مارس",
+    "April":"ابريل",
+    "May":"مايو",    
+    "June":"يونيو",
+    "July":"يوليو",
+    "August":"اغسطس",   
+    "September":"سبتمبر",
+    "October":"اكتوبر",
+    "November":"نوفمبر",
+    "December":"ديسمبر"
 
 
 }
