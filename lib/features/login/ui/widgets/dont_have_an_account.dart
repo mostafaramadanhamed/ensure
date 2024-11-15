@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ensure/core/helpers/navigation_extension.dart';
 import 'package:flutter/material.dart';
 
@@ -22,7 +23,7 @@ class DontHaveAccount extends StatelessWidget {
       children: [
         // Display the message "Don't have an account?"
         Text(
-          "Don't have an account?",
+          "Don't have an account?".tr(),
           style: TextStyles.font15SemiBold,
         ),
         // Display a button that says "Sign up"
@@ -32,7 +33,7 @@ class DontHaveAccount extends StatelessWidget {
 
           },
           child: Text(
-            "Sign up",
+            "Sign Up".tr(),
             style: TextStyles.font15Regular,
           ),
         ),

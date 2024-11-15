@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ensure/core/helpers/navigation_extension.dart';
 import 'package:ensure/core/helpers/spacing_extension.dart';
 import 'package:ensure/core/theme/colors.dart';
@@ -23,13 +24,13 @@ class OnboardingScreen extends StatelessWidget {
           const OnboardingLogo(),
           55.ph,
           Text(
-            'Let’s Connect Together',
+            'Let’s Connect Together'.tr(),
             textAlign: TextAlign.center,
             style: TextStyles.font36Bold,
           ),
           33.ph,
           AppTextButton(
-            buttonText: "Login",
+            buttonText: "Login".tr(),
             borderRadius: 50.r,
             onPressed: () {
               context.pushNamed(Routes.login);
@@ -39,12 +40,12 @@ class OnboardingScreen extends StatelessWidget {
           ),
           25.ph,
           AppTextButton(
-            buttonText: "Sign Up",
+            buttonText: "Sign Up".tr(),
             borderRadius: 50.r,
             onPressed: () {
               context.pushNamed(Routes.signup);
             },
-            // backgroundColor: AppColors.coralPink,
+         
           )
                     ],
                   ),

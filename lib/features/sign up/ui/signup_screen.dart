@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ensure/core/helpers/spacing_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -45,7 +46,7 @@ class SignupScreen extends StatelessWidget {
 
                 /// The title of the app bar.
                 title: Text(
-                  "Sign Up",
+                  "Sign Up".tr(),
 
                   /// The style of the title.
                   style: TextStyles.font28Bold.copyWith(

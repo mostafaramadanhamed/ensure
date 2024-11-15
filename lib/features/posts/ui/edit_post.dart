@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ensure/core/helpers/spacing_extension.dart';
 import 'package:ensure/features/posts/data/models/post_model.dart';
 import 'package:ensure/features/posts/ui/widgets/edit_post_bloc_listener.dart';
@@ -25,7 +26,7 @@ class EditPost extends StatelessWidget {
             child: Column(
               children: [
                 35.ph,
-                Text('Edit Post', style: TextStyles.font20SemiBold),
+                Text('Edit Post'.tr(), style: TextStyles.font20SemiBold),
                 25.ph,
                 AppTextFormField(
                   hintText: post.text,
@@ -52,7 +53,7 @@ class EditPost extends StatelessWidget {
 
                 25.ph,
                 AppTextButton(
-                                  buttonText: 'Save',
+                                  buttonText: 'Save'.tr(),
                                   onPressed: () {
                 context.read<PostsCubit>().updatePost(
                       PostModel(

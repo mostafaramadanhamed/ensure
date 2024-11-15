@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ensure/core/helpers/spacing_extension.dart';
 import 'package:ensure/features/chat/domain/cubit/chat_cubit.dart';
 import 'package:ensure/features/chat/ui/widgets/conversation/shimmer_conversation_loading.dart';
@@ -16,7 +17,7 @@ class ConversationsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Conversations'),
+          title:  Text('Conversations'.tr()),
           centerTitle: true,
         ),
         floatingActionButton: FloatingActionButton(
@@ -27,7 +28,7 @@ class ConversationsScreen extends StatelessWidget {
               arguments: context.read<ChatCubit>().suggestions,
             );
           },
-          tooltip: 'Add conversation',
+          tooltip: 'Add conversation'.tr(),
           child: const Icon(Icons.add),
         ),
         body: BlocBuilder<ChatCubit, ChatState>(
@@ -55,7 +56,7 @@ class ConversationsScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                       Text(
-                        'No conversations found.',
+                        'No conversations found.'.tr(),
                         style: TextStyle(
                           fontSize: 18.sp,
                           fontWeight: FontWeight.w500,
@@ -63,7 +64,7 @@ class ConversationsScreen extends StatelessWidget {
                       ),
                       24.ph,
                       Text(
-                        'Start a conversation by sending a message.',
+                        'Start a conversation by sending a message.'.tr(),
                         style: TextStyle(
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w400,

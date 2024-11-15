@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ensure/core/helpers/navigation_extension.dart';
 import 'package:ensure/core/helpers/spacing_extension.dart';
 import 'package:ensure/features/sign%20up/data/models/user_model.dart';
@@ -20,7 +21,7 @@ class SetupProfileScreen extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
-            title: const Text('Add Photo'),
+            title:  Text('Add Photo'.tr()),
             centerTitle: true,
             automaticallyImplyLeading: false,
             actions: [
@@ -38,8 +39,8 @@ class SetupProfileScreen extends StatelessWidget {
                 },
                 child: Text(
                     context.read<SetupProfileCubit>().image != null
-                        ? 'Next'
-                        : 'Skip',
+                        ? 'Next'.tr()
+                        : 'Skip'.tr(),
                     style: TextStyles.font15SemiBold),
               )
             ],

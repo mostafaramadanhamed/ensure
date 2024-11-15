@@ -1,4 +1,5 @@
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ensure/core/helpers/navigation_extension.dart';
 import 'package:ensure/core/theme/colors.dart';
 import 'package:ensure/features/sign%20up/data/models/user_model.dart';
@@ -51,11 +52,11 @@ class SignupBlocListener extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Signup Successful'),
-          content: const SingleChildScrollView(
+          title:  Text('Signup Successful'.tr()),
+          content:  SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
-                Text('Congratulations, you have signed up successfully!'),
+                Text('Congratulations, you have signed up successfully!'.tr()),
               ],
             ),
           ),
@@ -71,7 +72,7 @@ class SignupBlocListener extends StatelessWidget {
                 arguments:user,
                  );
               },
-              child: const Text('Continue'),
+              child:  Text('Continue'.tr()),
             ),
           ],
         );
@@ -99,7 +100,7 @@ class SignupBlocListener extends StatelessWidget {
               context.pop();
             },
             child: Text(
-              'Got it',
+              'Got it'.tr(),
               style: TextStyles.font15Regular,
             ),
           ),

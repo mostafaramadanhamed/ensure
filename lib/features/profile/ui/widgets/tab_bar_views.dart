@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ensure/core/helpers/spacing_extension.dart';
 import 'package:ensure/features/posts/ui/widgets/shimmer_post_loading.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +30,7 @@ class PostsPorfile extends StatelessWidget {
           return Center(child: Text('Error: ${snapshot.error}'));
         }
         if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          return const Center(child: Text('No Posts'));
+          return  Center(child: Text('No Posts'.tr()));
         }
 
         final posts = snapshot.data!;

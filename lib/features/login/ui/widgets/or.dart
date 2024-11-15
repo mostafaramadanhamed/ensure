@@ -1,4 +1,5 @@
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/theme/colors.dart';
@@ -21,7 +22,7 @@ class OrRow extends StatelessWidget {
           ),
         ),
         Text(
-          'OR',
+          'OR'.tr(),
           style: TextStyles.font15Regular,
         ),
         const Expanded(

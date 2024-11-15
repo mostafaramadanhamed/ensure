@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ensure/core/helpers/spacing_extension.dart';
 import 'package:ensure/features/sign%20up/domain/cubit/sign_up_cubit.dart';
 import 'package:ensure/features/sign%20up/ui/widgets/sign_up_bloc_listener.dart';
@@ -27,26 +28,26 @@ class _SignupFormState extends State<SignupForm> {
       child: Column(
         children: [
           AppTextFormField(
-            label: 'Name',
+            label: 'Name'.tr(),
             keyboardType: TextInputType.name,
             maxLines: 1,
             validator: (name) {
               if (name!.isEmpty|| name == "") {
-                return "Name cannot be empty";
+                return "Name cannot be empty".tr();
               }
               return null;
             },
-            hintText: "Enter your name",
+            hintText: "Enter your name".tr(),
             controller: context.read<SignUpCubit>().nameController,
           ),
           20.ph,
           AppTextFormField(
-            label: 'Email',
-            hintText: "Enter your email",
+            label: 'Email'.tr(),
+            hintText: "Enter your email".tr(),
             maxLines: 1,
             validator: (email) {
               if (email == null || email.isEmpty || !AppRegex.isEmailValid(email)) {
-                return 'Please enter a valid email';
+                return 'Please enter a valid email'.tr();
               }
             },
             keyboardType: TextInputType.emailAddress,
@@ -54,14 +55,14 @@ class _SignupFormState extends State<SignupForm> {
           ),
           20.ph,
           AppTextFormField(
-            label: 'Password',
-            hintText: "Enter your password",
+            label: 'Password'.tr(),
+            hintText: "Enter your password".tr(),
             isObscureText: isObscureText,
             validator: (password) {
              if (password == null ||
                   password.isEmpty
                   ) {
-                return 'Please enter a valid password';
+                return 'Please enter a valid password'.tr();
               }
 
             },
@@ -80,8 +81,8 @@ class _SignupFormState extends State<SignupForm> {
           ),
           20.ph,
            AppTextFormField(
-            label: 'Bio',
-            hintText: "Enter your bio",
+            label: 'Bio'.tr(),
+            hintText: "Enter your bio".tr(),
             controller: context.read<SignUpCubit>().bioController,
             maxLength: 70,
             maxLines: 2,
@@ -91,20 +92,20 @@ class _SignupFormState extends State<SignupForm> {
           ),
           20.ph,
           AppTextFormField(
-            label: 'Phone Number',
-            hintText: "Enter your phone number",
+            label: 'Phone Number'.tr(),
+            hintText: "Enter your phone number".tr(),
             keyboardType: TextInputType.phone,
             controller: context.read<SignUpCubit>().phoneController,
             validator: (phone) {
               if (phone == null || phone.isEmpty || !AppRegex.isPhoneNumberValid(phone)) {
-                return 'Please enter a valid phone number';
+                return 'Please enter a valid phone number'.tr();
               }
               return null;
             },
           ),
           20.ph,
           AppTextButton(
-            buttonText: "Sign Up",
+            buttonText: "Sign Up".tr(),
             onPressed: ()  {
               if(context.read<SignUpCubit>().formKey.currentState!.validate()){
                 context.read<SignUpCubit>().onSignUp();

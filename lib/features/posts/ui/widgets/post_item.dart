@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ensure/core/helpers/format_text_helper.dart';
 import 'package:ensure/core/helpers/navigation_extension.dart';
 import 'package:ensure/core/helpers/spacing_extension.dart';
@@ -65,8 +66,8 @@ class PostItem extends StatelessWidget {
                   return [
                     context.read<PostsCubit>().isuser(post.authorId)
                         ? PopupMenuItem(
-                            value: 'Edit',
-                            child: const Text('Edit'),
+                            value: 'Edit'.tr(),
+                            child:  Text('Edit'.tr()),
                             onTap: () {
                               context.pushNamed(
                                 Routes.editPost,
@@ -75,8 +76,8 @@ class PostItem extends StatelessWidget {
                             },
                           )
                         : PopupMenuItem(
-                            value: 'About this account',
-                            child: const Text('About this account'),
+                            value: 'About this account'.tr(),
+                            child:  Text('About this account'.tr()),
                             onTap: () {
                               context.pushNamed(
                                 Routes.profile,
@@ -86,20 +87,20 @@ class PostItem extends StatelessWidget {
                           ),
                     context.read<PostsCubit>().isuser(post.authorId)
                         ? PopupMenuItem(
-                            value: 'Delete',
-                            child: const Text('Delete',
-                                style: TextStyle(color: Colors.red)),
+                            value: 'Delete'.tr(),
+                            child:  Text('Delete'.tr(),
+                                style: const TextStyle(color: Colors.red)),
                             onTap: () {
                               context.read<PostsCubit>().deletePost(post.uId);
                               ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text('Post Deleted'),
+                                 SnackBar(
+                                  content: Text('Post Deleted'.tr()),
                                 ),
                               );
                             })
                         : PopupMenuItem(
-                            value: 'Unfollow',
-                            child: const Text('Unfollow'),
+                            value: 'Unfollow'.tr(),
+                            child:  Text('Unfollow'.tr()),
                             onTap: () {
                               context.pushNamed(
                                 Routes.profile,
@@ -107,10 +108,10 @@ class PostItem extends StatelessWidget {
                               );
                             },
                           ),
-                    const PopupMenuItem(
-                      value: 'Report',
+                     PopupMenuItem(
+                      value: 'Report'.tr(),
                       child:
-                          Text('Report', style: TextStyle(color: Colors.red)),
+                          Text('Report'.tr(), style: const TextStyle(color: Colors.red)),
                     ),
                   ];
                 },

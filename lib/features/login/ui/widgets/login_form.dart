@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ensure/core/helpers/spacing_extension.dart';
 import 'package:ensure/features/login/ui/widgets/login_bloc_listener.dart';
 import 'package:flutter/material.dart';
@@ -23,8 +24,8 @@ class LoginForm extends StatelessWidget {
       child: Column(
         children: [
            AppTextFormField(
-            label: 'Email',
-            hintText: "Enter your email",
+            label: 'Email'.tr(),
+            hintText: "Enter your email".tr(),
             controller: context.read<LoginCubit>().emailController,
             keyboardType: TextInputType.emailAddress,
             maxLines: 1,
@@ -33,27 +34,27 @@ class LoginForm extends StatelessWidget {
            if (value == null ||
                value.isEmpty ||
                !AppRegex.isEmailValid(value)) {
-             return 'Please enter a valid email';
+             return 'Please enter a valid email'.tr();
            }
          },
           ),
           20.ph,
            AppTextFormField(
-            label: 'Password',
-            hintText: "Enter your password",
+            label: 'Password'.tr(),
+            hintText: "Enter your password".tr(),
             isObscureText: true,
             maxLines: 1,
             controller: context.read<LoginCubit>().passwordController,
             keyboardType: TextInputType.visiblePassword,
             validator: (value) {
               if (value == null || value.isEmpty|| !AppRegex.isPasswordValid(value)) {
-                return 'Please enter a valid password';
+                return 'Please enter a valid password'.tr();
               }
             },
           ),
           20.ph,
           AppTextButton(
-            buttonText: "Login",
+            buttonText: "Login".tr(),
             onPressed: () {
               if (context.read<LoginCubit>().formKey.currentState!.validate()) {
                 context.read<LoginCubit>().login();

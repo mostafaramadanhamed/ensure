@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:ensure/features/comments/ui/widgets/add_comment_input.dart';
 import 'package:ensure/features/comments/ui/widgets/comments_list_view.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,7 @@ class CommentsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Comments'),
+          title:  Text('Comments'.tr()),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
