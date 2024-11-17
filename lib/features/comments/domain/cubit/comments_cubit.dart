@@ -38,7 +38,7 @@ final SupabaseClient supabaseClient = Supabase.instance.client;
       commentController.clear();
      
     } catch (e) {
-      debugPrint(e.toString());
+  
       emit(AddCommentError(e.toString()));
     }
   }
@@ -63,7 +63,7 @@ final SupabaseClient supabaseClient = Supabase.instance.client;
       final comments = await commentsUseCase.getComments(postId);
       emit(GetCommentsSuccess(comments: comments));
     } catch (e) {
-      debugPrint(e.toString());
+  
       emit(GetCommentsError(e.toString()));
     }
   }
