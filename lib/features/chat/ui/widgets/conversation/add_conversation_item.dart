@@ -36,14 +36,8 @@ class AddConversationItem extends StatelessWidget {
           shape: BoxShape.circle,
         ),
         child: user.photoUrl != ''
-            ? Image.network(
-                user.photoUrl,
-                fit: BoxFit.cover,
-              )
-            : const Icon(
-                Icons.person,
-                color: AppColors.white,
-              ),
+            ? buildUserImage()
+            : buildIconForEmptyUserImage(),
       ),
       title: Text(
         user.name,
@@ -56,5 +50,19 @@ class AddConversationItem extends StatelessWidget {
         style: TextStyles.font12LighterBrownBold,
       ),
     );
+  }
+
+  Icon buildIconForEmptyUserImage() {
+    return const Icon(
+              Icons.person,
+              color: AppColors.white,
+            );
+  }
+
+  Image buildUserImage() {
+    return Image.network(
+              user.photoUrl,
+              fit: BoxFit.cover,
+            );
   }
 }
