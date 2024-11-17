@@ -87,7 +87,7 @@ class PostsCubit extends Cubit<PostsState> {
 
       emit(GetPostsSuccess(posts: posts));
     } catch (e) {
-      debugPrint(e.toString());
+      
       emit(GetPostsError(e.toString()));
     }
   }
@@ -157,8 +157,7 @@ class PostsCubit extends Cubit<PostsState> {
         'user_id': supabaseClient.auth.currentUser!.id,
       };
       emit(GetUserDetailsSuccess(user: result));
-      debugPrint(result.toString());
-      debugPrint(user.toString());
+     
       return user;
     } catch (e) {
       emit(GetUserDetailsError(e.toString()));
@@ -199,7 +198,7 @@ class PostsCubit extends Cubit<PostsState> {
       emit(IsPostLikedSuccess(response, postId));
       return response;
     } catch (e) {
-      debugPrint(e.toString());
+      
       emit(IsPostLikedError(e.toString()));
       return false;
     }

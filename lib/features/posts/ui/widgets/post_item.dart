@@ -3,26 +3,19 @@ import 'package:ensure/core/helpers/format_text_helper.dart';
 import 'package:ensure/core/helpers/navigation_extension.dart';
 import 'package:ensure/core/helpers/spacing_extension.dart';
 import 'package:ensure/features/posts/data/models/post_model.dart';
+import 'package:ensure/features/posts/ui/widgets/reacts_bloc_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../core/helpers/date_time_format_helper.dart';
 import '../../../../core/routing/routes.dart';
 import '../../../../core/theme/colors.dart';
 import '../../../../core/theme/text_styles.dart';
 import '../../domain/cubit/posts_cubit.dart';
-import '../../domain/cubit/posts_state.dart';
 
 class PostItem extends StatelessWidget {
   final PostModel post;
   const PostItem({super.key, required this.post});
-
-  // String formatDate(DateTime date) {
-  //   var formattedDate = formatPostTime(date);
-  //   return formattedDate.toString();
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -65,54 +58,12 @@ class PostItem extends StatelessWidget {
                 itemBuilder: (context) {
                   return [
                     context.read<PostsCubit>().isuser(post.authorId)
-                        ? PopupMenuItem(
-                            value: 'Edit'.tr(),
-                            child:  Text('Edit'.tr()),
-                            onTap: () {
-                              context.pushNamed(
-                                Routes.editPost,
-                                arguments: post,
-                              );
-                            },
-                          )
-                        : PopupMenuItem(
-                            value: 'About this account'.tr(),
-                            child:  Text('About this account'.tr()),
-                            onTap: () {
-                              context.pushNamed(
-                                Routes.profile,
-                                arguments: post.authorId,
-                              );
-                            },
-                          ),
+                        ? editPopupMenuItem(context)
+                        : aboutPopupMenuItem(context),
                     context.read<PostsCubit>().isuser(post.authorId)
-                        ? PopupMenuItem(
-                            value: 'Delete'.tr(),
-                            child:  Text('Delete'.tr(),
-                                style: const TextStyle(color: Colors.red)),
-                            onTap: () {
-                              context.read<PostsCubit>().deletePost(post.uId);
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                 SnackBar(
-                                  content: Text('Post Deleted'.tr()),
-                                ),
-                              );
-                            })
-                        : PopupMenuItem(
-                            value: 'Unfollow'.tr(),
-                            child:  Text('Unfollow'.tr()),
-                            onTap: () {
-                              context.pushNamed(
-                                Routes.profile,
-                                arguments: post.authorId,
-                              );
-                            },
-                          ),
-                     PopupMenuItem(
-                      value: 'Report'.tr(),
-                      child:
-                          Text('Report'.tr(), style: const TextStyle(color: Colors.red)),
-                    ),
+                        ? deletePopupMenuItem(context)
+                        : unfollowPopupMenuItem(context),
+                     reportPopupMenuItem(),
                   ];
                 },
               ),
@@ -148,88 +99,73 @@ class PostItem extends StatelessWidget {
                     ),
                 ),
             14.ph,
-            BlocBuilder<PostsCubit, PostsState>(
-              builder: (context, state) {
-                // Check if the state contains the likes data
-                bool isLiked = false;
-                int likes = post.likes;
-
-                // Update likes count if the post has been liked
-                if (state is IsPostLikedSuccess && state.postId == post.uId) {
-                  isLiked = state.isLiked; // Update based on initial fetch
-                }
-                if (state is GetPostsSuccess) {
-                  context.read<PostsCubit>().isPostLiked(post.uId);
-                }
-
-                // Update likes count and isLiked after liking the post
-                if (state is LikePostSuccess && state.postId == post.uId) {
-                  likes = state.likes; // Use the updated likes count
-                  isLiked = true; // Ensure the UI shows the post is liked
-                }
-
-                // Update likes count and isLiked after unliking the post
-                if (state is UnlikePostSuccess && state.postId == post.uId) {
-                  likes = state.likes; // Use the updated likes count
-                  isLiked = false; // Ensure the UI shows the post is not liked
-                }
-
-                return Row(
-                  children: [
-                    IconButton(
-                      onPressed: () async {
-                        if (isLiked) {
-                          await context.read<PostsCubit>().unlikePost(post.uId);
-                        } else {
-                          await context
-                              .read<PostsCubit>()
-                              .likePostAndUpdateState(post.uId);
-                        }
-                        debugPrint(isLiked.toString());
-                      },
-                      icon: Icon(
-                        Icons.favorite,
-                        color: isLiked ? Colors.red : Colors.grey,
-                      ),
-                    ),
-                    likes == 0
-                        ? Container()
-                        : Text(
-                            likes.toString(),
-                            style: TextStyles.font12LighterBrownBold,
-                          ),
-                    8.ph,
-                    IconButton(
-                      onPressed: () {
-                        context.pushNamed(Routes.comments, arguments: post.uId);
-
-                        context.read<PostsCubit>().getPosts(); // Refresh posts
-                      },
-                      icon: const Icon(Icons.comment),
-                    ),
-                    post.comments == 0
-                        ? Container()
-                        : Text(
-                            post.comments.toString(),
-                            style: TextStyles.font12LighterBrownBold,
-                          ),
-                    8.ph,
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.share),
-                    ),
-                    const Spacer(),
-                    Text(
-                      formatPostTime(post.creatdAt),
-                      style: TextStyles.font12LighterBrownBold,
-                    ),
-                  ],
-                );
-              },
-            ),
+            ReactsBlocBuilder(post: post),
           ],
         ),
       ),
     );
   }
+
+  PopupMenuItem<String> reportPopupMenuItem() {
+    return PopupMenuItem(
+                    value: 'Report'.tr(),
+                    child:
+                        Text('Report'.tr(), style: const TextStyle(color: Colors.red)),
+                  );
+  }
+
+  PopupMenuItem<String> unfollowPopupMenuItem(BuildContext context) {
+    return PopupMenuItem(
+                          value: 'Unfollow'.tr(),
+                          child:  Text('Unfollow'.tr()),
+                          onTap: () {
+                            context.pushNamed(
+                              Routes.profile,
+                              arguments: post.authorId,
+                            );
+                          },
+                        );
+  }
+
+  PopupMenuItem<String> deletePopupMenuItem(BuildContext context) {
+    return PopupMenuItem(
+                          value: 'Delete'.tr(),
+                          child:  Text('Delete'.tr(),
+                              style: const TextStyle(color: Colors.red)),
+                          onTap: () {
+                            context.read<PostsCubit>().deletePost(post.uId);
+                            ScaffoldMessenger.of(context).showSnackBar(
+                               SnackBar(
+                                content: Text('Post Deleted'.tr()),
+                              ),
+                            );
+                          });
+  }
+
+  PopupMenuItem<String> aboutPopupMenuItem(BuildContext context) {
+    return PopupMenuItem(
+                          value: 'About this account'.tr(),
+                          child:  Text('About this account'.tr()),
+                          onTap: () {
+                            context.pushNamed(
+                              Routes.profile,
+                              arguments: post.authorId,
+                            );
+                          },
+                        );
+  }
+
+  PopupMenuItem<String> editPopupMenuItem(BuildContext context) {
+    return PopupMenuItem(
+                          value: 'Edit'.tr(),
+                          child:  Text('Edit'.tr()),
+                          onTap: () {
+                            context.pushNamed(
+                              Routes.editPost,
+                              arguments: post,
+                            );
+                          },
+                        );
+  }
 }
+

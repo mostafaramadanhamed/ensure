@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../../core/network/supabase_constants.dart';
@@ -72,7 +71,7 @@ class PostsRepoImpl implements PostsRepo {
         'PostsPictures/${supabaseClient.auth.currentUser!.id}/$postId.png',
       ]);
     } catch (e) {
-      debugPrint(e.toString());
+      rethrow;
     }
   }
 

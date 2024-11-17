@@ -1,6 +1,4 @@
-import 'package:logger/logger.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
 import '../../../profile/data/models/profile_model.dart';
 import '../models/conversation_model.dart';
 import '../models/message_model.dart';
@@ -56,10 +54,9 @@ class ChatRepoImpl implements ChatRepository {
             'user1_id.eq.$userId,user2_id.eq.$userId',
           )
           .order('created_at', ascending: false);
-      Logger().i(response);
+    
       return response.map((e) => ConversationModel.fromJson(e)).toList();
     } catch (e) {
-      Logger().e(e.toString());
       throw Exception(e);
     }
   }
