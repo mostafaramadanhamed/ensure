@@ -30,103 +30,19 @@ class ShimmerPostLoading extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   12.ph,
-                  ListTile(
-                    contentPadding: EdgeInsets.zero,
-                    title: Shimmer.fromColors(
-                        baseColor: Colors.grey.shade300,
-                        highlightColor: Colors.white,
-                        child: Container(
-                            height: 15.h,
-                            width: 100.w,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(12.r),
-                            ))),
-                    leading: Shimmer.fromColors(
-                      baseColor: Colors.grey.shade300,
-                      highlightColor: Colors.white,
-                      child: CircleAvatar(
-                        radius: 30.r,
-                      ),
-                    ),
-                    trailing: Shimmer.fromColors(
-                        baseColor: Colors.grey.shade300,
-                        highlightColor: Colors.white,
-                        child: Container(
-                            height: 24.h,
-                            width: 16.w,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(12.r),
-                            ))),
-                  ),
+                  userImageAndNameShimmer(),
                   20.ph,
-                  Shimmer.fromColors(
-                      baseColor: Colors.grey.shade300,
-                      highlightColor: Colors.white,
-                      child: Container(
-                          height: 20.h,
-                          width: 0.7.sw,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(12.r),
-                          ))),
+                  postTextShimmer(),
                   20.ph,
-                  Shimmer.fromColors(
-                      baseColor: Colors.grey.shade300,
-                      highlightColor: Colors.white,
-                      child: Container(
-                          height: 250.h,
-                          width: 1.sw,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(12.r),
-                          ))),
+                  postImageShimmer(),
                   14.ph,
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Shimmer.fromColors(
-                          baseColor: Colors.grey.shade300,
-                          highlightColor: Colors.white,
-                          child: Container(
-                              height: 15.h,
-                              width: 50.w,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(12.r),
-                              ))),
-                            
-                      Shimmer.fromColors(
-                          baseColor: Colors.grey.shade300,
-                          highlightColor: Colors.white,
-                          child: Container(
-                              height: 15.h,
-                              width: 50.w,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(12.r),
-                              ))), Shimmer.fromColors(
-                          baseColor: Colors.grey.shade300,
-                          highlightColor: Colors.white,
-                          child: Container(
-                              height: 15.h,
-                              width: 50.w,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(12.r),
-                              ))), 
-                              
-                              Shimmer.fromColors(
-                          baseColor: Colors.grey.shade300,
-                          highlightColor: Colors.white,
-                          child: Container(
-                              height: 15.h,
-                              width: 50.w,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(12.r),
-                              ))),
+                      likesOrCommentsOrShareOrTimeShimmer(),
+                      likesOrCommentsOrShareOrTimeShimmer(),
+                      likesOrCommentsOrShareOrTimeShimmer(),
+                      likesOrCommentsOrShareOrTimeShimmer(),
                     ],
                   ),
                 ],
@@ -134,5 +50,77 @@ class ShimmerPostLoading extends StatelessWidget {
             ),
           );
         });
+  }
+
+  Shimmer likesOrCommentsOrShareOrTimeShimmer() {
+    return Shimmer.fromColors(
+                        baseColor: Colors.grey.shade300,
+                        highlightColor: Colors.white,
+                        child: Container(
+                            height: 15.h,
+                            width: 50.w,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(12.r),
+                            )));
+  }
+
+  Shimmer postImageShimmer() {
+    return Shimmer.fromColors(
+                    baseColor: Colors.grey.shade300,
+                    highlightColor: Colors.white,
+                    child: Container(
+                        height: 250.h,
+                        width: 1.sw,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(12.r),
+                        )));
+  }
+
+  Shimmer postTextShimmer() {
+    return Shimmer.fromColors(
+                    baseColor: Colors.grey.shade300,
+                    highlightColor: Colors.white,
+                    child: Container(
+                        height: 20.h,
+                        width: 0.7.sw,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(12.r),
+                        )));
+  }
+
+  ListTile userImageAndNameShimmer() {
+    return ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  title: Shimmer.fromColors(
+                      baseColor: Colors.grey.shade300,
+                      highlightColor: Colors.white,
+                      child: Container(
+                          height: 15.h,
+                          width: 100.w,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(12.r),
+                          ))),
+                  leading: Shimmer.fromColors(
+                    baseColor: Colors.grey.shade300,
+                    highlightColor: Colors.white,
+                    child: CircleAvatar(
+                      radius: 30.r,
+                    ),
+                  ),
+                  trailing: Shimmer.fromColors(
+                      baseColor: Colors.grey.shade300,
+                      highlightColor: Colors.white,
+                      child: Container(
+                          height: 24.h,
+                          width: 16.w,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(12.r),
+                          ))),
+                );
   }
 }
