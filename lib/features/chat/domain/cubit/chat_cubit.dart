@@ -35,7 +35,8 @@ class ChatCubit extends Cubit<ChatState> {
           profiles: profiles));
     } catch (e) {
       emit(FetchConversationsError(e.toString()));
-      debugPrint(e.toString());
+      
+      rethrow;
     }
   }
 
@@ -44,7 +45,6 @@ class ChatCubit extends Cubit<ChatState> {
       final profile = await chatUseCase.getUserProfile(userId);
       return profile;
     } catch (e) {
-      debugPrint(e.toString());
       rethrow;
     }
   }
@@ -59,7 +59,7 @@ class ChatCubit extends Cubit<ChatState> {
       await chatUseCase.addConversation(conversation);
       return conversation.conversationId;
     } catch (e) {
-      debugPrint(e.toString());
+      
       rethrow;
     }
   }
@@ -74,7 +74,8 @@ class ChatCubit extends Cubit<ChatState> {
       ));
     } catch (e) {
       emit(FetchMessagesError(e.toString()));
-      debugPrint(e.toString());
+      
+      rethrow;
     }
   }
 
@@ -96,7 +97,8 @@ class ChatCubit extends Cubit<ChatState> {
       messageController.clear();
       fetchMessages(conversationId);
     } catch (e) {
-      debugPrint(e.toString());
+      
+      rethrow;
     }
   }
 
@@ -104,7 +106,8 @@ class ChatCubit extends Cubit<ChatState> {
     try {
       await chatUseCase.markMessageAsRead(messageId);
     } catch (e) {
-      debugPrint(e.toString());
+      
+      rethrow;
     }
   }
 }
