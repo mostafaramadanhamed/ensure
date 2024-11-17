@@ -1,14 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:ensure/core/helpers/spacing_extension.dart';
 import 'package:ensure/features/chat/domain/cubit/chat_cubit.dart';
 import 'package:ensure/features/chat/ui/widgets/conversation/shimmer_conversation_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../../core/routing/routes.dart';
 import '../domain/cubit/chat_state.dart';
-import 'widgets/conversation/conversation_item.dart';
+import 'widgets/conversation/setup_conversation_widgets.dart';
 
 class ConversationsScreen extends StatelessWidget {
   const ConversationsScreen({super.key});
@@ -35,42 +32,9 @@ class ConversationsScreen extends StatelessWidget {
           builder: (context, state) {
             if (state is FetchConversationsSuccess) {
               if (state.conversations.isNotEmpty) {
-                return ListView.separated(
-                  padding: EdgeInsets.only(
-                    left: 16.w,
-                    right: 16.w,
-                    top: 16.h,
-                  ),
-                  separatorBuilder: (context, index) => 16.ph,
-                  itemCount: state.conversations.length,
-                  itemBuilder: (context, index) {
-                    return ConversationItem(
-                      profile: state.profiles[index],
-                      conversationId: state.conversations[index].conversationId,
-                    );
-                  },
-                );
+                return buildConversations(state);
                 } else {
-                return Center(
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                      Text(
-                        'No conversations found.'.tr(),
-                        style: TextStyle(
-                          fontSize: 18.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      24.ph,
-                      Text(
-                        'Start a conversation by sending a message.'.tr(),
-                        style: TextStyle(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      )
-                    ]));
+                return buildScreenWithEmptyConversations();
               }
             }
 
@@ -86,4 +50,5 @@ class ConversationsScreen extends StatelessWidget {
           },
         ));
   }
-}
+
+ }
