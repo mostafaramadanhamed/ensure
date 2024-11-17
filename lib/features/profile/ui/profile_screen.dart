@@ -12,6 +12,7 @@ import '../../../core/widgets/app_text_button.dart';
 import '../data/models/profile_model.dart';
 import '../domain/cubit/profile_cubit.dart';
 import '../domain/cubit/profile_state.dart';
+import 'widgets/profile_image.dart';
 import 'widgets/shimmer_follow_loading.dart';
 import 'widgets/tab_bar_views.dart';
 
@@ -52,32 +53,7 @@ class ProfileScreen extends StatelessWidget {
                           horizontal: 16.0.w, vertical: 16.0.h),
                       child: Row(
                         children: [
-                          Container(
-                            height: 80.h,
-                            width: 80.w,
-                            clipBehavior: Clip.antiAliasWithSaveLayer,
-                            decoration: BoxDecoration(
-                              color: AppColors.teaRose,
-                              shape: BoxShape.circle,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: AppColors.mistyRose,
-                                  blurRadius: 7.r,
-                                  offset: const Offset(0, 3),
-                                  spreadRadius: 0,
-                                ),
-                              ],
-                            ),
-                            child: profile.photoUrl != ''
-                                ? Image.network(profile.photoUrl,
-                                    fit: BoxFit.cover)
-                                : Icon(
-                                    Icons.person_outline_sharp,
-                                    size: 75.r,
-                                    color: Theme.of(context)
-                                        .scaffoldBackgroundColor,
-                                  ),
-                          ),
+                          ProfileImage(profile: profile),
                           16.pw,
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -175,21 +151,7 @@ class ProfileScreen extends StatelessWidget {
                       posts: profile.posts,
                     ),
                     32.ph,
-                    Container(
-                      height: 50,
-                      width: double.infinity,
-                      alignment: Alignment.center,
-                      margin: EdgeInsets.symmetric(horizontal: 16.w),
-                      decoration: BoxDecoration(
-                        color: AppColors.lighterBrown,
-                        borderRadius: BorderRadius.circular(
-                          25.0,
-                        ),
-                      ),
-                      child: Text('Posts'.tr(),
-                          style: TextStyles.font17SemiBold
-                              .copyWith(color: AppColors.mistyRose)),
-                    ),
+                    buildPostsWordBeforePosts(),
                   ],
                 ),
                 32.ph,
@@ -202,5 +164,23 @@ class ProfileScreen extends StatelessWidget {
         },
       ),
     );
+  }
+
+  Container buildPostsWordBeforePosts() {
+    return Container(
+                    height: 50,
+                    width: double.infinity,
+                    alignment: Alignment.center,
+                    margin: EdgeInsets.symmetric(horizontal: 16.w),
+                    decoration: BoxDecoration(
+                      color: AppColors.lighterBrown,
+                      borderRadius: BorderRadius.circular(
+                        25.0,
+                      ),
+                    ),
+                    child: Text('Posts'.tr(),
+                        style: TextStyles.font17SemiBold
+                            .copyWith(color: AppColors.mistyRose)),
+                  );
   }
 }
