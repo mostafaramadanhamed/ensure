@@ -1,9 +1,12 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:ensure/core/helpers/navigation_extension.dart';
 import 'package:ensure/features/chat/domain/cubit/chat_cubit.dart';
 import 'package:ensure/features/chat/domain/cubit/chat_state.dart';
 import 'package:ensure/features/profile/data/models/profile_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../core/theme/text_styles.dart';
 import 'widgets/messages/add_message_input.dart';
 import 'widgets/messages/messages_list_view.dart';
 import 'widgets/messages/shimmer_message_loading.dart';
@@ -28,9 +31,7 @@ class MessagesScreen extends StatelessWidget {
                 if (state is FetchMessagesSuccess) {
                   return MessagesListView(messages: state.messages);
                 } else if (state is FetchMessagesError) {
-                  return Center(
-                    child: Text(state.error),
-                  );
+                   setupError(state.error, context);
                 }
                 else if (state is FetchMessagesLoading) {
                   return const ShimmerMessageLoading(); 
@@ -47,4 +48,32 @@ class MessagesScreen extends StatelessWidget {
       ),
     );
   }
+
+  void setupError(String message, BuildContext context) {
+     showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        icon: const Icon(
+          Icons.error,
+          color: Colors.red,
+          size: 32,
+        ),
+        content: Text(
+          message,
+          style: TextStyles.font15SemiBold,
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              context.pop();
+            },
+            child: Text(
+              'Got it'.tr(),
+              style: TextStyles.font15Regular,
+            ),
+          ),
+        ],
+      ),
+    );
+     }
 }
