@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:ensure/features/setup%20profile/domain/use%20cases/setup_profile_use_case.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/utils/methods.dart';
@@ -19,7 +18,7 @@ class SetupProfileCubit extends Cubit<SetupProfileState> {
       await setupProfileUseCase.setProfilePic();
       emit(SetupProfileSuccess());
     } catch (e) {
-      debugPrint(e.toString());
+      
       emit(SetupProfileError(e.toString()));
     }
   }
@@ -38,7 +37,7 @@ class SetupProfileCubit extends Cubit<SetupProfileState> {
       await setupProfileUseCase.setProfile();
       emit(SetupProfileSuccess());
     } catch (e) {
-      debugPrint(e.toString());
+     
       emit(SetupProfileError(e.toString()));
     }
   }
