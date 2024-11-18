@@ -22,20 +22,30 @@ class _PostsScreenState extends State<PostsScreen> {
 
     context.read<PostsCubit>().getPosts();
   }
+
+  Future<void> _refresh() async {
+    return Future.delayed(const Duration(seconds: 2,), () {
+      if (mounted) context.read<PostsCubit>().getPosts();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          const AppTitleAndMessageIcon(),
-          24.ph,
-          SizedBox(
-            height: 80.h,
-            child: const StoriesListView(),
-          ),
-          16.ph,
-           const PostsBlocBuilder(),
-        ],
+    return RefreshIndicator(
+      onRefresh: _refresh,
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            const AppTitleAndMessageIcon(),
+            24.ph,
+            SizedBox(
+              height: 80.h,
+              child: const StoriesListView(),
+            ),
+            16.ph,
+            const PostsBlocBuilder(),
+          ],
+        ),
       ),
     );
   }
