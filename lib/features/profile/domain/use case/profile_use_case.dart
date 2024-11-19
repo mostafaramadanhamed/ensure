@@ -27,4 +27,12 @@ class ProfileUseCase {
   Future<void> setUnfollow(String userId, String followingId) async {
     return await profileRepo.setUnfollow(userId, followingId);
   }
+
+  Future<List<ProfileModel>> getFollowers(String userId) async {
+    return await profileRepo.getFollowers(userId);
+  }
+
+  Future<List<ProfileModel>> getFollowing(String userId) async {
+    return await profileRepo.getFollowing(userId);
+  }
 }

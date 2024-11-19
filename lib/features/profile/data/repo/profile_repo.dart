@@ -6,8 +6,8 @@ abstract class ProfileRepo {
   Future<ProfileModel> getProfile(String userId);
   
   // follower and following
-  Future<List<Map<String, dynamic>>> getFollowers();
-  Future<List<Map<String, dynamic>>> getFollowing();
+  Future<List<ProfileModel>> getFollowers(String userId);
+  Future<List<ProfileModel>> getFollowing(String userId);
   // set following
   Future<void> setFollow(String userId, String followingId);
   Future<void> setUnfollow(String userId, String followingId);

@@ -1,3 +1,4 @@
+import 'package:logger/logger.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../posts/data/models/post_model.dart';
@@ -19,21 +20,29 @@ class ProfileRepoImpl implements ProfileRepo {
   }
 
   @override
-  Future<List<Map<String, dynamic>>> getFollowers() async {
+  Future<List<ProfileModel>> getFollowers(String userId) async {
     final response = await supabaseClient
         .from('followers')
         .select()
-        .eq('user_id', supabaseClient.auth.currentUser!.id);
-    return response;
+        .eq('followed_id', userId);
+        final followersIds = response.map((e) => e['follower_id']).toList();
+        final followers = await supabaseClient.from('profiles').select().filter(
+          'user_id',
+          'in',
+          followersIds,
+        );
+        Logger  ().d(followers);
+    return followers.map((e) => ProfileModel.fromMap(e)).toList();
   }
 
   @override
-  Future<List<Map<String, dynamic>>> getFollowing() async {
+  Future<List<ProfileModel>> getFollowing(String userId) async {
     final response = await supabaseClient
-        .from('following')
+        .from('followers')
         .select()
-        .eq('user_id', supabaseClient.auth.currentUser!.id);
-    return response;
+        .eq('follower_id', userId);
+    final following = await supabaseClient.from('profiles').select().eq('user_id', response.map((e) => e['followed_id']).toList());
+    return following.map((e) => ProfileModel.fromMap(e)).toList();
   }
 
   @override
