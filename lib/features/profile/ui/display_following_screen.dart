@@ -4,42 +4,43 @@ import 'package:ensure/features/profile/data/models/profile_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class DisplayFollowersScreen extends StatelessWidget {
-  final List<ProfileModel> followers;
-  const DisplayFollowersScreen({super.key, required this.followers});
+class DisplayFollowingScreen extends StatelessWidget {
+  final List<ProfileModel> following;
+  const DisplayFollowingScreen({super.key, required this.following});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Followers'.tr()),
+        title: Text('Following'.tr()),
         centerTitle: true,
       ),
       body: ListView.separated(
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
-        itemCount: followers.length,
+        itemCount: following.length,
         itemBuilder: (context, index) =>
-            FollowerItem(follower: followers[index]),
+            FollowingItem(following: following[index]),
         separatorBuilder: (context, index) => 16.ph,
       ),
     );
   }
 }
 
-class FollowerItem extends StatelessWidget {
-  final ProfileModel follower;
-  const FollowerItem({super.key, required this.follower});
+class FollowingItem extends StatelessWidget {
+  final ProfileModel following;
+  const FollowingItem({super.key, required this.following});
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-     leading: follower.photoUrl!=''? CircleAvatar(
-        backgroundImage: NetworkImage(follower.photoUrl),
+      leading: following.photoUrl!=''? CircleAvatar(
+        backgroundImage: NetworkImage(following.photoUrl),
       ): const CircleAvatar(
         child: Icon(Icons.person),
       ),
-      title: Text(follower.name),
-      subtitle: Text(follower.bio),
-    );
+      title: Text(following.name),
+      subtitle: Text(following.bio),
+      
+      );
   }
 }

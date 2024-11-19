@@ -41,7 +41,12 @@ class ProfileRepoImpl implements ProfileRepo {
         .from('followers')
         .select()
         .eq('follower_id', userId);
-    final following = await supabaseClient.from('profiles').select().eq('user_id', response.map((e) => e['followed_id']).toList());
+        final followingIds = response.map((e) => e['followed_id']).toList();
+        final following = await supabaseClient.from('profiles').select().filter(
+          'user_id',
+          'in',
+          followingIds,
+        );
     return following.map((e) => ProfileModel.fromMap(e)).toList();
   }
 

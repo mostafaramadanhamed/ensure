@@ -59,20 +59,29 @@ class PostsFollowersFollowsCounter extends StatelessWidget {
             ],
           ),
         ),
-        Column(
-          children: [
-            Text(
-              'Following'.tr(),
-              style: TextStyles.font15SemiBold.copyWith(
-                color: AppColors.lightBrown,
+        InkWell(
+            onTap: () async{
+         final following=   await context.read<ProfileCubit>().getFollowing(userId);
+            context.pushNamed(
+              Routes.displayFollowing,
+              arguments: following,
+            );
+          },
+          child: Column(
+            children: [
+              Text(
+                'Following'.tr(),
+                style: TextStyles.font15SemiBold.copyWith(
+                  color: AppColors.lightBrown,
+                ),
               ),
-            ),
-            8.ph,
-            Text(
-              following.toString(),
-              style: TextStyles.font20SemiBold,
-            ),
-          ],
+              8.ph,
+              Text(
+                following.toString(),
+                style: TextStyles.font20SemiBold,
+              ),
+            ],
+          ),
         ),
       ],
     );
