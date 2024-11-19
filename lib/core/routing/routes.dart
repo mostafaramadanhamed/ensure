@@ -15,4 +15,6 @@ class Routes {
   static const String editPost = '/edit-post';
   static const String search = '/search';
   static const String displayImage = '/display-image';
+  static const String displayFollowers = '/display-followers';
+  static const String displayFollowing = '/display-following';
 }

@@ -24,6 +24,8 @@ import '../../features/comments/ui/comments_screen.dart';
 import '../../features/posts/ui/display_post_image_screen.dart';
 import '../../features/posts/ui/edit_post.dart';
 import '../../features/profile/domain/cubit/profile_cubit.dart';
+import '../../features/profile/ui/display_followers_screen.dart';
+import '../../features/profile/ui/display_following_screen.dart';
 import '../../features/profile/ui/profile_screen.dart';
 import '../../features/setup profile/domain/cubit/setup_profile_cubit.dart';
 import '../../features/setup profile/ui/setup_profile.dart';
@@ -135,9 +137,10 @@ class AppRouter {
         });
       case Routes.messages:
         return MaterialPageRoute(builder: (context) {
-         Map<String,dynamic>arguments=args as Map<String,dynamic>;
+          Map<String, dynamic> arguments = args as Map<String, dynamic>;
           return BlocProvider.value(
-           value: getIt<ChatCubit>()..fetchMessages(arguments['conversationId']),
+            value: getIt<ChatCubit>()
+              ..fetchMessages(arguments['conversationId']),
             child: MessagesScreen(
               user: arguments['profile'],
               conversationId: arguments['conversationId'],
@@ -151,6 +154,26 @@ class AppRouter {
             value: getIt<ChatCubit>(),
             child: AddConversationScreen(
               users: users,
+            ),
+          );
+        });
+      case Routes.displayFollowers:
+        return MaterialPageRoute(builder: (context) {
+          List<ProfileModel> users = args as List<ProfileModel>;
+          return BlocProvider.value(
+            value: getIt<ProfileCubit>(),
+            child: DisplayFollowersScreen(
+              followers: users,
+            ),
+          );
+        });
+      case Routes.displayFollowing:
+        return MaterialPageRoute(builder: (context) {
+          List<ProfileModel> users = args as List<ProfileModel>;
+          return BlocProvider.value(
+            value: getIt<ProfileCubit>(),
+            child: DisplayFollowingScreen(
+              following: users,
             ),
           );
         });

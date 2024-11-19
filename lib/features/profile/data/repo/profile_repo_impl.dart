@@ -19,21 +19,34 @@ class ProfileRepoImpl implements ProfileRepo {
   }
 
   @override
-  Future<List<Map<String, dynamic>>> getFollowers() async {
+  Future<List<ProfileModel>> getFollowers(String userId) async {
     final response = await supabaseClient
         .from('followers')
         .select()
-        .eq('user_id', supabaseClient.auth.currentUser!.id);
-    return response;
+        .eq('followed_id', userId);
+        final followersIds = response.map((e) => e['follower_id']).toList();
+        final followers = await supabaseClient.from('profiles').select().filter(
+          'user_id',
+          'in',
+          followersIds,
+        );
+       
+    return followers.map((e) => ProfileModel.fromMap(e)).toList();
   }
 
   @override
-  Future<List<Map<String, dynamic>>> getFollowing() async {
+  Future<List<ProfileModel>> getFollowing(String userId) async {
     final response = await supabaseClient
-        .from('following')
+        .from('followers')
         .select()
-        .eq('user_id', supabaseClient.auth.currentUser!.id);
-    return response;
+        .eq('follower_id', userId);
+        final followingIds = response.map((e) => e['followed_id']).toList();
+        final following = await supabaseClient.from('profiles').select().filter(
+          'user_id',
+          'in',
+          followingIds,
+        );
+    return following.map((e) => ProfileModel.fromMap(e)).toList();
   }
 
   @override
