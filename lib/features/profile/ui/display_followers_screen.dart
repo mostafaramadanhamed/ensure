@@ -1,8 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:ensure/core/helpers/navigation_extension.dart';
 import 'package:ensure/core/helpers/spacing_extension.dart';
 import 'package:ensure/features/profile/data/models/profile_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../../core/routing/routes.dart';
 
 class DisplayFollowersScreen extends StatelessWidget {
   final List<ProfileModel> followers;
@@ -33,6 +36,10 @@ class FollowerItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      onTap: () {
+        // navigate to user profile
+        context.pushNamed(Routes.profile, arguments: follower.id);
+      },
      leading: follower.photoUrl!=''? CircleAvatar(
         backgroundImage: NetworkImage(follower.photoUrl),
       ): const CircleAvatar(
