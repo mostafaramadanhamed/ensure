@@ -1,4 +1,3 @@
-import 'package:logger/logger.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../posts/data/models/post_model.dart';
@@ -31,7 +30,7 @@ class ProfileRepoImpl implements ProfileRepo {
           'in',
           followersIds,
         );
-        Logger  ().d(followers);
+       
     return followers.map((e) => ProfileModel.fromMap(e)).toList();
   }
 

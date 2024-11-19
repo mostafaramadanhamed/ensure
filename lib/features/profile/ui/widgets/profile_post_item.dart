@@ -82,7 +82,7 @@ class ProfilePostItem extends StatelessWidget {
                         ? PopupMenuItem(
                             value: 'Delete'.tr(),
                             child:  Text('Delete'.tr(),
-                                style: TextStyle(color: Colors.red)),
+                                style: const TextStyle(color: Colors.red)),
                             onTap: () {
                               context.read<PostsCubit>().deletePost(post.uId);
                               context.read<ProfileCubit>().getPostsByUserId(
@@ -104,7 +104,7 @@ class ProfilePostItem extends StatelessWidget {
                      PopupMenuItem(
                       value: 'Report'.tr(),
                       child:
-                          Text('Report'.tr(), style: TextStyle(color: Colors.red)),
+                          Text('Report'.tr(), style: const TextStyle(color: Colors.red)),
                     ),
                   ];
                 },

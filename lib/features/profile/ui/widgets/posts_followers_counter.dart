@@ -18,7 +18,8 @@ class PostsFollowersFollowsCounter extends StatelessWidget {
     super.key,
     required this.followers,
     required this.posts,
-    required this.following, required this.userId,
+    required this.following,
+    required this.userId,
   });
 
   @override
@@ -38,9 +39,11 @@ class PostsFollowersFollowsCounter extends StatelessWidget {
             Text(posts.toString(), style: TextStyles.font20SemiBold),
           ],
         ),
-        GestureDetector(
-          onTap: () async{
-         final followers=   await context.read<ProfileCubit>().getFollowers(userId);
+        InkWell(
+          onTap: () async {
+            final followers =
+                await context.read<ProfileCubit>().getFollowers(userId);
+            if (!context.mounted) return;
             context.pushNamed(
               Routes.displayFollowers,
               arguments: followers,
@@ -60,8 +63,11 @@ class PostsFollowersFollowsCounter extends StatelessWidget {
           ),
         ),
         InkWell(
-            onTap: () async{
-         final following=   await context.read<ProfileCubit>().getFollowing(userId);
+          onTap: () async {
+            final following =
+                await context.read<ProfileCubit>().getFollowing(userId);
+            if (!context.mounted) return;
+
             context.pushNamed(
               Routes.displayFollowing,
               arguments: following,
