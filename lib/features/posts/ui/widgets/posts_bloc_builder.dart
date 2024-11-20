@@ -3,6 +3,7 @@ import 'package:ensure/features/posts/domain/cubit/posts_state.dart';
 import 'package:ensure/features/posts/ui/widgets/posts_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'shimmer_post_loading.dart';
 
@@ -18,6 +19,18 @@ class PostsBlocBuilder extends StatelessWidget {
           current is GetPostsLoading,
       builder: (context, state) {
         if (state is GetPostsSuccess) {
+          if (state.posts.isEmpty) {
+            return  Center(
+              child: Text(
+                '\n You have no Friends yet \n Add Friends \n From Search Screen',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.red,
+                  fontSize: 40.sp,
+                ),
+              ),
+            );
+          }
           return setupSuccess(state.posts);
         } else if (state is GetPostsError) {
           return setupError(state.message);
