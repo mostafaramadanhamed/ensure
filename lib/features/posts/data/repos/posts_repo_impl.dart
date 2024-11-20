@@ -28,6 +28,17 @@ class PostsRepoImpl implements PostsRepo {
   }
 
   @override
+  Future<List<PostModel>> getTrendingPosts() async {
+    final data = await supabaseClient
+        .from('posts')
+        .select()
+        .order('likes', ascending: false)
+        .order('comments', ascending: false)
+        .limit(10);
+    return data.map((e) => PostModel.fromMap(e)).toList();
+  }
+
+  @override
   Future<void> addPost(PostModel post) async {
     await supabaseClient.from('posts').insert(
       {
@@ -44,7 +55,8 @@ class PostsRepoImpl implements PostsRepo {
         'comments': post.comments,
       },
     );
-    await supabaseClient.rpc('increment_posts', params: {'author_id': supabaseClient.auth.currentUser!.id});
+    await supabaseClient.rpc('increment_posts',
+        params: {'author_id': supabaseClient.auth.currentUser!.id});
   }
 
   @override
@@ -63,7 +75,8 @@ class PostsRepoImpl implements PostsRepo {
     await supabaseClient.from('likes').delete().eq('post_id', postId);
 
     await supabaseClient.from('comments').delete().eq('post_id', postId);
-    await supabaseClient.rpc('decrement_posts', params: {'author_id': supabaseClient.auth.currentUser!.id});
+    await supabaseClient.rpc('decrement_posts',
+        params: {'author_id': supabaseClient.auth.currentUser!.id});
     try {
       await supabaseClient.storage
           .from(SupabaseConstants.profileBucket)
@@ -143,9 +156,11 @@ class PostsRepoImpl implements PostsRepo {
   @override
   Future<Map<String, dynamic>> getUserDetails() async {
     final Map<String, dynamic> response = {
-      'name': await supabaseClient.auth.currentUser!.userMetadata!['Display name'],
-      'email':  supabaseClient.auth.currentUser!.email,
-      'profile_pic': await supabaseClient.auth.currentUser!.userMetadata!['profile_pic'],
+      'name':
+          await supabaseClient.auth.currentUser!.userMetadata!['Display name'],
+      'email': supabaseClient.auth.currentUser!.email,
+      'profile_pic':
+          await supabaseClient.auth.currentUser!.userMetadata!['profile_pic'],
     };
     return response;
   }

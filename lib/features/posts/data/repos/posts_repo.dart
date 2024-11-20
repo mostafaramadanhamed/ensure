@@ -8,6 +8,9 @@ abstract class PostsRepo {
 
   Future<List<PostModel>> getPostsByUserId(int userId);
 
+  //  fetch trending posts
+  Future<List<PostModel>> getTrendingPosts();
+
   Future<void> addPost(PostModel post);
 
   Future<void> updatePost(PostModel post);
