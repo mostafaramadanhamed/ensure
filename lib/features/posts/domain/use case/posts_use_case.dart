@@ -15,7 +15,10 @@ class PostsUseCase {
   Future<List<PostModel>> getPostsByUserId(int userId) async {
     return postsRepo.getPostsByUserId(userId);
   }
-
+  
+  Future<List<PostModel>> getTrendingPosts() async {
+    return postsRepo.getTrendingPosts();
+  }
   Future<void> addPost(PostModel post) async {
     return postsRepo.addPost(post);
   }

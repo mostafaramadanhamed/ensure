@@ -45,9 +45,17 @@ class PostsCubit extends Cubit<PostsState> {
         postPic: image!,
       );
       emit(ImagePickerSuccess(image: image!));
-    }
-    else {
+    } else {
       emit(ImagePickerError('No image selected'));
+    }
+  }
+
+// fetch trending posts
+  Future<List<PostModel>> getTrendingPosts() async {
+    try {
+      return await postsUseCase.getTrendingPosts();
+    } catch (e) {
+      rethrow;
     }
   }
 
@@ -87,7 +95,6 @@ class PostsCubit extends Cubit<PostsState> {
 
       emit(GetPostsSuccess(posts: posts));
     } catch (e) {
-      
       emit(GetPostsError(e.toString()));
     }
   }
@@ -157,7 +164,7 @@ class PostsCubit extends Cubit<PostsState> {
         'user_id': supabaseClient.auth.currentUser!.id,
       };
       emit(GetUserDetailsSuccess(user: result));
-     
+
       return user;
     } catch (e) {
       emit(GetUserDetailsError(e.toString()));
@@ -198,7 +205,6 @@ class PostsCubit extends Cubit<PostsState> {
       emit(IsPostLikedSuccess(response, postId));
       return response;
     } catch (e) {
-      
       emit(IsPostLikedError(e.toString()));
       return false;
     }
