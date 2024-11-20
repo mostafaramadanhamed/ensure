@@ -1,3 +1,4 @@
+import 'package:ensure/features/explore/ui/explore_screen.dart';
 import 'package:ensure/features/home/ui/widgets/bottom_nav_bar.dart';
 import 'package:ensure/features/posts/ui/add_post.dart';
 import 'package:ensure/features/posts/ui/posts_screen.dart';
@@ -29,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
         },
         children: const [
           PostsScreen(),
-        
+          ExploreScreen(),
           AddPost(),
           SettingsScreen()
         ],
