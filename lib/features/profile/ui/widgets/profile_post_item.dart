@@ -8,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/helpers/date_time_format_helper.dart';
 import '../../../../core/helpers/format_text_helper.dart';
+import '../../../../core/helpers/selactable_expandable_text.dart';
 import '../../../../core/routing/routes.dart';
 import '../../../../core/theme/colors.dart';
 import '../../../../core/theme/text_styles.dart';
@@ -63,7 +64,7 @@ class ProfilePostItem extends StatelessWidget {
                     context.read<PostsCubit>().isuser(post.authorId)
                         ? PopupMenuItem(
                             value: 'Edit'.tr(),
-                            child:  Text('Edit'.tr()),
+                            child: Text('Edit'.tr()),
                             onTap: () {
                               context.pushNamed(
                                 Routes.editPost,
@@ -74,63 +75,52 @@ class ProfilePostItem extends StatelessWidget {
                         : PopupMenuItem(
                             value: 'About this account'.tr(),
                             child: const Text(''),
-                            onTap: () {
-                              
-                            }
-                          ),
+                            onTap: () {}),
                     context.read<PostsCubit>().isuser(post.authorId)
                         ? PopupMenuItem(
                             value: 'Delete'.tr(),
-                            child:  Text('Delete'.tr(),
+                            child: Text('Delete'.tr(),
                                 style: const TextStyle(color: Colors.red)),
                             onTap: () {
                               context.read<PostsCubit>().deletePost(post.uId);
-                              context.read<ProfileCubit>().getPostsByUserId(
-                                  post.authorId);
+                              context
+                                  .read<ProfileCubit>()
+                                  .getPostsByUserId(post.authorId);
                               ScaffoldMessenger.of(context).showSnackBar(
-                                 SnackBar(
+                                SnackBar(
                                   content: Text('Post Deleted'.tr()),
                                 ),
                               );
                             })
-                        : 
-                        PopupMenuItem(
+                        : PopupMenuItem(
                             value: 'About this account'.tr(),
-                            child:  Text('About this account'.tr()),
-                            onTap: () {
-                             
-                            },
+                            child: Text('About this account'.tr()),
+                            onTap: () {},
                           ),
-                     PopupMenuItem(
+                    PopupMenuItem(
                       value: 'Report'.tr(),
-                      child:
-                          Text('Report'.tr(), style: const TextStyle(color: Colors.red)),
+                      child: Text('Report'.tr(),
+                          style: const TextStyle(color: Colors.red)),
                     ),
                   ];
                 },
               ),
             ),
             20.ph,
-            GestureDetector(
-              onTap: () {},
-              child: Text(
-                formatText(post.text),
-                maxLines: 3,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyles.font15SemiBold,
-              ),
+            SelectableExpandableText(
+              text: formatText(post.text),
             ),
             20.ph,
             post.content == ''
                 ? Container()
                 : GestureDetector(
-                  onTap: () {
-                    context.pushNamed(
-                      Routes.displayImage,
-                      arguments: post.content,
-                    );
-                  },
-                  child: Center(
+                    onTap: () {
+                      context.pushNamed(
+                        Routes.displayImage,
+                        arguments: post.content,
+                      );
+                    },
+                    child: Center(
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(16.0.r),
                         child: Image.network(post.content,
@@ -139,53 +129,49 @@ class ProfilePostItem extends StatelessWidget {
                             fit: BoxFit.cover),
                       ),
                     ),
-                ),
+                  ),
             14.ph,
-          Row(
-                  children: [
-                    IconButton(
-                      onPressed: ()  {
-                    
-                      },
-                      icon: const Icon(
-                        Icons.favorite,
-                        color: Colors.red,
-                      ),
-                    ),
-                   Text(
-                            post.likes.toString(),
-                            style: TextStyles.font12LighterBrownBold,
-                          ),
-                    8.ph,
-                    IconButton(
-                      onPressed: () {
-                        context.pushNamed(Routes.comments, arguments: post.uId);
+            Row(
+              children: [
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.favorite,
+                    color: Colors.red,
+                  ),
+                ),
+                Text(
+                  post.likes.toString(),
+                  style: TextStyles.font12LighterBrownBold,
+                ),
+                8.ph,
+                IconButton(
+                  onPressed: () {
+                    context.pushNamed(Routes.comments, arguments: post.uId);
 
-                        context.read<PostsCubit>().getPosts(); // Refresh posts
-                      },
-                      icon: const Icon(Icons.comment),
-                    ),
-                     Text(
-                            post.comments.toString(),
-                            style: TextStyles.font12LighterBrownBold,
-                          ),
-                    8.ph,
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.share),
-                    ),
-                    const Spacer(),
-                    Text(
-                      formatPostTime(post.creatdAt),
-                      style: TextStyles.font12LighterBrownBold,
-                    ),
-                  ],
-              
-              
+                    context.read<PostsCubit>().getPosts(); // Refresh posts
+                  },
+                  icon: const Icon(Icons.comment),
+                ),
+                Text(
+                  post.comments.toString(),
+                  style: TextStyles.font12LighterBrownBold,
+                ),
+                8.ph,
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.share),
+                ),
+                const Spacer(),
+                Text(
+                  formatPostTime(post.creatdAt),
+                  style: TextStyles.font12LighterBrownBold,
+                ),
+              ],
             ),
           ],
         ),
       ),
     );
-   }
+  }
 }
