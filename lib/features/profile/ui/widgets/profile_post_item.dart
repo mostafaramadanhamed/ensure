@@ -5,6 +5,7 @@ import 'package:ensure/features/posts/data/models/post_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../../../core/helpers/date_time_format_helper.dart';
 import '../../../../core/helpers/format_text_helper.dart';
@@ -159,7 +160,9 @@ class ProfilePostItem extends StatelessWidget {
                 ),
                 8.ph,
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Share.share(post.text);
+                  },
                   icon: const Icon(Icons.share),
                 ),
                 const Spacer(),

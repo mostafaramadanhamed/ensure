@@ -3,6 +3,7 @@ import 'package:ensure/core/helpers/navigation_extension.dart';
 import 'package:ensure/core/helpers/spacing_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../../../core/helpers/date_time_format_helper.dart';
 import '../../../../core/routing/routes.dart';
@@ -88,7 +89,9 @@ class ReactsBlocBuilder extends StatelessWidget {
                   ),
             8.ph,
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Share.share(post.text);
+              },
               icon: const Icon(Icons.share),
             ),
             const Spacer(),

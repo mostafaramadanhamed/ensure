@@ -71,8 +71,7 @@ class PostItem extends StatelessWidget {
             ),
             20.ph,
             SelectableExpandableText(
-             text:    formatText(post.text),
-          
+             text:    formatText(post.text)
             ),
             20.ph,
             post.content == ''
