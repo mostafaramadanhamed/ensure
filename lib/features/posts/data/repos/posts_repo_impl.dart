@@ -13,20 +13,23 @@ class PostsRepoImpl implements PostsRepo {
 
   @override
   Future<List<PostModel>> getPosts() async {
-    // display posts debends on following users
+    // display posts debends on following users and my posts
     final data = await supabaseClient.from('followers')
         .select()
         .eq('follower_id', supabaseClient.auth.currentUser!.id);
-    final followingIds = data.map((e) => e['followed_id']).toList();
 
-    final posts = await supabaseClient
+    final followingIds = data.map((e) => e['followed_id']).toList();
+ followingIds.add(supabaseClient.auth.currentUser!.id);
+    final response = await supabaseClient
         .from('posts')
         .select()
-        .filter('author_id', 'in', followingIds)
-        .order('created_at', ascending: false);
+         .filter('author_id', 'in', followingIds)
+        
+        .order('created_at', ascending: false)
+       
+        .limit(10);
 
-    return posts.map((e) => PostModel.fromMap(e)).toList();
-    
+    return response.map((e) => PostModel.fromMap(e)).toList();
   }
 
   @override
