@@ -161,7 +161,7 @@ class ProfilePostItem extends StatelessWidget {
                 8.ph,
                 IconButton(
                   onPressed: () {
-                    Share.share(post.text);
+                    Share.share(post.text, subject: 'Ensure: Check out this post From @${post.authorName}');
                   },
                   icon: const Icon(Icons.share),
                 ),

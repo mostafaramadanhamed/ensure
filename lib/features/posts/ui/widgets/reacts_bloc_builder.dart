@@ -1,4 +1,3 @@
-
 import 'package:ensure/core/helpers/navigation_extension.dart';
 import 'package:ensure/core/helpers/spacing_extension.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +26,7 @@ class ReactsBlocBuilder extends StatelessWidget {
         // Check if the state contains the likes data
         bool isLiked = false;
         int likes = post.likes;
-    
+
         // Update likes count if the post has been liked
         if (state is IsPostLikedSuccess && state.postId == post.uId) {
           isLiked = state.isLiked; // Update based on initial fetch
@@ -35,19 +34,19 @@ class ReactsBlocBuilder extends StatelessWidget {
         if (state is GetPostsSuccess) {
           context.read<PostsCubit>().isPostLiked(post.uId);
         }
-    
+
         // Update likes count and isLiked after liking the post
         if (state is LikePostSuccess && state.postId == post.uId) {
           likes = state.likes; // Use the updated likes count
           isLiked = true; // Ensure the UI shows the post is liked
         }
-    
+
         // Update likes count and isLiked after unliking the post
         if (state is UnlikePostSuccess && state.postId == post.uId) {
           likes = state.likes; // Use the updated likes count
           isLiked = false; // Ensure the UI shows the post is not liked
         }
-    
+
         return Row(
           children: [
             IconButton(
@@ -76,7 +75,7 @@ class ReactsBlocBuilder extends StatelessWidget {
             IconButton(
               onPressed: () {
                 context.pushNamed(Routes.comments, arguments: post.uId);
-    
+
                 context.read<PostsCubit>().getPosts(); // Refresh posts
               },
               icon: const Icon(Icons.comment),
@@ -90,7 +89,9 @@ class ReactsBlocBuilder extends StatelessWidget {
             8.ph,
             IconButton(
               onPressed: () {
-                Share.share(post.text);
+                Share.share(post.text,
+                    subject:
+                        'Ensure: Check out this post From ${post.authorName} ');
               },
               icon: const Icon(Icons.share),
             ),
