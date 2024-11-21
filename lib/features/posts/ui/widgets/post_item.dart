@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:ensure/core/helpers/format_text_helper.dart';
 import 'package:ensure/core/helpers/navigation_extension.dart';
+import 'package:ensure/core/helpers/selactable_expandable_text.dart';
 import 'package:ensure/core/helpers/spacing_extension.dart';
 import 'package:ensure/features/posts/data/models/post_model.dart';
 import 'package:ensure/features/posts/ui/widgets/reacts_bloc_builder.dart';
@@ -69,14 +70,9 @@ class PostItem extends StatelessWidget {
               ),
             ),
             20.ph,
-            GestureDetector(
-              onTap: () {},
-              child: Text(
-                formatText(post.text),
-                maxLines: 3,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyles.font15SemiBold,
-              ),
+            SelectableExpandableText(
+             text:    formatText(post.text),
+              maxLines: 3,    
             ),
             20.ph,
             post.content == ''
