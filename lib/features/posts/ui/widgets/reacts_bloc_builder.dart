@@ -91,7 +91,7 @@ class ReactsBlocBuilder extends StatelessWidget {
               onPressed: () {
                 Share.share(post.text,
                     subject:
-                        'Ensure: Check out this post From ${post.authorName} ');
+                        'Ensure App: Post From ${post.authorName}\n${post.text} \n Sign up to ensure now!');
               },
               icon: const Icon(Icons.share),
             ),
