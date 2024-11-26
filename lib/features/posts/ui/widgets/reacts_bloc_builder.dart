@@ -1,5 +1,4 @@
 import 'package:ensure/core/helpers/navigation_extension.dart';
-import 'package:ensure/core/helpers/spacing_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:share_plus/share_plus.dart';
@@ -71,7 +70,7 @@ class ReactsBlocBuilder extends StatelessWidget {
                     likes.toString(),
                     style: TextStyles.font12LighterBrownBold,
                   ),
-            8.ph,
+           
             IconButton(
               onPressed: () {
                 context.pushNamed(Routes.comments, arguments: post.uId);
@@ -86,7 +85,7 @@ class ReactsBlocBuilder extends StatelessWidget {
                     post.comments.toString(),
                     style: TextStyles.font12LighterBrownBold,
                   ),
-            8.ph,
+            
             IconButton(
               onPressed: () {
                 Share.share(post.text,

@@ -73,7 +73,7 @@ class PostItem extends StatelessWidget {
             SelectableExpandableText(
              text:    formatText(post.text)
             ),
-            20.ph,
+            6.ph,
             post.content == ''
                 ? Container()
                 : GestureDetector(
@@ -93,7 +93,7 @@ class PostItem extends StatelessWidget {
                       ),
                     ),
                 ),
-            14.ph,
+            post.content == ''? 2.ph: 14.ph,
             ReactsBlocBuilder(post: post),
           ],
         ),
